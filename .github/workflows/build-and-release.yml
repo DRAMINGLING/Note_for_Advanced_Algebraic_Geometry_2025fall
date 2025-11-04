@@ -1,9 +1,6 @@
 name: Build LaTeX and Release PDF
 
-on:
-  push:
-    tags:
-      - 'v*' # 这个工作流会在你推送以'v'开头的标签时触发，例如 v1.0, v2.0-beta
+on: workflow_dispatch
 
 env:
   ROOT_LATEX_FILE: "main.tex" # 设置你的主 LaTeX 文件名称
