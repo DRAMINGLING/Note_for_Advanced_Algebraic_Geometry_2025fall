@@ -18,9 +18,17 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v3
         with:
-          root_file: main.tex
-          compiler: xelatex
-          args: "-shell-escape -interaction=nonstopmode"
+            root_file: main.tex
+            compiler: xelatex
+            args: |
+              -shell-escape
+              -interaction=nonstopmode
+              -file-line-error
+            post_compile: |
+              # 多次编译确保引用正确
+              xelatex -shell-escape -interaction=nonstopmode -file-line-error main.tex
+              xelatex -shell-escape -interaction=nonstopmode -file-line-error main.tex
+              xelatex -shell-escape -interaction=nonstopmode -file-line-error main.tex
 
       - name: Create or Overwrite GitHub Release
         uses: softprops/action-gh-release@v1
