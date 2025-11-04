@@ -2368,15 +2368,244 @@ while quasi-isomorphisms in $\mathcal{C}(\mathscr{A})$ are identified as isomorp
     \end{equation}
     where $\cone(u) = B^{\bullet} \oplus A^{\bullet}[1]$ and $\cone(u) \rightarrow C^{\bullet}$ sending $(b, a)$ to $v(b)$ is a quasi-isomorphism.
 \end{example}
-
-
-\end{document}rce.
-          files: |
-            # 下面的路径是 latex-action 的默认输出路径
-            # 请根据你上一步的实际输出PDF文件名修改 'main.pdf'
-            main.pdf
-          draft: false
-          prerelease: false
-          replace_assets: true # 覆盖已存在的资源文件（实现覆盖Release的关键）
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+Given a morphism $E \rightarrow F$ in $\mathcal{D}(\mathscr{A})$, by definition, it should be of the following form
+\begin{equation*}
+    \begin{tikzcd}[sep = tiny]
+        E && F \\
+        & \bullet \arrow[ur, "chain" swap] \arrow[ul, "qis"]
+    \end{tikzcd}
+    \text{ or }
+    \begin{tikzcd}[sep = tiny]
+        E \arrow[dr, "chain" swap] && F \arrow[dl, "qis"] \\
+        & \bullet
+    \end{tikzcd}
+\end{equation*}
+so that it is hard to explicitly write composition of morphisms in $\mathcal{D}(\mathscr{A})$ as some chain maps.
+To solve this problem, we'd like to adapt a better way to define derived category.
+\begin{definition}
+    Let $\mathscr{A}$ be an abelian category.
+    Define homotopy category $\mathcal{K}(\mathscr{A})$ of $\mathscr{A}$ with same objects as $\mathcal{C}(\mathscr{A})$ and morphism $\hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B^{\bullet}) = \hom_{\mathcal{C}(\mathscr{A})}(A^{\bullet}, B^{\bullet})/\text{homotopy}$.
+\end{definition}
+\begin{definition}
+    A triangle in an additive category with shift functors $A \mapsto A[n]$ is a sequence
+    \begin{equation}
+        A \longrightarrow B \longrightarrow C \longrightarrow A[1]
+    \end{equation}
+    inducing a complex
+    \begin{equation}
+        \cdots \longrightarrow A \longrightarrow B \longrightarrow C \longrightarrow A[1] \longrightarrow B[1] \longrightarrow \cdots
+    \end{equation}
+    A morphism of of triangles is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            A \arrow[r] \arrow[d] &
+            B \arrow[r] \arrow[d] &
+            C \arrow[r] \arrow[d] &
+            A[1] \arrow[d] \\
+            A' \arrow[r] &
+            B' \arrow[r] &
+            C' \arrow[r] &
+            A'[1]
+        \end{tikzcd}
+    \end{equation}
+    A standard triangle is a triangle of the form
+    \begin{equation}
+        A \overset{f}{\longrightarrow} B \longrightarrow \cone(f) \longrightarrow A[1]
+    \end{equation}
+    An exact triangle is a triangle isomorphic to a standard triangle.
+\end{definition}
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category, $\mathcal{K}(\mathscr{A})$ homotopy category of $\mathscr{A}$.
+    Then for all chain map $f: A^{\bullet} \rightarrow B^{\bullet}$, the following sequence is a triangle in $\mathcal{K}(\mathscr{A})$
+    \begin{equation}
+        A^{\bullet} \overset{f}{\longrightarrow} B^{\bullet} \overset{i}{\longrightarrow} \cone(f) \overset{p}{\longrightarrow} A^{\bullet}[1]
+    \end{equation}
+    \label{Lemma 6.2}
+\end{lemma}
+\begin{proof}
+    Firstly, it is clear that $p \circ i$ is zero map hence null-homotopic.
+    Suffices to show $i \circ f \simeq 0$ and $f[1] \circ p \simeq 0$.
+    Take $D: A^{n} \rightarrow \cone(f)^{n - 1}$ sending $a$ to $(0, a)$.
+    Then $\partial \circ D + D \circ \partial(a) = (f(a), -\partial a) + (0, \partial a) = i \circ f(a)$ and hence $i \circ f$ is null-homotopic.
+    \par
+    Take $\widetilde{D}: \cone(f)^{n} \rightarrow B^{\bullet}[1]$ sending $(b, a)$ to $b$.
+    Then $\partial \circ \widetilde{D} + \widetilde{D} \circ \partial(b, a) = - \partial b + f(a) + \partial b = f[1] \circ p(b, a)$ and hence $f[1] \circ p$ is null-homotopic.
+\end{proof}
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category, $\mathcal{K}(\mathscr{A})$ homotopy category of $\mathscr{A}$.
+    Assume that $A^{\bullet} \overset{f}{\rightarrow} B^{\bullet} \overset{i}{\rightarrow} C^{\bullet} \overset{p}{\rightarrow} A^{\bullet}[1]$ is an exact triangle in $\mathcal{K}(\mathscr{A})$.
+    Then for any $X^{\bullet}$, there are two long exact sequences
+    \begin{equation*}
+        \rightarrow \hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, A^{\bullet}) \rightarrow \hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, B^{\bullet}) \rightarrow \hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, C^{\bullet}) \rightarrow \hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, A^{\bullet}[1]) \rightarrow
+    \end{equation*}
+    and
+    \begin{equation*}
+        \leftarrow \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, X^{\bullet}) \leftarrow \hom_{\mathcal{K}(\mathscr{A})}(B^{\bullet}, X^{\bullet}) \leftarrow \hom_{\mathcal{K}(\mathscr{A})}(C^{\bullet}, X^{\bullet}) \leftarrow \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}[1], X^{\bullet}) \leftarrow
+    \end{equation*}
+    \label{Lemma 6.3}
+\end{lemma}
+\vspace{-\baselineskip} % 减少一行间距
+\vspace{-\baselineskip} % 减少一行间距
+\begin{proof}
+    Here we only show the exactness of the first sequence at $\hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, B^{\bullet})$.
+    In fact, we suffice to prove for standard triangles.
+    Assume $C = \cone(f)$.
+    By Lemma \ref{Lemma 6.2}, the first sequence is obviously a complex.
+    For all $\alpha\in \ker (\hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, B^{\bullet}) \rightarrow \hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, C^{\bullet}))$,
+    $g \circ \alpha$ is null-homotopic so that there exists $D: X^{n} \rightarrow C^{n - 1}$ such that $g \circ \alpha = \partial \circ D + D \circ \partial$.
+    \par
+    Assume that $D = (D', D'')$ i.e. $D(x) = (D'(x), D''(x))$.
+    Then we have $(\alpha(x), 0) = (\partial D'(x) + f(D''(x)), -\partial D''(x)) + (D'(\partial x), D''(\partial x))$.
+    Hence
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                & \alpha(x) = f(D'(x)) + \partial D'(x) + D'(\partial x) \\
+                & \partial D''(x) = D''(\partial x)
+            \end{aligned}
+        \right.
+    \end{equation}
+    It is natural to take $\beta: X^{\bullet} \rightarrow A^{\bullet}$ sending $x$ to $D''(x)$.
+    And we get $\alpha - f \circ \beta = D' \circ \partial + \partial \circ D'$ so that $\alpha\in \im (\hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, A^{\bullet}) \rightarrow \hom_{\mathcal{K}(\mathscr{A})}(X^{\bullet}, B^{\bullet}))$.
+\end{proof}
+\begin{definition}
+    Let $\mathscr{C}$ be a category, $Q$ a class of morphisms in $\mathscr{C}$ is a left ore system if it satisfies the following conditions \\
+    (1)$Q$ is multiplicative i.e. $Q \circ Q \subseteq Q$ and $id_{C}\in Q$ for all object $C\in \mathscr{C}$. \\
+    (2)Every pair of morphism $A' \overset{q}{\leftarrow} A \overset{f}{\rightarrow} B$ with $q\in Q$ can be completed to a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            A \arrow[r, "f"] \arrow[d, "q"] &
+            B \arrow[d, "r"] \\
+            A' \arrow[r, "g"] &
+            B'
+        \end{tikzcd}
+    \end{equation}
+    with $r\in Q$. \\
+    (3)If $f \circ q = 0$ with $q\in Q$, then there exists $r\in Q$ such that $r \circ f = 0$.
+    \par
+    Dually, we can also define right ore system.
+\end{definition}
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category.
+    Then for all $f$ having homotopic inverse, $f$ is a quasi-isomorphism.
+    \label{Lemma 6.4}
+\end{lemma}
+\begin{remark}
+    This lemma tells us that quasi-isomorphism is well-defined in $\mathcal{K}(\mathscr{A})$.
+\end{remark}
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category, $\mathcal{K}(\mathscr{A})$ homotopy category of $\mathscr{A}$.
+    Then the set of quasi-isomorphisms is both left and right ore system of $\mathcal{K}(\mathscr{A})$.
+    \label{Lemma 6.5}
+\end{lemma}
+\begin{proof}
+    Here we only show that the set of quasi-isomorphisms is a left ore system.
+    Given $E' \overset{q}{\leftarrow} E \overset{g}{\rightarrow} F$, take $F' = \cone((q, g))$.
+    Then there is a diagram
+    \begin{equation}
+        \begin{tikzcd}
+            E \arrow[r, "g"] \arrow[d, "q"] &
+            F \arrow[d, "r"] \\
+            E' \arrow[r, "-h"] &
+            F'
+        \end{tikzcd}
+    \end{equation}
+    where $r$ and $g$ are natural inclusion.
+    Want to check that $r$ is quasi-isomorphism and the diagram is commutative in the sense up to homotopy.
+    \par
+    For $[f]\in H^{n}(F)$, $[f]$ is mapping to $[(0, f, 0)]$.
+    If $[(0, f, 0)] = [0]$, there exists $(e_{0}', f_{0}, e_{0})$ such that $(0, f, 0) = \partial (e_{0}', f_{0}, e_{0})$.
+    Hence
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                & \partial e_{0}' + q(e_{0}) = 0 \\
+                & \partial f + g(e_{0}) = f \\
+                & \partial e_{0} = 0
+            \end{aligned}
+        \right.
+    \end{equation}
+    so that $[q(e_{0})] = 0$.
+    Since $q$ is quasi-isomorphism, get $[e_{0}] = 0$ and hence $[f] = 0$.
+    Thus $r^{\ast}$ is injective.
+    For all $[(e', f, e)]\in H^{n}(F')$, we have that 
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                & \partial e' + q(e) = 0 \\
+                & \partial f + g(e) = 0 \\
+                & \partial e = 0
+            \end{aligned}
+        \right.
+    \end{equation}
+    so that $[q(e)] = 0$.
+    Since $q$ is quasi-isomorphism, get $[e] = 0$ and there exists $e_{0}$ such that $\partial e_{0} = e$.
+    Hence $[e' + q(e_{0})]\in H^{n}(E')$ and as $q$ is quasi-isomorphism, there exists $e_{1}$ such that $[e' + q(e_{0})] = [q(e_{1})]$.
+    Thus there exists $e_{0}'$ such that $\partial e_{0}' = e' + q(e_{0}) - q(e_{1})$ and $\partial (e_{0}', 0, e_{1} - e_{0}) = (e', g(e_{1}) - g(e_{0}), e)$.
+    Conclude that $[(e', f, e)] = [(0, f + g(e_{0}) - g(e_{1}), 0)]$ and $r^{\ast}$ is surjective.
+    \par
+    Want to show that $r \circ g \simeq -h \circ q$.
+    For all $e$, $r \circ g + h \circ q(e) = (q(e), g(e), 0)$.
+    Take $D: E^{n} \rightarrow {F'}^{n - 1}$ sending $e$ to $(0, 0, e)$.
+    Then $D \circ \partial + \partial \circ D(e) = (0, 0, \partial e) + (q(e), g(e), -\partial e) = (q(e), g(e), 0)$.
+    Thus $r \circ g \simeq -h \circ q$.
+    \par
+    Given $E' \overset{q}{\rightarrow} E \overset{g}{\rightarrow} F$ with composition $g \circ q$ null-homotopic.
+    Consider $E \overset{i}{\rightarrow} \cone (q)$, by Lemma \ref{Lemma 6.3}, $g$ factors through some $h: \cone (q) \rightarrow F$.
+    Take $F' = \cone (h)$ and $j: F \rightarrow F'$.
+    Claim that $j$ is quasi-isomorphism and $j \circ g$ is null-homotopic.
+    \par
+    For all $[f]\in H^{n}(F)$, $[f]$ is mapping to $[(f, 0, 0)]$.
+    If $[(f, 0, 0)] = 0$, there exists $(f_{0}, e_{0}, e_{0}')$ such that $\partial (f_{0}, e_{0}, e_{0}') = (f, 0, 0)$.
+    Hence
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                & \partial f_{0} + h(e_{0}, e_{0}') = f \\
+                & \partial e_{0} + q(e_{0}') = 0 \\
+                & \partial e_{0}' = 0
+            \end{aligned}
+        \right.
+    \end{equation}
+    so that $[q(e_{0}')] = 0$.
+    Since $q$ is quasi-isomorphism, $[e_{0}'] = 0$ so that there exists $e_{1}'$ such that $\partial e_{1}' = e_{0}'$.
+    As $\partial (e_{0} + q(e_{1}')) = 0$, there exists $e_{2}'$ and $e_{1}$ such that $\partial e_{1} = e_{0} + q(e_{1}') - q(e_{2}')$.
+    Thus $\partial (e_{1}, e_{2}' - e_{1}') = (e_{0}, e_{0}')$ so that $[f] = 0$ and hence $j^{\ast}$ is injective.
+    \par
+    For all $[(f, e, e')]\in H^{n}(F')$, we have that
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                & \partial f + h(e, e') = 0 \\
+                & \partial e + q(e') = 0 \\
+                & \partial e' = 0
+            \end{aligned}
+        \right.
+    \end{equation}
+    so that $[q(e')] = 0$.
+    Since $q$ is quasi-isomorphism, $[e'] = 0$ so that there exists $e_{0}'$ such that $\partial e_{0}' = e'$.
+    As $\partial (e + q(e_{0}')) = 0$, there exists $e_{1}'$ and $e_{0}$ such that $\partial e_{0} = e + q(e_{0}') - q(e_{1}')$.
+    Thus $\partial (0, e_{0}, e_{1}' - e_{0}') = (h(e_{0}, e_{1}' - e_{0}'), -e, -e')$ so that $[(f, e, e')] = [(f + h(e_{0}, e_{1}' - e_{0}'), 0, 0)]$.
+    Conclude that $j^{\ast}$ is surjective.
+    \par
+    Want to show that $j \circ g$ is null-homotopic.
+    For all $e$, $j \circ g(e) = (g(e), 0, 0)$.
+    Take $D: E^{n} \rightarrow F'^{n - 1}$ sending $e$ to $(0, e, 0)$.
+    Then $D \circ \partial + \partial \circ D(e) = (0, \partial e, 0) + (h(e, 0), -\partial e, 0) = (h(e, 0), 0, 0)$.
+    Note that $g(e) = h(e, 0)$, done!
+\end{proof}
+\begin{remark}
+    Now with this lemma, we have a more concise way to interpret composition of morphisms in $\mathcal{D}(\mathscr{A})$ as following
+    \begin{equation}
+        \begin{tikzcd}
+            E_{1} && 
+            E_{2} &&
+            E_{3} \\
+            & \bullet \arrow[ur, "chain" swap] \arrow[ul, "qis"] &&
+            \bullet \arrow[ur, "chain" swap] \arrow[ul, "qis"] & \\
+            && \bullet \arrow[ur, "chain" swap] \arrow[ul, "qis"] &&
+        \end{tikzcd}
+    \end{equation}
+    And for chain map $f: E \rightarrow F$, $f = 0$ in $\mathcal{D}(\mathscr{A})$ if and only if there exists quasi-isomorphism $q: E' \rightarrow E$ such that $f \circ q \simeq 0$.
+\end{remark}
+\end{document}
