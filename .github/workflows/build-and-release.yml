@@ -16,11 +16,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
+        uses: xu-cheng/latex-action@v3
         with:
-          root_file: ${{ env.ROOT_LATEX_FILE }}
-          # 你可以根据需要添加额外的 LaTeX 编译参数
-          # extra_args: "-shell-escape"
+          root_file: main.tex
+          compiler: xelatex
+          args: "-shell-escape -interaction=nonstopmode"
 
       - name: Create or Overwrite GitHub Release
         uses: softprops/action-gh-release@v1
