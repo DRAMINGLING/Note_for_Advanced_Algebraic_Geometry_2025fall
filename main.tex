@@ -1,0 +1,2382 @@
+\documentclass{ctexart}
+\usepackage[a4paper,left=3cm,right=3cm,top=3cm,bottom=3cm]{geometry}
+\usepackage{amssymb,amsfonts,amsmath,amsthm}
+\usepackage{anyfontsize}
+\usepackage{graphicx}
+\usepackage{tikz-cd}
+\usepackage{bm}
+\usepackage{bbm}
+\usepackage{mathrsfs}
+\usepackage[colorlinks = true,      % 启用彩色链接而非带框链接
+            linkcolor = blue,       % 内部链接（如目录、交叉引用）颜色
+            urlcolor = blue,        % 外部链接颜色
+            citecolor = blue]{hyperref} % 参考文献链接颜色
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{setting}{Setting}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{reason}{Reason}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{exercise}{Exercise}[section]
+
+\renewcommand{\proofname}{\bf Proof}
+\renewcommand{\contentsname}{Contents}
+\renewcommand{\hom}{\operatorname{Hom}}
+
+\newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
+\newcommand{\longmapsfrom}{\mathrel{\reflectbox{\ensuremath{\longmapsto}}}}
+\newcommand{\groupaction}{\mathrel{\text{\scalebox{1.5}{\rotatebox[origin=c]{90}{$\circlearrowright$}}}}}
+\newcommand{\sheafhom}{\mathcal{H}\kern -.5pt om}
+\newcommand{\sheaftor}{\mathcal{T}\kern -.5pt or}
+\newcommand{\sheafext}{\mathcal{E}\kern -.5pt xt}
+\newcommand{\sheafend}{\mathcal{E}\kern -.5pt nd}
+
+\newcommand{\der}{\operatorname{Der}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\trdeg}{\operatorname{trdeg}}
+\newcommand{\codim}{\operatorname{codim}}
+\newcommand{\ext}{\operatorname{Ext}}
+\newcommand{\mor}{\operatorname{Mor}}
+\newcommand{\aut}{\operatorname{Aut}}
+\newcommand{\enm}{\operatorname{End}}
+\newcommand{\depth}{\operatorname{depth}}
+\newcommand{\projdim}{\dim_{\operatorname{proj}}}
+\newcommand{\coker}{\operatorname{coker}}
+\newcommand{\coim}{\operatorname{coim}}
+\newcommand{\spec}{\operatorname{Spec}}
+\newcommand{\proj}{\operatorname{Proj}}
+\newcommand{\spf}{\operatorname{Spf}}
+\newcommand{\fraction}{\operatorname{Frac}}
+\newcommand{\characteristic}{\operatorname{Char}}
+\newcommand{\analytification}{\operatorname{an}}
+\newcommand{\cone}{\operatorname{cone}}
+
+\newcommand{\inverselimit}{\underset{\longleftarrow}{\lim}} 
+\newcommand{\colimit}{\underset{\longrightarrow}{\lim}}
+\newcommand{\derivedotimes}{\overset{\llcorner}{\otimes}}
+
+\newcommand{\grassmannianscheme}[2]{\operatorname{Gr}(#1, #2)}
+\newcommand{\grassmanmianfunctor}[2]{\mathcal{G}\kern -.5pt r(#1, #2)}
+\newcommand{\hilbertscheme}{\operatorname{Hilb}}
+\newcommand{\hilbertfunctor}{\mathcal{H}\kern -.5pt ilb}
+\newcommand{\picardscheme}{\operatorname{Pic}}
+\newcommand{\picardfunctor}{\mathcal{P}\kern -.5pt ic}
+\newcommand{\isomorphismscheme}{\operatorname{Isom}}
+\newcommand{\isomorphismfunctor}{\mathcal{I}\kern -.5pt som}
+
+\title{代数几何进阶-2025秋}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+\section{Deformation Theory}
+\label{section:Deformation_Theory}
+
+Let's begin with a classical example.
+\begin{example}[\textbf{\emph{27 lines in smooth cubic hypersurface in $\mathbb{P}^{3}$}}]
+    Step 1(moduli space):
+    Consider the moduli space of $\{\text{lines in } \mathbb{P}^{3}\}$。
+    When the base scheme is $\spec\mathbb{C}$, the set is just $\grassmanmianfunctor{2}{4}(\mathbb{C})$.
+    Denote $\grassmannianscheme{2}{4}$ by $G$, then for any scheme $S$
+    \begin{equation}
+        \begin{split}
+            Mor(S, G) & = \text{ family of $2$-dim subspaces in $\mathbb{C}^{4}$ parametrized by $S$} \\
+            & = \mathcal{E} \overset{f}{\hookrightarrow} \mathcal{O}_{S}^{\oplus 4} \text{ injective as a bundle map, where $\mathcal{E}$ is bundle of rank $2$}
+        \end{split}
+    \end{equation}
+    In addition, the moduli space is also equal to $\hilbertscheme^{P}$ where Hilbert polynomial $P = n + 1$.
+    The natural isomorphism $\hilbertfunctor^{P} \overset{\sim}{\longrightarrow} \grassmanmianfunctor{2}{4}$ can be given as following
+    \begin{equation}
+        \begin{aligned}
+            "\longrightarrow": &
+            \begin{tikzcd}
+                Z \arrow[r, hookrightarrow] \arrow[dr] &
+                \mathbb{P}^{3} \times S \arrow[d, "\pi"] \\
+                & S
+            \end{tikzcd}
+            \text{ gives }
+            \begin{tikzcd}
+                \pi_{\ast}(\mathcal{O}_{\mathbb{P}_{S}^{3}}(1)) \arrow[r] \arrow[d, equal] &
+                \pi_{\ast}(\mathcal{O}_{\mathbb{P}_{S}^{3}}(1)\big{|}_{Z}) \\
+                \mathcal{O}_{S}^{\oplus 4} \arrow[r, twoheadrightarrow] &
+                \mathcal{F}
+            \end{tikzcd}
+            \\
+            "\longleftarrow": &
+            \mathcal{E} \hookrightarrow \mathcal{O}_{S}^{\oplus 4} \twoheadrightarrow \mathcal{F}
+            \text{ gives }
+            \begin{tikzcd}
+               \proj(Sym\mathcal{O}_{S}^{\oplus 4}) \arrow[r, hookleftarrow] \arrow[d, equal] &
+               \proj(Sym\mathcal{F}) \arrow[d, equal] \\
+                \mathbb{P}^{3} \times S &
+                Z
+            \end{tikzcd}
+        \end{aligned}
+    \end{equation}
+    \par
+    Step 2(intersection number): 
+    Assume $X \subset \mathbb{P}^{3}$ is a cubic hypersurface defined by section $F\in H^{0}(\mathbb{P}^{3}, \mathcal{O}(3))$.
+    Consider the following diagram 
+    \begin{equation}
+        \begin{tikzcd}
+            Z \arrow[r, hookrightarrow, "i"] \arrow[dr, "\rho"] &
+            \mathbb{P}^{3} \times \hilbertscheme^{P} \arrow[r] \arrow[d] &
+            \mathbb{P}^{3} \\
+            & \hilbertscheme^{P} &
+        \end{tikzcd}
+    \end{equation}
+    For each point $x\in \hilbertscheme^{P}$, we have that 
+    \begin{equation}
+        Z_x \subseteq X \iff i^{\ast}F\big{|}_{Z_{x}} = 0 \iff \rho_{\ast}i^{\ast}F \text{ vanishes at $x$ as a section of } \rho_{\ast}i^{\ast}\mathcal{O}(3)
+    \end{equation}
+    In particular, when $x$ is a $k$-point.
+    Then $Z_{x}$ is a line in $\mathbb{P}_{k}^{3}$.
+    \par
+    Step 3(deformation theory):
+    The key is that Zariski tangent space is $0$-dim everywhere if and only if 1st order deformations are trivial.
+    Recall that for scheme $M$ and $k$-point $x\in M(k)$, the Zariski tangent space is defined as following
+    \begin{equation}
+        T_{x}M :=
+        \left\{
+            \begin{tikzcd}
+                \spec(k[t]/(t^2)) \arrow[rr] &&
+                M \\
+                & \spec k \arrow[ul, "t \mapsto 0"] \arrow[ur, "x"] &
+            \end{tikzcd}
+        \right\}
+    \end{equation}
+    It is clear that the set of 1st order deformations of $L$ defined below is one-to-one corresponding to $T_{[L]}\mathcal{H}_{X}$,
+    where $\mathcal{H}_{X}$ is the moduli space of lines in $X$ and $[L]$ is the $k$-point corresponding to $L$.
+    In fact, by step 2, $\mathcal{H}_{X} = (\rho_{\ast}i^{\ast}F)^{-1}(0) \subset \hilbertscheme^{P}$.
+    And the correspondence can be precisely written as following
+    \begin{equation}
+        \begin{tikzcd}
+            L' \arrow[r, hookrightarrow] \arrow[d, "flat"] &
+            \mathbb{P}^{3} \times \spec(k[t]/(t^{2})) \arrow[dl] \\
+            \spec(k[t]/(t^{2})) &
+        \end{tikzcd}
+        \leftrightsquigarrow 
+        \spec(k[t]/(t^{2})) \longrightarrow \mathcal{H}_{X}
+    \end{equation}
+    and 
+    \begin{equation}
+        \begin{tikzcd}
+            L \arrow[r, hookrightarrow] \arrow[d] &
+            \mathbb{P}^{3} \arrow[dl] \\
+            \spec k
+        \end{tikzcd}
+        \leftrightsquigarrow
+        \spec k \longrightarrow \mathcal{H}_{X}
+    \end{equation}
+    The commutativity in 1st order deformation is equivalent to the commutativity in Zariski tangent space.
+\end{example}
+\begin{definition}
+    Given line $L \subset X$, where $X \subset \mathbb{P}^{3}$ is a cubic hypersurface.
+    A 1st order deformation of $L$ to $L'$ is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            L \arrow[r] \arrow[d] &
+            L' \arrow[r, hookrightarrow] \arrow[d, "flat"] &
+            \mathbb{P}^{3} \times \spec(k[t]/(t^2)) \arrow[dl] \\
+            \spec k \arrow[r] &
+            \spec(k[t]/(t^2)) &
+        \end{tikzcd}
+    \end{equation}
+\end{definition}
+
+\subsection{1st deformation of closed subschemes}
+\label{subsection:Deformation_Theory_1st_deformation_of_closed_subschemes}
+
+From now on, we would denote $k[t]/(t^{2})$ by $k[\varepsilon]$, called dual numbers.
+Fix scheme $X$ and closed subscheme $Z \subset X$.
+\begin{definition}
+    A 1st order deformation of $Z$ to $Z'$ is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            Z \arrow[r] \arrow[d] &
+            Z' \arrow[r, hookrightarrow] \arrow[d, "flat"] &
+            X \times \spec k[\varepsilon] \arrow[dl] \\
+            \spec k \arrow[r] &
+            \spec k[\varepsilon] &
+        \end{tikzcd}
+    \end{equation}
+\end{definition}
+\begin{proposition}
+    Let $0 \rightarrow J \rightarrow A' \rightarrow A \rightarrow 0$ be an exact sequence,
+    where $J \subseteq A'$ is an ideal such that $J^{2} = 0$.
+    Then for any $A'$-module $M'$, $M'$ is flat over $A'$ if and only if $M := M' \otimes_{A'} A$ is flat over $A$ and $J \otimes_{A} M = J \otimes_{A'} M' \hookrightarrow M'$ is injective.
+    \label{Proposition 1.1}
+\end{proposition}
+\begin{theorem}
+    There is a one-to-one correspondence between 1st deformations of $Z$ in $X$ and $H^{0}(Z, \mathcal{N}_{Z/X})$,
+    where $\mathcal{N}_{Z/X} := \sheafhom_{\mathcal{O}_{Z}}(\mathcal{I}_{Z/X}/\mathcal{I}_{Z/X}^{2}, \mathcal{O}_{Z})$ is the normal sheaf.
+    \label{Theorem 1.1}
+\end{theorem}
+\begin{proof}
+    Reduce to affine case, assume that $X = \spec A$ and $Z = \spec(A/I)$.
+    Denote $A' = A \otimes_{k} k[\varepsilon]$.
+    Then a 1st deformation of $Z$ can be expressed by following conditions
+    \begin{equation}
+        \begin{split}
+            & \bullet I' \subset A' \text{ ideal} \\
+            & \bullet A'/I' \otimes_{k[\varepsilon]} k \overset{\sim}{\longrightarrow} A/I \\
+            & \bullet A'/I' \text{ flat over } k[\varepsilon]
+        \end{split}
+    \end{equation}
+    By Proposition \ref{Proposition 1.1}, we can rewrite the conditions
+    \begin{equation}
+        \begin{split}
+            & \bullet I' \subset A' \text{ ideal} \\
+            & \bullet A'/I' \otimes_{k[\varepsilon]} k \overset{\sim}{\longrightarrow} A/I \\
+            & \bullet A'/I' \text{ flat over } k[t] \text{ under map } t \longmapsto \varepsilon \\
+            & \bullet A/I \overset{\cdot \varepsilon}{\longrightarrow} A'/I' \text{ injective}
+        \end{split}
+    \end{equation}
+    inducing a commutative diagram with exact rows and columns
+    \begin{equation}
+        \begin{tikzcd}
+            & 0 \arrow[d] &
+            0 \arrow[d] &
+            0 \arrow[d] & \\
+            0 \arrow[r] &
+            I \arrow[r, "\cdot \varepsilon"] \arrow[d] &
+            I' \arrow[r] \arrow[d] &
+            I \arrow[r] \arrow[d] &
+            0 \\
+            0 \arrow[r] &
+            A \arrow[r, "\cdot \varepsilon"] \arrow[d] &
+            A' \arrow[r] \arrow[d] &
+            A \arrow[r] \arrow[d] &
+            0 \\
+            0 \arrow[r] &
+            A/I \arrow[r, "\cdot \varepsilon"] \arrow[d] &
+            A'/I'\arrow[r] \arrow[d] &
+            A/I \arrow[r] \arrow[d] &
+            0 \\
+            & 0 &
+            0 &
+            0 &
+        \end{tikzcd}
+    \end{equation}
+    By chasing diagram, we get an $A$-module homomorphism $\theta: I \longrightarrow A/I$.
+    In fact, the correspondence between the diagram and $\theta$ is bijective.
+    Thus the set of 1st deformations is just
+    \begin{equation}
+        \begin{split}
+            \hom_{A}(I, A/I) & = \hom_{A/I}(I/I^{2}, A/I) \\
+            & = \hom_{\mathcal{O}_{Z}}(\mathcal{I}_{Z/X}/\mathcal{I}_{Z/X}^{2}, \mathcal{O}_{Z}) \\
+            & = \Gamma(Z, \mathcal{N}_{Z/X})
+        \end{split}
+    \end{equation}
+\end{proof}
+
+\subsection{1st deformation of vector bundles}
+\label{subsection:Deformation_Theory_1st_deformation_of_vector_bundles}
+
+Fix scheme $X$ and vector bundle $\mathcal{E}$ on $X$.
+Set $X' = X \times_{k} k[\varepsilon]$.
+\begin{definition}
+    A 1st deformation of $\mathcal{E}$ is a vector bundle $\mathcal{E}'$ on $X'$, 
+    flat over $\spec k[\varepsilon]$, with isomorphism $\mathcal{E}'\big{|}_{X} \overset{\sim}{\rightarrow} \mathcal{E}$.
+\end{definition}
+Take affine open covering $\mathcal{U} = \{U_{i} = \spec A_{i}\}$ trivializing $\mathcal{E}$.
+For any 1st deformation $\mathcal{E}'$, as $\mathcal{E}'\big{|}_{X}$ is isomorphic to $\mathcal{E}$, $\mathcal{E}'\big{|}_{U_{i}}$ are also trivial.
+Denote $\mathcal{E}_{0}'$ to be the trivial deformation.
+Given $\mathcal{E}'$, there are isomorphisms $\varphi_{i}: \mathcal{E}'\big{|}_{U_{i}} \rightarrow \mathcal{E}_{0}'\big{|}_{U_{i}}$.
+Then for any $i, j$, $\varphi_{i}^{-1}\big{|}_{U_{i} \cap U_{j}} \circ \varphi_{j}\big{|}_{U_{i} \cap U_{j}}\in Aut(\mathcal{E}'\big{|}_{U_{i} \cap U_{j}})$.
+Thus to figure out what the set of 1st deformations likes, we would firstly consider automorphisms of deformation.
+\par
+Still consider locally, assume $X = \spec A$ and $X' = \spec A'$, where $A' = A \otimes_{k} k[\varepsilon]$.
+Note that there is an exact sequence
+\begin{equation}
+    0 \longrightarrow (\varepsilon) \longrightarrow k[\varepsilon] \longrightarrow k \longrightarrow 0
+\end{equation}
+Tensor by $M'$ over $k[\varepsilon]$, get exact sequence
+\begin{equation}
+    0 \longrightarrow M \overset{\cdot \varepsilon}{\longrightarrow} M' \longrightarrow M \longrightarrow 0
+\end{equation}
+For an automorphism $\varphi$ of $\mathcal{E}'$, consider the following commutative diagram
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        M \arrow[r, "\cdot \varepsilon"] \arrow[d, equal] &
+        M' \arrow[r] \arrow[d, "\varphi"] &
+        M \arrow[r] \arrow[d, equal] &
+        0 \\
+        0 \arrow[r] &
+        M \arrow[r, "\cdot \varepsilon"] &
+        M' \arrow[r] &
+        M \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+inducing a $A$-module homomorphism $\theta: M \rightarrow M$, given by $a \mapsto \varphi(a') - a'$, 
+where $a'$ is a lift of $a$ along $M' \rightarrow M$.
+In fact, $\varphi \leftrightsquigarrow \theta$ is bijective.
+Thus the set of automorphisms of $\mathcal{E}'$ as deformation is just $\hom_{A}(M, M)$.
+Globalized, get $H^{0}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}))$.
+\par
+Back to deformation, for $\varphi_{ij} := \varphi_{i}^{-1} \circ \varphi_{j}\big{|}_{U_{ij}}\in Aut(\mathcal{E}'\big{|}_{U_{i} \cap U_{j}}) = H^{0}(U_{i} \cap U_{j}, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}))$.
+Assume that $\varphi_{ij}$ corresponds to $\theta_{ij}$.
+Then 
+\begin{equation}
+    \begin{split}
+        & \bullet \varphi_{ij} \circ \varphi_{jk} = \varphi_{ik} \leftrightsquigarrow \theta_{ij} + \theta_{jk} = \theta_{ik} \\
+        & \bullet \text{modify } \varphi_{i} = \varphi_{i}' \circ \psi_{i} \leftrightsquigarrow \theta_{ij} = \theta_{ij}' + \rho_{i} - \rho_{j}
+    \end{split}
+\end{equation}
+Conclude that 1st order deformations of $\mathcal{E}$ in $X$ is $H^{1}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}))$.
+\begin{remark}
+    If generalize vector bundles to coherent sheaves, the answer is $\ext_{X}^{1}(\mathcal{E}, \mathcal{E})$ since each element in $\ext_{X}^{1}(\mathcal{E}, \mathcal{E})$ gives an extension
+    \begin{eqnarray}
+        0 \longrightarrow \mathcal{E} \longrightarrow \mathcal{E}' \longrightarrow \mathcal{E} \longrightarrow 0
+    \end{eqnarray}
+\end{remark}
+
+\subsection{1st order deformation of affine schemes smooth over k}
+\label{subsection:Deformation_Theory_1st_order_deformation_of_affine_schemes_smooth__k}
+
+\begin{lemma}
+    Let $\spec A \rightarrow \spec k$ be a smooth morphism and $\spec B \rightarrow \spec A$ be any $k$-morphism.
+    Given extension of $k$-algebras
+    \begin{equation}
+        0 \longrightarrow J \longrightarrow B' \longrightarrow B \longrightarrow 0, \text{ where } J^{2} = 0
+    \end{equation}
+    such that the following diagram commutes
+    \begin{equation}
+        \begin{tikzcd}
+            \spec B \arrow[r] \arrow[d, hookrightarrow] &
+            \spec A \arrow[d] \\
+            \spec B' \arrow[ur, dashrightarrow] \arrow[r] &
+            \spec k
+        \end{tikzcd}
+    \end{equation}
+    Then there exists morphism $\spec B' \rightarrow \spec A$ making the diagram commutative.
+    \label{Lemma 1.1}
+\end{lemma}
+\begin{proof}
+    Choose $P = k[x_{1}, \cdots, x_{n}] \twoheadrightarrow A$,
+    there is a commutative diagram with exact rows 
+    \begin{equation}
+        \begin{tikzcd}
+            0 \arrow[r] &
+            I \arrow[r] \arrow[d, "\rho"] &
+            P \arrow[r] \arrow[d, "\varphi"] &
+            A \arrow[r] \arrow[d, "\phi"] &
+            0 \\
+            0 \arrow[r] &
+            J \arrow[r] &
+            B' \arrow[r] &
+            B \arrow[r] &
+            0  
+        \end{tikzcd}
+    \end{equation}
+    where $\varphi$ exists since $P$ is free over $k$ and hence projective.
+    By diagram chasing, we find that $\varphi$ gives $P$-module structure on $J$ and $\phi$ gives $A$-module structure on $B, J$, which is independent of choosing of $\varphi$.
+    \par
+    To get a map $A \rightarrow B'$, want $I \rightarrow J$ to be zero.
+    So we need to change $\varphi$.
+    For two different $\varphi_{1}$ and $\varphi_{2}$, get $\delta := \varphi_{1} - \varphi_{2}$.
+    Since $J^{2} = 0$, we have that 
+    \begin{equation}
+        \begin{split}
+            \delta(ab) & = \varphi_{1}(a)\varphi_{1}(b) - \varphi_{2}(a)\varphi_{2}(b) \\
+            & = \varphi_{1}(a)\varphi_{1}(b) - \varphi_{1}(a)\varphi_{2}(b) + \varphi_{1}(a)\varphi_{2}(b)- \varphi_{2}(a)\varphi_{2}(b) \\
+            & = \varphi_{1}(a)\delta(b) - \delta(a)\varphi_{2}(b) \\
+            & = a\delta(b) - \delta(a)b
+        \end{split}
+    \end{equation}
+    Thus $\delta$ satisfies Laibniz's Law and hence $\delta\in Der_{P}(P, J)$ is a derivation.
+    \par
+    As $A$ is smooth over $k$, there is an exact sequence of locally free sheaves 
+    \begin{equation}
+        0 \longrightarrow I/I^{2} \longrightarrow \Omega_{P/k} \otimes_{k} A \longrightarrow \Omega_{A/k} \longrightarrow 0
+    \end{equation}
+    Apply $\hom_{A}(\cdot, J)$, get
+    \begin{equation}
+        \begin{tikzcd}
+            \hom_{A}(\Omega_{P/k} \otimes_{k} A, J) \arrow[r, twoheadrightarrow] \arrow[d, equal] &
+            \hom_{A}(I/I^{2}, J) \arrow[d, equal] \\
+            \hom_{k}(\Omega_{P/k}, J) \arrow[d, equal] &
+            \hom_{P}(I, J) \\
+            Der_{P}(P, J) &
+        \end{tikzcd}
+    \end{equation}
+    By surjectivity, we can find appropriate $\delta$ such that $I \rightarrow J$ induced by $\varphi + \delta$ is zero map.
+\end{proof}
+\begin{definition}
+    Let $X\in Sch_{k}$.
+    A 1st order deformation of $X$ is a fibered diagram
+    \begin{equation}
+        \begin{tikzcd}
+            X \arrow[r, hookrightarrow] \arrow[d] &
+            X' \arrow[d, "flat"] \\
+            \spec k \arrow[r, hookrightarrow] &
+            \spec k[\varepsilon]
+        \end{tikzcd}
+    \end{equation}
+    Two deformations are isomorphic if there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            & X \arrow[dr, hookrightarrow] \arrow[dl, hookrightarrow] & \\
+            X_{1}' \arrow[rr, "\sim"] \arrow[dr] &&
+            X_{2}' \arrow[dl] \\
+            & \spec k[\varepsilon] &
+        \end{tikzcd}
+    \end{equation}
+\end{definition}
+\begin{remark}
+    To describe deformations, in fact we need a strengthened version of Lemma \ref{Lemma 1.1} that for $X \rightarrow Y$ smooth morphism of affine schemes and $B, B'$ same as above,
+    if there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \spec B \arrow[r] \arrow[d, hookrightarrow] &
+            X \arrow[d] \\
+            \spec B' \arrow[ur, dashrightarrow] \arrow[r] &
+            Y
+        \end{tikzcd}
+    \end{equation}
+    then there exists $\spec B' \rightarrow X$ making the diagram commutative.
+\end{remark}
+Claim that deformations are locally trivial.
+Assume there is a deformation of $X$ to $X'$.
+Locally, $X$ and $X'$ are affine.
+Take $X[\varepsilon] = X \times_{k[\varepsilon]} k$.
+Then we have a commutative diagram
+\begin{equation}
+    \begin{tikzcd}
+        X \arrow[r, hookrightarrow] \arrow[d, hookrightarrow] &
+        X' \arrow[d, "smooth"] \\
+        X[\varepsilon] \arrow[ur, dashrightarrow, "u"] \arrow[r] &
+        \spec k[\varepsilon]
+    \end{tikzcd}
+\end{equation}
+By strengthened version of Lemma \ref{Lemma 1.1}, there exists $u: X[\varepsilon] \rightarrow X'$ making the diagram commutative.
+Assume that $X = \spec A$ and $X' = \spec B$.
+Note that $X'$ and $X[\varepsilon]$ are both extension, consider the following commutative diagram
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        A \arrow[r, "\cdot \varepsilon"] \arrow[d, equal] &
+        B \arrow[r] \arrow[d, "u^{\sharp}"] &
+        A \arrow[r] \arrow[d, equal] &
+        0 \\
+        0 \arrow[r] &
+        A \arrow[r, "\cdot \varepsilon"] &
+        A[\varepsilon] \arrow[r] &
+        A \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+By diagram chasing, it is easy to show that $u^{\sharp}$ is isomorphic.
+Thus deformations are locally trivial.
+\par
+Back to general case, now local extension always trivial.
+Take affine open covering $\{U_{i}\}$ with local extensions $X_{i}'$.
+To glue up a global extension, we need cocycle condition that the following diagram commutes
+\begin{equation}
+    \begin{tikzcd}
+        X_{i}' \arrow[r, "\varphi_{ij}"] \arrow[dr, "\varphi_{ik}" swap] &
+        X_{j}' \arrow[d, "\varphi_{jk}"] \\
+        & X_{k}'
+    \end{tikzcd}
+\end{equation}
+Thus we should firstly figure out the automorphisms of deformation.
+Locally set $X = \spec B$ and $X' = \spec B'$.
+We have a commutative diagram with exact rows
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        I \arrow[r, "\cdot \varepsilon"] \arrow[d, equal] &
+        B' \arrow[r] \arrow[d, "id" swap] \arrow[d, "id + \delta", bend left]&
+        B \arrow[r] \arrow[d, equal] &
+        0 \\
+        0 \arrow[r] &
+        I \arrow[r, "\cdot \varepsilon"] &
+        B' \arrow[r] &
+        B \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+where $\delta\in \hom_{B}(\Omega_{B/k}, B)$ the tangent vector fields.
+Thus automorphisms are $H^{0}(X, \mathcal{T}_{X})$
+\par
+Given deformation of $X$ to $X'$.
+Choose affine open covering $\mathcal{U} = \{U_{i}\}$ of $X$.
+On each $U_{i}$, choose isomorphism $\varphi_{i}: X'\big{|}_{U_{i}} \rightarrow X[\varepsilon]$.
+Then on each $U_{ij}$, we get different isomorphisms
+\begin{equation}
+    \begin{tikzcd}[row sep = huge]
+        X'\big{|}_{U_{ij}} \arrow[rr, "\varphi_{j}" swap, bend right] \arrow[rr, "\varphi_{i}", bend left] &&
+        X[\varepsilon]\big{|}_{U_{ij}} 
+    \end{tikzcd}
+\end{equation}
+Their difference $(\delta_{ij})_{i, j}$ satisfying cocycle condition gives an element in $\check{H}^{1}(\mathcal{U}, \mathcal{T}_{X})$.
+\par
+In conclusion, infinitesimal automorphisms of $X$ is $H^{0}(X, \mathcal{T}_{X})$ and 1st order deformations of $X$ is $H^{1}(X, \mathcal{T}_{X})$.
+\begin{remark}
+    Given a flat family $\mathfrak{X} \longrightarrow S$ and $k$-point $x\in S$.
+    Take fiber $X := \mathfrak{X}_{x}$ smooth over $k$.
+    There is a Kodaira-Spencer map from tangent space $T_{x, S} \cong \hom_{X}(\spec k[\varepsilon], S)$ to deformations $H^{1}(X, \mathcal{T}_{X})$.
+\end{remark}
+\begin{example}
+    (1)Let $X = \mathbb{P}^{n}$, then $H^{1}(\mathbb{P}^{n}, \mathcal{T}_{\mathbb{P}^{n}}) = 0$.
+    There are no deformations. \\
+    (2)Let $C$ be a smooth curve of genus $g$.
+    Then $H^{1}(C, \mathcal{T}_{C}) = 3g - 3$ for $g \ge 2$.
+\end{example}
+
+\section{Obstruction Theory}
+\label{section:Obstruction_Theory}
+
+Let's begin with a bady example.
+\begin{example}
+    Let $V$ be a vector space of finite dimension and $T: V \rightarrow V$ be a linear map, 
+    $W \subseteq V$ $T$-invariant subspace.
+    Wonder if there exists $T$-invariant complement.
+    Consider the following exact sequence
+    \begin{equation}
+        0 \longrightarrow W \longrightarrow V \overset{\pi}{\longrightarrow} V/W \longrightarrow 0
+    \end{equation}
+    Fix $\sigma: V/W \rightarrow V$ such that $id_{V/W}$.
+    Thus there exists $T$-invariant complement if and only if there exists $\sigma$ such that $\sigma\overline{T} = T\sigma$.
+    We say that $\sigma\overline{T} - T\sigma\in \hom_{k}(V/W, W)$ is an obstruction.
+    \par
+    For two different sections $\sigma$ and $\sigma'$, get difference $\theta = \sigma - \sigma'\in \hom_{k}(V/W, W)$.
+    Define $\varphi: \hom_{k}(V/W, W) \rightarrow \hom_{k}(V/W, W)\quad \theta \mapsto \theta\overline{T} - T\theta$.
+    Then question change to if there exists $\sigma + \theta$ such that $\sigma + \theta$ is a splitting of $k[T]$-module.
+    \begin{equation}
+        \begin{split}
+            & \iff \sigma\overline{T} - T\sigma\in \im(\varphi) \\
+            & \iff [\sigma\overline{T} - T\sigma] = 0 \text{ in } \coker(\varphi)
+        \end{split}
+    \end{equation}
+    which is called a obstruction class.
+\end{example}
+As its name, obstruction is something stopping us from extension.
+For higher order deformation, we globalize the place where we extend to.
+Here is an example.
+\begin{example}[\textbf{\emph{Extension of maps}}]
+    \begin{equation}
+        \begin{tikzcd}
+            \spec k \arrow[r, "{(0, 0)}"] \arrow[d] &
+            V(y^{2} - x^{3}) \subset \mathbb{A}_{k}^{2} \\
+            \spec k[\varepsilon] \arrow[ur, "{(at, bt)}" swap] &
+        \end{tikzcd}
+    \end{equation}
+    Each extension is determined by a tangent vector $v = (a, b)$.
+    If we moreover extend map to $\spec(k[t]/(t^{3}))$, then
+    \begin{equation}
+        \begin{tikzcd}
+            \spec k \arrow[r, "{(0, 0)}"] \arrow[d] &
+            V(y^{2} - x^{3}) \subset \mathbb{A}_{k}^{2} \\
+            \spec(k[t]/(t^{3})) \arrow[ur, "{(a_{1}t + a_{2}t^{2}, b_{1}t + b_{2}t^{2})}" swap] &
+        \end{tikzcd}
+    \end{equation}
+    satisfies that $(a_{1}t + a_{2}t^{2})^{3} - (b_{1}t + b_{2}t^{2})^{2} \equiv 0 \pmod {t^{3}}$.
+    Thus $b_{1} = 0$ and hence tangent vect should be contained in $x$-axis.
+    \par
+    Replace $V(y^{2} - X^{3})$ by general $V(g(x, y))$ singular at $(0, 0)$.
+    Given extension
+    \begin{equation}
+        \begin{tikzcd}
+            \spec(k[t]/(t^{r})) \arrow[r, "{(x_{r}(t), y_{r}(t))}"] \arrow[d] &
+            V(g(x, y)) \subset \mathbb{A}_{k}^{2} \\
+            \spec(k[t]/(t^{r + 1})) \arrow[ur, "{(x_{r + 1}(t), y_{r + 1}(t))}" swap] &
+        \end{tikzcd}
+    \end{equation}
+    where $x_{r + 1}(t) = x_{r}(t) + at^{r}$ and $y_{r + 1} = y_{r}(t) + bt^{r}$,
+    satisfies that $g(x_{r + 1}(t), y_{r + 1}(t)) \equiv 0 \pmod {t^{r + 1}}$.
+    Take Taylor expansion at $(0, 0)$
+    \begin{equation}
+            g(x_{r + 1}(t) , y_{r + 1}(t)) \equiv g(x_{r}(t), y_{r}(t)) + \frac{\partial g(0, 0)}{\partial x}t^{r} + \frac{\partial g(0, 0)}{\partial y}bt^{r} \pmod {t^{r + 1}}
+    \end{equation}
+    Hence we need $\frac{\partial g(0, 0)}{\partial x} = \frac{\partial g(0, 0)}{\partial y} = 0$ and $g(x_{r}(t), y_{r}(t)) \equiv 0 \pmod {t^{r + 1}}$.
+\end{example}
+
+\subsection{Higher order deformation}
+\label{subsection:Obstruction_Theory_higher_order_deformation}
+
+Set $k = \overline{k}$ a algebraically closed field.
+Consider $k$-algebras.
+\begin{definition}
+    An extension of artinian local $k$-algebras with residue field $k$,
+    \begin{equation}
+        0 \longrightarrow J \longrightarrow A' \longrightarrow A \longrightarrow 0
+    \end{equation}
+    is called a star extension if $\mathfrak{m}_{A'}J = 0$.
+\end{definition}
+\begin{remark}
+    With $\mathfrak{m}_{A'}J = 0$, $A'$-module structure on $J$ descends to a $k$-vector space structure.
+\end{remark}
+Usually, our question is that given object over $A$, 
+what's the obstruction to lift it to an object over $A'$,
+there are how many deformationS and what are automorphisms of extension.
+
+\subsection{Higher order deformation of vector bundles}
+\label{subsection:Obstruction_Theory_higher_order_deformation_of_vector_bundles}
+
+\begin{definition}
+    Let $X_{0}\in Sch_{k}$ be a $k$-scheme.
+    Set $X = X_{0} \times_{k} A$.
+    Given $\mathcal{E}$ vector bundle on $X$ and $X'$ extension of $X$ over $A'$.
+    An extension of $\mathcal{E}$ is a vector bundle $\mathcal{E}'$ on $X'$ such that $\mathcal{E}'\big{|}_{X} \cong \mathcal{E}$.
+\end{definition}
+For automorphism, locally consider the commutative diagram with exact rows
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        \mathcal{E} \otimes_{A} J \arrow[r] \arrow[d, equal] &
+        \mathcal{E}' \arrow[r] \arrow[d, "\varphi"] &
+        \mathcal{E} \arrow[r] \arrow[d, equal] &
+        0 \\
+        0 \arrow[r] &
+        \mathcal{E} \otimes_{A} J \arrow[r] &
+        \mathcal{E}' \arrow[r] &
+        \mathcal{E} \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+where $\varphi$ one-to-one corresponds to elements in $\hom_{\mathcal{O}_{X}}(\mathcal{E}, \mathcal{E} \otimes_{A} J)$.
+Generalized, the set of automorphisms is $H^{0}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}) \otimes_{A} J)$.
+\begin{definition}
+    Let $G$ be a group, $S$ a set.
+    $S$ is called a $G$-torsor if $S$ is nonempty and $G$ acts on $S$ freely transitively.
+\end{definition}
+\begin{definition}
+    Let $G$ be a group, $S$ a set.
+    $S$ is called a $G$-pseudo torsor if $S$ is either a $G$-torsor or empty set.
+\end{definition}
+For how many deformations, as the argument of 1st order deformation, gluing messages corresponds to element in $H^{1}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}) \otimes_{A} J)$.
+Thus the set of deformations is a $H^{1}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}) \otimes_{A} J)$-pseudo torsor. 
+\par
+For obstruction, as local extension exists, take affine open covering $\mathcal{U} = \{U_{i}\}$ of $X'$ trivializing $\mathcal{E}$.
+Now on each $U_{i}$, we get an extension $\mathcal{E}_{i}'$.
+And on each $U_{ij}$, there is isomorphism $\varphi_{ij}: \mathcal{E}_{i}'\big{|}_{U_{ij}} \rightarrow \mathcal{E}_{j}'\big{|}_{U_{ij}}$.
+To glue up, we need $\varphi_{ij}$ satisfy cocycle condition.
+Set $\rho_{ijk} = \varphi_{ik}^{-1} \circ \varphi_{jk} \circ \varphi_{ij}$, corresponding to $\theta_{ijk}\in H^{0}(U_{ijk}, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}) \otimes_{A} J)$.
+Thus we get an element $[\theta]$ in $H^{2}(U_{ij}, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}) \otimes_{A} J)$ independent of choosing of $\mathcal{E}_{i}'$, called the obstruction.
+\par
+If $[\theta] = [0]$, then there exists $(\delta_{ij})_{i, j}\in \prod_{i, j} \Gamma(U_{ij}, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}) \otimes_{A} J)$ mapping to $[\theta]$.
+As $H^{0}(U_{ij}, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}) \otimes_{A} J)$ is the set of automorphisms, each $\delta_{ij}$ gives an automorphism $\psi_{ij}: \mathcal{E}_{j}'\big{|}_{U_{ij}} \rightarrow \mathcal{E}_{j}'\big{|}_{U_{ij}}$.
+Consider $\psi_{ij}^{-1} \circ \varphi_{ij}: \mathcal{E}_{i}'\big{|}_{U_{ij}} \rightarrow \mathcal{E}_{j}'\big{|}_{U_{ij}}$.
+It is clear that these new maps satisfy cocycle condition so that we can glue up an extension.
+\begin{example}
+    (1)Let $X_{0}$ be a smooth projective variety, $\mathcal{L}_{0}$ line bundle on $X_{0}$.
+    Even though obstruction space $H^{2}(X_{0}, \sheafend_{\mathcal{O}_{X_{0}}}(\mathcal{L}_{0}) \otimes_{k} J) = H^{2}(X_{0}, \mathcal{O}_{X_{0}} \otimes_{k} J)$ needn't be zero,
+    higher deformations of $\mathcal{L}$ are unobstructed. \\
+    (2)Let $X_{0}$ be a smooth projective variety, $\mathcal{E}_{0}$ vector bundle on $X_{0}$.
+    There is a trace map $H^{2}(X_{0}, \sheafend_{\mathcal{O}_{X_{0}}}(\mathcal{E}_{0})) \overset{tr}{\rightarrow} H^{2}(X_{0}, \sheafend_{\mathcal{O}_{X_{0}}}(\det \mathcal{E}_{0}))$ mapping $ob(E)$ to $ob(\det \mathcal{E})$.
+\end{example}
+
+\subsection{Higher order deformation of closed subschemes}
+\label{subsection:Obstruction_Theory_higher_order_deformation_of_closed_subschemes}
+
+Given $X_{0}, X, X'$ as before.
+Let $Y \subset X$ be a closed subscheme and $Y_{0} = Y \times_A k$.
+Local extension of $Y$ may not exist in general.
+\par
+Obstruction is in $H^{1}(Y_{0}, \mathcal{N}_{Y_{0}/X_{0}} \otimes_{k} J)$, 
+deformations are a $H^{0}(Y_{0}, \mathcal{N}_{Y_{0}/X_{0}} \otimes_{k} J)$-pseudo torsor and identity map is the only automorphism.
+\begin{proposition}
+    If $Y$ is a local complete intersection and $X$ is smooth,
+    then local extension exists.
+    \label{Proposition 2.1}
+\end{proposition}
+\begin{remark}
+    For deformations for local complete intersection, refer to Vistoli's note.
+\end{remark}
+
+\subsection{Higher order deformation of abstract smooth schemes}
+\label{subsection:Obstruction_Theory_higher_order_deformation_of_abstract_smooth_schemes}
+
+In this case, local extension exists.
+\par
+Obstruction is in $H^{2}(X_{0}, \mathcal{T}_{X_{0}} \otimes_{k} J)$, 
+deformations are a $H^{1}(X_{0}, \mathcal{T}_{X_{0}} \otimes_{k} J)$-pseudo torsor and automorphisms are $H^{0}(X_{0}, \mathcal{T}_{X_{0}} \otimes_{k} J)$.
+\begin{definition}
+    Let $f: X \rightarrow Y$ be a morphism of schemes.
+    We say that $f$ is formally smooth if for any morphism $S = \spec A \hookrightarrow S' = \spec A'$ with ideal $J^{2} = 0$ and commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            S \arrow[r] \arrow[d, hookrightarrow] &
+            X \arrow[d] \\
+            S' \arrow[ur, dashrightarrow] \arrow[r] &
+            Y
+        \end{tikzcd}
+    \end{equation}
+    there exists morphism $S' \rightarrow X$ making the diagram commutative.
+\end{definition}
+There are some facts about formal smoothness.
+\begin{proposition}
+    (1)smooth $\iff$ of finitely presented and formally smooth. \\
+    (2)If $X,Y$ are noetherian, suffices to check for cases that $S'$ is spectrum of some artinian local ring.
+    \label{Proposition 2.2}
+\end{proposition}
+\begin{corollary}
+    Let $Y \subset \mathbb{P}^{n}$ be a local complete intersection.
+    If $H^{1}(Y, \mathcal{N}_{Y/\mathbb{P}^{n}}) = 0$, then hilbert scheme is smooth at $[Y]$ with fiber of dimension $\dim_{k}H^{0}(Y, \mathcal{N}_{Y/\mathbb{P}^{n}})$.
+\end{corollary}
+
+\section{Obstruction Theory of Moduli Space}
+
+\subsection{Obstruction of a local ring}
+\label{subsection:Obstruction_Theory_of_Moduli_Space_Obstruction_of_a_local_ring}
+
+Let $S$ be a scheme.
+Recall that in a fine moduli space $M$, family over $S$ is equivalent to a morphism $S \rightarrow S$.
+\begin{definition}
+    Let $M$ be a fine moduli space, $x\in M$ a $k$-point.
+    A deformation of object $x$ is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \spec A \arrow[r, dashrightarrow] &
+            M \\
+            \spec k \arrow[u, hookrightarrow, "\mathfrak{m}_{A}"] \arrow[ur, "x" swap] &
+        \end{tikzcd}
+    \end{equation}
+    where $A$ is an artinian local ring with residue field $k$.
+\end{definition}
+As homomorphism between stalks is local, the deformation diagram factors through $\spec \mathcal{O}_{M, x}$ as following
+\begin{equation}
+    \begin{tikzcd}
+        \spec A \arrow[r, dashrightarrow] &
+        \spec \mathcal{O}_{M, x} \arrow[r] &
+        M \\
+        \spec k \arrow[u, hookrightarrow, "\mathfrak{m}_{A}"] \arrow[ur, "x" swap] &&
+    \end{tikzcd}
+\end{equation}
+Hence deformation of object $x$ is equivalent to deformation of a local ring.
+\par
+Denote $C := \mathcal{O}_{M, x}$.
+For star extension of artinian local rings $0 \rightarrow J \rightarrow A' \rightarrow A \rightarrow 0$,
+consider if we can extend $\spec A \rightarrow \spec C$ to $\spec A' \rightarrow \spec C$.
+\begin{lemma}
+    If $C$ is regular, then for any star extension of $A$ to $A'$, in the following commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \spec A' \arrow[r, dashrightarrow] &
+            \spec C \\
+            \spec A \arrow[u, hookrightarrow] \arrow[ur] \arrow[r, hookleftarrow] &
+            \spec k \arrow[u, hookrightarrow]
+        \end{tikzcd}
+    \end{equation}
+    $\spec A' \rightarrow \spec C$ always exists.
+    \label{Lemma 3.1}
+\end{lemma}
+\begin{remark}
+    In this case, we would say there is no obstruction.
+\end{remark}
+\begin{proof}
+    Consider completion $\widehat{C}$ of $C$.
+    Since completion of regular local ring is a regular local ring (Atiyah Proposition 11.24), 
+    and by Corollary 28.2 in \emph{Commutative Algebra}, Matsumura, $\widehat{C} \cong k[[x_{1}, \cdots, x_{n}]]$ for some $n$.
+    \par
+    In addition, since $A$ is artinian and $C \rightarrow A$ is local homomorphism,
+    $C \rightarrow A$ factors through $C \twoheadrightarrow C/\mathcal{m}_{C}^{t}$ for large enough $t$.
+    Hence the following diagram commutes
+    \begin{equation}
+        \begin{tikzcd}
+            C \arrow[r] \arrow[dr, twoheadrightarrow] &
+            A &
+            A' \arrow[l, twoheadrightarrow] & \\
+            & C/\mathfrak{m}_{C}^{t} \arrow[u] &
+            \widehat{C} \arrow[l] \arrow[u, dashrightarrow] \arrow[r, hookleftarrow] &
+            k[x_{1}, \cdots, x_{n}] \arrow[ul, dashrightarrow]
+        \end{tikzcd}
+    \end{equation}
+    As $k[x_{1}, \cdots, x_{n}]$ is projective $k$-algebra, there exists $k[x_{1}, \cdots, x_{n}] \rightarrow A'$.
+    Moreover, since $A'$ is complete, the map extends to $\widehat{C} \rightarrow A'$.
+    As $A'$ is artinian local, factors through some $C/\mathfrak{m}^{r}$ for large enough $r$.
+    Take $t = r$ so that we get $C \rightarrow A'$.
+\end{proof}
+For $C$ not regular, we need to define obstruction theory.
+\begin{definition}
+    An obstruction theory of $C$ is a vector space and an assignment $\varphi$
+    \begin{equation}
+        \left.
+            \begin{aligned}
+                0 \rightarrow J \rightarrow A' \rightarrow A \rightarrow 0 \\
+                C \overset{u}{\rightarrow}A \\
+                \mathfrak{m}_{A'}J = 0
+            \end{aligned}
+        \right\}
+        \overset{\varphi}{\longmapsto} ob(A', u)\in V \otimes_{k} J
+    \end{equation}
+    satisfies the following conditions
+    \begin{equation*}
+        \begin{aligned}
+            \bullet & ob(A', u) = 0 \text{ iff $\exists$ lifting of } u,
+            \begin{tikzcd}
+                C \arrow[r, "u"] \arrow[dr, dashrightarrow] &
+                A \\
+                & A' \arrow[u, twoheadrightarrow]
+            \end{tikzcd}
+            \\
+            \bullet & \text{Functorial in the sense, } \forall K \subset J \text{ $k$-vector subspace}, 
+            \begin{tikzcd}[sep = small]
+                0 \arrow[r] &
+                J \arrow[r] \arrow[d] &
+                A' \arrow[r] \arrow[d] &
+                A \arrow[r] \arrow[d] &
+                0 \\
+                0 \arrow[r] &
+                J/K \arrow[r] &
+                A'/K \arrow[r] &
+                A \arrow[r] &
+                0
+            \end{tikzcd}
+            \\
+            & \varphi(u, A') \mapsto \varphi(u, A'/K) \text{ under } V \otimes J \rightarrow V \otimes J/K
+        \end{aligned}
+    \end{equation*}
+\end{definition}
+
+\subsection{Canonical obstruction theory}
+\label{subsection:Obstruction_Theory_of_Moduli_Space_Canonical_obstruction_theory}
+
+There is also a canonical obstruction theory.
+Assume there exists $P \twoheadrightarrow C$, where $P$ is regular local with residue $k$.
+Further assume $I := \ker(P \twoheadrightarrow C) \subset \mathfrak{m}_{P}^{2}$.
+\begin{equation}
+    0 \longrightarrow I \longrightarrow P \longrightarrow C \longrightarrow 0
+\end{equation}
+Set $V_{C} := (I \otimes_{P} k)^{\vee} = (I/\mathfrak{m}_{P}I)^{\vee}$.
+\par
+To give assignment $\varphi$, consider the following commutative diagram with exact rows
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        I \arrow[r] \arrow[d, "f"] &
+        P \arrow[r, twoheadrightarrow] \arrow[d, "\widetilde{u}"] &
+        C \arrow[r] \arrow[d, "u"] \arrow[dl, dashrightarrow] &
+        0 \\
+        0 \arrow[r] &
+        J \arrow[r] &
+        A' \arrow[r, twoheadrightarrow] &
+        A \arrow[r] &
+        0 
+    \end{tikzcd}
+\end{equation}
+As $P$ is regular local ring, by Lemma \ref{Lemma 3.1}, $\widetilde{u}$ always exist which is a local homomorphism.
+As $J^{2} = 0$, $f$ in fact is map $\widetilde{f}: I/\mathfrak{m}_{P}I \rightarrow J$ corresponding to an element $\varphi(A', u)\in (I/\mathfrak{m}_{P})^{\vee} \otimes_{k} J$.
+Then $\widetilde{f}$ is zero map if and only if there exists lifting.
+\par
+For diffreent $\widetilde{u_{1}}, \widetilde{u_{2}}$, set $\theta = \widetilde{u_{1}} - \widetilde{u_{2}}$.
+For any $h\in I$, consider $\theta(h) = \sum \theta(\alpha_{i}\beta_{i})$ where $\alpha_{i}, \beta_{i}\in \mathfrak{m}_{P}$.
+As $\theta$ is a derivation, $\theta(h) = \sum \alpha_{i}\theta(\beta_{i}) + \theta(\alpha_{i})\beta_{i}$.
+While $\theta(\alpha_{i}), \theta(\beta_{i})\in J$, we get $\theta(h) = 0$ so that $f$ is well defined.
+
+\subsection{Geometric point of view}
+\label{subsection:Obstruction_Theory_of_Moduli_Space_Geometric_point_of_view}
+
+Let $W$ be a smooth variety over $k$, $E \rightarrow W$ vector bundle.
+Assume $s: W \rightarrow E$ is section of $E$.
+Set $X = V(s) \subset W$.
+For $x\in X$, in the following commutative diagram
+\begin{equation}
+    \begin{tikzcd}
+        \spec A' \arrow[rr, dashrightarrow,"\widetilde{u}"] &&
+        W \\
+        \spec A \arrow[u, hookrightarrow] \arrow[rr, "u"] \arrow[dr, hookleftarrow] &&
+        X \arrow[u, hookrightarrow] \\
+        & x \arrow[ur, hookrightarrow] &
+    \end{tikzcd}
+\end{equation}
+$\widetilde{u}$ factors through $X$ if and only if $\widetilde{u}^{\ast}s = 0$ as sections of $\widetilde{u}^{\ast}E$.
+Note that there is an exact sequence
+\begin{equation}
+    0 \longrightarrow \widetilde{J} \longrightarrow \mathcal{O}_{\spec A'} \longrightarrow \mathcal{O}_{\spec A} \longrightarrow 0
+\end{equation}
+Tensor $\widetilde{u}^{\ast}E$ over $\mathcal{O}_{\spec A'}$, get exact sequence
+\begin{equation}
+    0 \longrightarrow \widetilde{J} \otimes \widetilde{u}^{\ast}E \longrightarrow \widetilde{u}^{\ast}E \overset{v}{\longrightarrow} \mathcal{O}_{\spec A} \otimes \widetilde{u}^{\ast}E \longrightarrow 0
+\end{equation}
+As $X = V(s)$, $v \circ \widetilde{u}^{\ast}s$ is zero map.
+Hence $\widetilde{u}^{\ast}s$ is in fact in $\Gamma(J \otimes \widetilde{u}^{\ast}E)$.
+\begin{lemma}
+    On X, we can well define map $TW\big{|}_{X} \overset{\nabla s}{\rightarrow} E\big{|}_{X}$.
+    \label{Lemma 3.2}
+\end{lemma}
+\begin{reason}
+    Choose frame $\sigma_{1}, \cdots, \sigma_{k}$ for $E$.
+    Write $s = \sum s_{i}\sigma_{i}$.
+    Then for $v\in \Gamma(u, Tw)$, $\nabla_{V}(s) = \sum \nabla_{V}(s_{i})\sigma_{i}$.
+    Take another frame, for example $g_{1}\sigma_{1}, \cdots, g_{k}\sigma_{k}$.
+    Then $s = \sum \frac{s_{i}}{g_{i}}g_{i}\sigma_{i}$ so that
+    \begin{equation}
+        \begin{split}
+            \nabla_{v}(S) & = \sum \nabla_{v}(\frac{s_{i}}{g_{i}})g_{i}\sigma_{i} \\
+            & = \sum \nabla_{v}(s_{i})g_{i}^{-1}g_{i}\sigma_{i} + \sum \nabla_{v}(g_{i}^{-1})s_{i}g_{i}\sigma_{i} \\
+            & = \sum \nabla_{v}(s_{i})\sigma_{i}
+        \end{split}
+    \end{equation}
+    since $s_{i}$ vanish on $X$.
+\end{reason}
+\begin{remark}
+    Dually, there is a well defined map 
+    \begin{equation}
+        E^{\vee}\big{|} \longrightarrow \Omega_{W}^{1}\big{|}_{X}\quad \sigma \longmapsto d\langle \sigma, s \rangle
+    \end{equation}
+    factoring through $I/I^{2}$, where $I = I_{X/W}$.
+    And there is a complex
+    \begin{equation}
+        E^{\vee}\big{|}_{X} \overset{\langle \cdot, s \rangle}{\longrightarrow} I/I^{2} \overset{d}{\longrightarrow} \Omega_{W}^{1}\big{|}_{X} \longrightarrow \Omega_{X}^{1} \longrightarrow 0
+    \end{equation}
+    When $I \not\subset \mathfrak{m}_{x}^{2}$, $\widetilde{u}^{\ast}s$ in $\Gamma(\widetilde{u}^{\ast}E \otimes J)$ is not well defined.
+    In fact, $\widetilde{u}^{\ast}E \otimes J$ is supported on $\spec k(x)$.
+    Can directly write $\widetilde{u}^{\ast}E \otimes J$ as a $k(x)$-vector space.
+    \par
+    For different liftings $\widetilde{u}_{1}, \widetilde{u}_{2}$, $\widetilde{u}_{1} - \widetilde{u}_{2}\in u^{\ast}TW \otimes J$ mapping into $\widetilde{u}^{\ast}E \otimes J$ along $u^{\ast}TW \otimes J \overset{\nabla_{s}\big{|}_{x} \otimes J}{\longrightarrow} \widetilde{u}^{\ast}E \otimes J$.
+    So similar as argument in subsection \ref{subsection:Obstruction_Theory_of_Moduli_Space_Canonical_obstruction_theory}, we need $I \subset \mathfrak{m}_{x}^{2}$ to make $\nabla_{S}\big{|}_{x} \otimes J$ a zero map. 
+\end{remark}
+\begin{example}
+    Let $W = \mathbb{A}_{k}^{3}$ with coordinate $x, y, z$, $E = \mathcal{O}_{\mathbb{A}_{k}^{3}}^{\oplus 3}$, $s = (s_{1}, s_{2}, s_{3}) = (xy, yz, xz)$.
+    Hence $X = V(s)$ is just union of axes.
+    For $TW\big{|}_{X} \cong \mathcal{O}_{X}^{\oplus X}$ and $E\big{|}_{X} \cong \mathcal{O}_{X}^{\oplus 3}$, the map $\nabla_{s}$ has a matrix representation
+    $
+    \begin{pmatrix}
+        y & x & 0 \\
+        0 & z & y \\
+        z & 0 & x 
+    \end{pmatrix}
+    $,
+    which is of rank $0$ at origin and of rank $2$ elsewhere.
+\end{example}
+
+\subsection{Smallestness of canonical obstruction theory}
+\label{subsection:Obstruction_Theory_of_Moduli_Space_Smallestness_of_canonical_obstruction_theory}
+
+Now let's show the smallestness of canonical obstruction theory.
+Notations are same.
+\begin{theorem}
+    Given any obstruction theory $(V, \varphi)$.
+    There exists canonical injection $V_{C} \hookrightarrow V$ commutting with obstruction class $assignment$.
+    In particular, $I$ can be generated by at most $\dim V$ elements.
+    \label{Theorem 3.1}
+\end{theorem}
+\begin{proof}
+    Note that $\hom_{k}(V_{C}, V) \cong I/\mathfrak{m}_{P}I \otimes V$.
+    Want to find an obstruction class $ob\in V \otimes I/\mathfrak{m}_{P}I$ corresponding to an injection.
+    Hence we need a star extension with $J = I/\mathfrak{m}_{P}I$.
+    \par
+    Firstly consider the exact sequence
+    \begin{equation}
+        0 \longrightarrow I/\mathfrak{m}_{P}I \longrightarrow P/\mathfrak{m}_{p}I \longrightarrow C \longrightarrow 0
+    \end{equation}
+    but here both $C$ and $P/\mathfrak{m}_{P}I$ are not necessary artinian local.
+    Take quotient of some power $\mathfrak{m}_{P}$, get exact sequence
+    \begin{equation}
+        0 \longrightarrow I/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} \cap I \cong I + \mathfrak{m}_{P}^{n}/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} \longrightarrow P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} \longrightarrow C/\mathfrak{m}_{C}^{n} \longrightarrow 0
+    \end{equation}
+    By Artin-Reez Lemma, for $n$ large enough, $I \cap \mathfrak{m}_{P}^{n} \subseteq \mathfrak{m}_{P}I$ so that $I/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} = I/\mathfrak{m}_{P}I$.
+    For each $\alpha\in V_{C}$, there is a commutative diagram with exact rows
+    \begin{equation}
+        \begin{tikzcd}
+            0 \arrow[r] &
+            I \arrow[r, hookrightarrow] \arrow[d, twoheadrightarrow] &
+            P \arrow[r, twoheadrightarrow] \arrow[d, twoheadrightarrow] &
+            C \arrow[r] \arrow[d, twoheadrightarrow, "u"] \arrow[ddl, dashrightarrow, "?" description] \arrow[dl, dashrightarrow, "?" description] &
+            0 \\
+            0 \arrow[r] &
+            I/\mathfrak{m}_{P}I \arrow[r, hookrightarrow] \arrow[d, twoheadrightarrow, "\alpha"] &
+            P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} \arrow[r, twoheadrightarrow] \arrow[d, twoheadrightarrow] &
+            C/\mathfrak{m}_{C}^{n} \arrow[r] \arrow[d, equal] &
+            0 \\
+            0 \arrow[r] &
+            k \arrow[r, hookrightarrow] &
+            P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} + \ker(\alpha) \arrow[r, twoheadrightarrow] &
+            C/\mathfrak{m}_{C}^{n} \arrow[r] &
+            0
+        \end{tikzcd}
+    \end{equation}
+    where all surjections are quotient maps.
+    Note that by definition of obstruction theory, $id_{V} \otimes \alpha: V \otimes I/\mathfrak{m}_{P}I \rightarrow V \otimes k$ sends $\varphi(u, P/\mathfrak{m}_{P}I) + \mathfrak{m}_{P}^{n}$ to $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} + \ker(\alpha))$.
+    \par
+    For every $\alpha \neq 0$, by canonical obstruction theory, we know that $u$ cannot by extended to $P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} + \ker(\alpha)$.
+    Hence the corresponding element of $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n})$ in $\hom_{k}(V_{C}, V)$ is an injection. 
+\end{proof}
+\begin{remark}
+    Note that $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n})$ is independent to choosing of $n$ since for all large enough $n$,
+    kernel ideals $J$ of the star extension are all $I/\mathfrak{m}_{P}I$ with identity map of $I/\mathfrak{m}_{P}I$ corresponding to same obstruction class in $V_{C} \otimes I/\mathfrak{m}_{P}I$.
+    \par
+    In addition, for given obstruction theory $(V, \varphi)$, the functorial property shows that $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n})$ is mapping to $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n + 1})$ under identity $V \otimes I/\mathfrak{m}_{P}I$.
+    Hence the inclusion is canonical.
+\end{remark}
+\begin{corollary}
+    If $C$ has an obstruction theory $(V, \varphi)$, then $\dim C \ge \dim(\mathfrak{m}_{C}/\mathfrak{m}_{C}^{2}) - \dim V$.
+    \label{Corollary 3.1}
+\end{corollary}
+\begin{reason}
+    Since $P$ is regular local ring, $\dim P = \dim(\mathfrak{m}_{P}/\mathfrak{m}_{P}^{2}) \ge \dim(\mathfrak{m}_{C}/\mathfrak{m}_{C}^{2})$
+    As $\dim C \ge \dim P - \sharp\text{generators of $I$}$, 
+    by Theorem \ref{Theorem 3.1}, immediately get $\dim C \ge \dim(\mathfrak{m}_{C}/\mathfrak{m}_{C}^{2}) - \dim V$.
+\end{reason}
+
+\subsection{Categories of artinian local rings}
+\label{subsection:Obstruction_Theory_of_Moduli_Space_Categories_of_artinian_local_rings}
+
+\begin{example}
+    Let $x\in E \subset \mathbb{P}_{k}^{1}$ be a $k$-point, where $E$ is an elliptic curve.
+    Note that the stalks of $x$ in $E$ and $\mathbb{P}_{k}^{1}$ can be not isomorphic otherwise their fraction fields are isomorphic,
+    inducing a birational map from $\mathbb{P}_{k}^{1}$ to $E$.
+    However, the completion of their stalks are isomorphic so that their deformation problems are equivalent.
+\end{example}
+\begin{definition}
+    Let $k = \overline{k}$.
+    Denote $\mathcal{C}$ to be the category of artinian local $k$-algebras.
+    A functor of artinian local ring is a covariant functor from $\mathcal{C}$ to $Sets$.
+\end{definition}
+\begin{definition}
+    Let $0 \rightarrow J \rightarrow A' \rightarrow A \rightarrow 0$ be a star extension.
+    We say that the extension is a small extension if the ideal $J$ is generated by one single element i.e. $J$ is $k$-vector space of dimension $1$.
+\end{definition}
+\begin{example}
+    Let $X_{0}$ be a scheme over $k$.
+    Set $\mathcal{F}(A) =$ deformation classes of $X_{0}$ over $A$.
+    \begin{equation}
+        \begin{tikzcd}
+            A_{1} \arrow[r] &
+            A_{2} \\
+            \spec A_{1} &
+            \spec A_{2} \arrow[l]
+        \end{tikzcd}
+        \overset{\mathcal{F}}{\longrightarrow}
+        \begin{tikzcd}
+            X_{0} \arrow[rr, dashrightarrow, bend left] \arrow[r] \arrow[d] &
+            X_{1} \arrow[d] &
+            X_{2} := X_{1} \times_{A_{1}} A_{2} \arrow[d] \arrow[l] \\
+            \spec k \arrow[r] \arrow[rr, bend right] &
+            \spec A_{2} &
+            \spec A_{2} \arrow[l]
+        \end{tikzcd}
+    \end{equation}
+    Called deformation functor of $X_{0}$.
+    \label{example:deformation_functor_of_artinian_local_ring}
+\end{example}
+Let $\widehat{\mathcal{C}}$ be the category of complete local $k$-algebra with residue field $k$.
+For $R\in \widehat{\mathcal{C}}$, define contravariant functor $h_{R}: \mathcal{C} \rightarrow Sets$ mapping $A$ to $\hom(R, C) = \mor_{Sch_{k}}(\spec C, \spec R)$.
+\begin{definition}
+    Let $\mathcal{F}: \mathcal{C} \rightarrow Sets$ be a functor of artinian local ring.
+    We say $\mathcal{F}$ is pro-representable if $\mathcal{F} \cong h_{R}$ for some $R\in \widehat{\mathcal{C}}$.
+\end{definition} 
+\begin{example}
+    For $\mathcal{F}$ in Example \ref{example:deformation_functor_of_artinian_local_ring}, if $X_{0} \subset \mathbb{P}_{k}^{N}$ is a closed subscheme of projective space, 
+    then $\mathcal{F} \cong h_{R}$ where $R = \widehat{\mathcal{O}_{\hilbertscheme, [X_{0}]}}$.
+\end{example}
+Note that for a moduli space, we can naturally define a universal family.
+But here $R$ needn't be artinian local ring so that we cannot give the universal family by $id_{R}\in \hom(R, R)$.
+To simulate the universal family of moduli space, we consider $\mathcal{F}(R/\mathfrak{m}^{n})$ for all $n$.
+\par
+Assume $\mathcal{F} \cong h_{R}$, then for each $n$, $\mathcal{F}(R/\mathfrak{m}^{n}) \cong \hom(R, R/\mathfrak{m}^{n})$.
+Hence we can find a $\xi_{n}\in \mathcal{F}(R/\mathfrak{m}^{n})$ corresponding to the quotient map.
+There is a sequence
+\begin{equation}
+    \begin{tikzcd}
+        \hom(R, R/\mathfrak{m}) \arrow[d, "\sim"] &
+        \hom(R, R/\mathfrak{m}^{2}) \arrow[d, "\sim"] \arrow[l] &
+        \hom(R, R/\mathfrak{m}^{3}) \arrow[d, "\sim"] \arrow[l] &
+        \cdots \arrow[l] \\
+        \mathcal{F}(R/\mathfrak{m}) &
+        \mathcal{F}(R/\mathfrak{m}^{2}) \arrow[l] &
+        \mathcal{F}(R/\mathfrak{m}^{3}) \arrow[l] &
+        \cdots \arrow[l] \\
+        \xi_{1} &
+        \xi_{2} \arrow[l, mapsto] &
+        \xi_{3} \arrow[l, mapsto] &
+        \cdots \arrow[l, mapsto]
+    \end{tikzcd}
+\end{equation}
+\par
+Given $A\in \mathcal{C}$ and ring homomorphism $f: R \rightarrow A$.
+Since $A$ is artinian local, $f$ factors through $g: R/\mathfrak{m}^{n} \rightarrow A$ for some $n$.
+Now we can get a family in $\mathcal{F}(A)$ by the following commutative diagram
+\begin{equation}
+    \begin{tikzcd}[column sep= small]
+        \hom(R, R/\mathfrak{m}^{n}) \arrow[rr, "\sim"] \arrow[d, "g \circ"] &&
+        \mathcal{F}(R/\mathfrak{m}^{n}) \arrow[d] &
+        \xi_{m} \arrow[d, mapsto] \\
+        \hom(R, A) \arrow[rr, "\sim"] &&
+        \mathcal{F}(A) &
+        \mathcal{F}(g)(\xi_{n})
+    \end{tikzcd}
+\end{equation}
+\begin{definition}
+    Every functor $\mathcal{F}$ of artinian local ring induces a covariant functor
+    \begin{equation}
+        \widehat{\mathcal{F}}: \widehat{\mathcal{C}} \longrightarrow Sets\quad R \longmapsto \inverselimit \mathcal{F}(R/\mathfrak{m}^{n})
+    \end{equation}
+    In particular, element $(\xi_{n})_{n}\in \inverselimit \mathcal{F}(R/\mathfrak{m}^{n})$ is called a formal family.
+\end{definition}
+For a functor $\mathcal{F}$ of artinian local ring, there are several questions
+\begin{equation*}
+    \begin{split}
+        & \bullet \text{When pro-representable?} \\ 
+        & \bullet \text{When algebraic?} \\
+        & \bullet \text{Global moduli}
+    \end{split}
+\end{equation*}
+\begin{example}[\textbf{\emph{No moduli of $\mathbb{P}_{k}^{1}$-bundles}}]
+    There does not exist moduli space $M$ such that $\mor(S, M) \cong \{\mathbb{P}_{k}^{1}-\text{bundles over } S\}$.
+    \label{example:no_moduli_of_bundles_on_projective_line}
+\end{example}
+About the first question, there is a fact
+\begin{proposition}
+    Let $X_{0}$ be a (smooth) projective variety with $\aut{X_{0}} = 0$.
+    Then the functor given by deformation classes of $X_{0}$ is pro-representable i.e. there exists $R\in \widehat{\mathcal{C}}$ such that the following commutative diagram commutes
+    \begin{equation}
+        \begin{tikzcd}
+            X_{0} \arrow[r] \arrow[d] &
+            X_{1} \arrow[r] \arrow[d] &
+            X_{2} \arrow[r] \arrow[d] &
+            \cdots \\
+            \spec R/\mathfrak{m} \arrow[r] &
+            \spec R/\mathfrak{m}^{2} \arrow[r] &
+            \spec R/\mathfrak{m}^{3} \arrow[r] &
+            \cdots
+        \end{tikzcd}
+    \end{equation}
+    \label{Proposition 3.1}
+\end{proposition}
+\vspace{-\baselineskip} % 减少一行间距
+About the second question, it asks if there is a scheme $X$ such that the following diagram commutes for some $n$
+\begin{equation}
+    \begin{tikzcd}
+        X_{n} \arrow[r] \arrow[d] &
+        X \arrow[d] \\
+        \spec R/\mathfrak{m}^{n} \arrow[r] &
+        \spec R
+    \end{tikzcd}
+\end{equation}
+
+\section{Formal Family}
+\label{section:Formal_Family}
+
+\subsection{Formal family}
+\label{subsection:Formal_Family_Formal_family}
+
+Formal moduli is try to study deformations of a point in moduli space.
+However, just as Example \ref{example:no_moduli_of_bundles_on_projective_line}, global moduli does not always exist.
+So we turn to another much more weaker problem that the existence of formal neighbourhood,
+which is also parametrized by something with some kind of "universal property".
+\par
+Here we begin with a new definition of formal family.
+\begin{definition}
+    A formal family over $R\in \widehat{\mathcal{C}}$ is a natural transformation from $h_{R}$ to a functor $\mathcal{F}$ of artinian local ring.
+\end{definition}
+\begin{lemma}
+    The two definitions are in fact same since they contain same datum.
+    \label{Lemma 4.1}
+\end{lemma}
+\begin{proof}
+    Obviously, given a natural transformation $h_{R} \rightarrow \mathcal{F}$, by definition, we get a sequence $\{\xi_{n}\}$.
+    Hence, we only need to show that given an element $(\xi_{n})_{n}\in \inverselimit \mathcal{F}(R/\mathfrak{m}^{n})$,
+    we can recover a natural transformation.
+    \par
+    For any $A\in \mathcal{C}$ and $f\in h_{R}(A)$, since $A$ is artinian local ring, $f$ factors through quotient map $R \twoheadrightarrow R/\mathfrak{m}^{n}$ for some $n$
+    \begin{equation}
+        f: R \twoheadrightarrow R/\mathfrak{m}^{n} \overset{\widetilde{f}}{\longrightarrow} A
+    \end{equation}
+    By Yoneda's Lemma, we have that $\mor(h_{R/\mathfrak{m}^{n}}, \mathcal{F}) \cong \mathcal{F}(R/\mathfrak{m}^{n})$.
+    Hence $\xi_{n}\in \mathcal{F}(R/\mathfrak{m}^{n})$ corresponds to a natural transformation $\varphi_{n}: h_{R/\mathfrak{m}^{n}} \rightarrow \mathcal{F}$.
+    Consider the following diagram
+    \begin{equation}
+        \begin{tikzcd}[row sep = tiny]
+            h_{R}(A) & 
+            h_{R/\mathfrak{m}^{n}}(A) \arrow[r, "\varphi_{n}(A)"] \arrow[l, "\circ f"] &
+            \mathcal{F}(A) \\
+            f &
+            \widetilde{f} \arrow[r, mapsto] \arrow[l, mapsto] &
+            \mathcal{F}(\widetilde{f})(\xi_{n})
+        \end{tikzcd}
+    \end{equation}
+    It is natural to define a map $h_{R}(A) \rightarrow \mathcal{F}(A)$ by mapping $f$ to $\mathcal{F}(\widetilde{f})(\xi_{n})$.
+    Now we remains to show that this map is well defined.
+    That is, if $f$ has two factorizations 
+    \begin{equation}
+        f = R \twoheadrightarrow R/\mathfrak{m}^{n_{1}} \overset{\widetilde{f}_{1}}{\longrightarrow} A = R \twoheadrightarrow R/\mathfrak{m}^{n_{2}} \overset{\widetilde{f}_{2}}{\longrightarrow} A
+    \end{equation}
+    then $\mathcal{F}(\widetilde{f}_{1})(\xi_{n_{1}})$ should equal to $\mathcal{F}(\widetilde{f}_{2})(\xi_{n_{2}})$.
+    \par
+    We may assume that $n_{1} \ge n_{2}$.
+    Since $(\xi_{n})_{n}\in \inverselimit \mathcal{F}(R/\mathfrak{m}^{n})$, we have that $\xi_{n_{1}}$ is mapping to $\xi_{n_{2}}$ under $\mathcal{F}(R/\mathfrak{m}^{n_{1}}) \rightarrow \mathcal{F}(R/\mathfrak{m}^{n_{2}})$ so that
+    \begin{equation}
+        \varphi_{n_{2}}: h_{R/\mathfrak{m}^{n_{2}}} \longrightarrow \mathcal{F} = h_{R/\mathfrak{m}^{n_{2}}} \longrightarrow h_{R/\mathfrak{m}^{n_{1}}} \overset{\varphi_{n_{1}}}{\longrightarrow} \mathcal{F}
+    \end{equation} 
+    In particular, we get
+    \begin{equation}
+        \begin{tikzcd}[row sep = tiny]
+            h_{R/\mathfrak{m}^{n_{2}}}(A) \arrow[r] &
+            h_{R/\mathfrak{m}^{n_{1}}}(A) \arrow[r, "\varphi_{n_{1}}(A)"] &
+            \mathcal{F}(A) \\
+            \widetilde{f}_{2} \arrow[r, mapsto] &
+            \widetilde{f}_{1} \arrow[r, mapsto] &
+            \mathcal{F}(\widetilde{f}_{1})(\xi_{n_{1}}) = \mathcal{F}(\widetilde{f}_{2})(\xi_{n_{2}})
+        \end{tikzcd}
+    \end{equation}
+    Thus $(\zeta_{n})_{n}$ successfully recover all datum of the original natural transformation, done!
+\end{proof}
+\begin{remark}
+    In addition, there is corollary of Yoneda's Lemma
+    \begin{equation}
+        \mor(h_{R}, \mathcal{F}) \overset{\sim}{\longrightarrow} \widehat{\mathcal{F}}(R)
+    \end{equation}
+\end{remark}
+\begin{definition}
+    Given a formal family $\varphi: h_{R} \rightarrow \mathcal{F}$.
+    We say that $\varphi$ is \\
+    $\bullet$ versal (or say formally smooth), if $\varphi$ is strongly surjective i.e. for all $A\in \mathcal{C}$,
+    $\varphi(A)$ is surjective and for all surjection $B \twoheadrightarrow A$,
+    $h_{R}(B) \rightarrow h_{R}(A) \times_{\mathcal{F}(A)} \mathcal{F}(B)$ is surjective. \\
+    $\bullet$ miniversal, if $\varphi$ is versal and $\varphi(k[\varepsilon])$ is bijective. \\
+    $\bullet$ universal, if $\varphi$ is a natural isomorphism of functors.
+\end{definition}
+\begin{remark}
+    The map $h_{R}(B) \rightarrow h_{R}(A) \times_{\mathcal{F}(A)} \mathcal{F}(B)$ comes from the commutative diagram of natural transformation,
+    and the strong surjectivity can be interpreted as a lifting diagram that for all $(\theta, \eta)\in h_{R}(A) \times_{\mathcal{F}(A)} \mathcal{F}(B)$ with commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            h_{A} \arrow[r, "\theta"] \arrow[d, hookrightarrow] &
+            h_{R} \arrow[d, "\varphi"] \\
+            h_{B} \arrow[ur, dashrightarrow, "\delta"] \arrow[r, "\eta"] &
+            \mathcal{F}
+        \end{tikzcd}
+    \end{equation}
+    there always exists a lifting $\delta: h_{B} \rightarrow h_{R}$ making the diagram commutative.
+    Many of following propositions can also be interpreted as such a lifting diagram.
+    \par
+    Recall that we have defined that a functor of artinian local ring $\mathcal{F}$ is said to be pro-representable if there exists $R\in \widehat{\mathcal{C}}$ such that $\mathcal{F} \cong h_{R}$.
+    Thus $\mathcal{F}$ has universal family is equivalent to $\mathcal{F}$ is pro-representable.
+\end{remark}
+\begin{lemma}
+    Given versal family $\varphi: h_{R} \rightarrow \mathcal{F}$.
+    Take $\widetilde{R} = R[[t]]$.
+    Then composition $\widetilde{\varphi}: h_{\widetilde{R}} \rightarrow h_{R} \overset{\varphi}{\rightarrow} \mathcal{F}$ is also versal family.
+    \label{Lemma 4.2}
+\end{lemma}
+\begin{proof}
+    Note that $h_{\widetilde{R}}(A) \rightarrow h_{R}(A)$ is surjective for all $A\in \mathcal{C}$, 
+    we get $\widetilde{\varphi}(A)$ is still surjective as composition of surjections.
+    And for commutative diagram 
+    \begin{equation}
+        \begin{tikzcd}
+            h_{A} \arrow[r, "\theta"] \arrow[d, hookrightarrow] &
+            h_{\widetilde{R}} \arrow[r, twoheadrightarrow] \arrow[d, "\widetilde{\varphi}"] &
+            h_{R} \arrow[dl, "\varphi"] \\
+            h_{B} \arrow[ur, dashrightarrow, "\widetilde{\delta}"] \arrow[urr, dashrightarrow, "\delta"] \arrow[r, "\eta"] &
+            \mathcal{F}
+        \end{tikzcd}
+    \end{equation}
+    lifting $\delta: h_{B} \rightarrow h_{R}$ always exists.
+    Assume that $\delta$ corresponds to ring homomorphism $R \rightarrow B$.
+    Then the existence of lifting $\widetilde{\delta}$ making the diagram commutative is equivalent to existence of lifting $R[[t]] \rightarrow B$ in the following commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            R \arrow[r, "\delta"] \arrow[d, hookrightarrow] &
+            B \arrow[d, twoheadrightarrow] \\
+            R[[t]] \arrow[ur, dashrightarrow] \arrow[r, "\theta"] &
+            A 
+        \end{tikzcd}
+    \end{equation}
+    In fact, we can construct the map by mapping $t$ to any preimage of $\theta(t)$ in $B$.
+\end{proof}
+\begin{proposition}
+    Given versal family $h_{R} \rightarrow \mathcal{F}$, then \\
+    (a)$\sharp \mathcal{F}(k) = 1$ \\
+    (b)For all $A' \twoheadrightarrow A$ and $A'' \twoheadrightarrow A$,
+    map $\mathcal{F}(A' \times_{A} A'') \rightarrow \mathcal{F}(A') \times_{\mathcal{F}(A)} \mathcal{F}(A'')$ is surjective.
+    \par
+    Further if $h_{R} \rightarrow \mathcal{F}$ is miniversal, then \\
+    (c)$\mathcal{F}(k[\varepsilon]) =: t_{\mathcal{F}}$ is naturally a finite dimensional $k$-vector space, called the tangent space of $\mathcal{F}$. \\
+    (d)For all $A\in \mathcal{C}$, $\mathcal{F}(A \times_{k} k[\varepsilon]) \rightarrow \mathcal{F}(A) \times_{\mathcal{F}(k)} \mathcal{F}(k[\varepsilon])$ is bijective. \\
+    (e)For small extension $A' \twoheadrightarrow A$ and all $\eta\in \mathcal{F}(A)$,
+    $t_{\mathcal{F}} \groupaction \{\eta'\in \mathcal{F}(A') \big{|} \eta' \mapsto \eta\}$ is a transitive group action. 
+    \par
+    Finally, if $h_{R} \rightarrow \mathcal{F}$ is universal, then \\
+    (f)Maps in (b) is bijective \\
+    (g)In (e), $\{\eta'\in \mathcal{F}(A') \big{|} \eta' \mapsto \eta\}$ is $t_{\mathcal{F}}$-pseudo torsor.
+    \label{Proposition 4.1}
+\end{proposition}
+\begin{remark}
+    If take $\mathcal{F}$ as Example \ref{example:deformation_functor_of_artinian_local_ring} and $A = k[\varepsilon]$ in (c), then we get 
+    \begin{equation}
+        \begin{split}
+            \mathcal{F}(k[\varepsilon]) \times_{\mathcal{F}(k)} \mathcal{F}(k[\varepsilon]) & \overset{\sim}{\longleftarrow} \mathcal{F}(k[\varepsilon] \times_{k} k[\varepsilon]) \\
+            & = \mathcal{F}(k[\varepsilon_{1}, \varepsilon_{2}]) \\
+            & \longrightarrow \mathcal{F}(k[\varepsilon])
+        \end{split}
+    \end{equation}
+    which is in fact the addition of $H^{1}(X, \mathcal{T}_{X})$.
+    \par
+    For versal case, $t_{\mathcal{F}}$ need not be a vector space hence we don't have group structure on $t_{\mathcal{F}}$.
+    For miniversal case, the group action can be not free i.e. there could exist stabilizer.
+    For universal case, the group action is free.
+\end{remark}
+\begin{proof}
+    (a)Since $h_{R}(k) = \mor_{Sch_{k}}(\spec k, \spec R)$ is one point set and $h_{R}(k) \twoheadrightarrow \mathcal{F}(k)$ is surjective,
+    $\mathcal{F}(k)$ is also one point set. 
+    \par
+    (b)Given commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            h_{A'} \arrow[rr, "\theta"] \arrow[dr, dashrightarrow, "f"] &&
+            \mathcal{F} \\
+            & h_{R} \arrow[ur, "\varphi"] & \\
+            h_{A} \arrow[uu] \arrow[ur] \arrow[rr] &&
+            h_{A''} \arrow[ul, dashrightarrow, "g" swap] \arrow[uu, "\eta"]
+        \end{tikzcd}
+    \end{equation}
+    Since $h_{R}(A) \twoheadrightarrow \mathcal{F}_{A}$ is surjective, $h_{A} \rightarrow \mathcal{F}$ factor through some $h_{A} \rightarrow h_{R}$.
+    As $A' \twoheadrightarrow A$ and $A'' \twoheadrightarrow A$ are surjections, by strong surjectivity, 
+    there exist liftings $f: h_{A'} \rightarrow h_{R}$ and $g: h_{A''} \rightarrow h_{R}$ making the diagram commutative.
+    Hence we get
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            R \arrow[drr, "g", bend left] \arrow[dr, dashrightarrow] \arrow[ddr, "f", bend right] && \\
+            & A' \times_{A} A'' \arrow[r] \arrow[d] & 
+            A'' \arrow[d] \\
+            & A' \arrow[r] &
+            A \\
+        \end{tikzcd}
+        \label{equation:proposition_versal_family_b_fibered_product}
+    \end{equation}
+    By universal property of fibered product, we get there exist $R \rightarrow A' \times_{A} A''$ inducing $h_{A' \times_{A} A''} \rightarrow h_{R}$.
+    Taking composition, we get $h_{A' \times_{A} A''} \rightarrow \mathcal{F}$ making the following diagram commutative
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            h_{A'} \arrow[rr, "\theta"] \arrow[dr] &&
+            \mathcal{F} \\
+            & h_{A' \times_{A} A''} \arrow[ur, "\varphi"] & \\
+            h_{A} \arrow[uu] \arrow[rr] &&
+            h_{A''} \arrow[ul] \arrow[uu, "\eta"]
+        \end{tikzcd}
+    \end{equation}
+    Conclude that $\mathcal{F}(A' \times_{A} A'') \rightarrow \mathcal{F}(A') \times_{\mathcal{F}(A)} \mathcal{F}(A'')$ is surjective.
+    \par
+    (c)As $h_{R}(k[\varepsilon]) \overset{\sim}{\longrightarrow} \mathcal{F}(k[\varepsilon])$, 
+    it suffices to give a $k$-vector space structure on $h_{R}(k[\varepsilon])$ as following
+    \begin{equation}
+        \begin{split}
+            & (r \mapsto a + b_{1}\varepsilon) + (r \mapsto a + b_{2}\varepsilon) \\
+            = & r \mapsto a + (b_{1} + b_{2})\varepsilon \\
+            & k \cdot (r \mapsto a + b\varepsilon) \\
+            = & r \mapsto a + kb\varepsilon
+        \end{split}
+    \end{equation}
+    Easy to check these are well defined.
+    \par
+    (d)By (b), we already have that $\mathcal{F}(A \times_{k} k[\varepsilon]) \twoheadrightarrow \mathcal{F}(A) \times_{\mathcal{F}(k)} \mathcal{F}(k[\varepsilon])$ is surjective.
+    Suffice to show injectivity.
+    Consider the following diagram.
+    \begin{equation}
+        \begin{tikzcd}
+            & h_{R} \arrow[dr, "\varphi"] && \\
+            h_{A} \arrow[ur] \arrow[rr] \arrow[dr, "\eta"] &&
+            \mathcal{F} & \\
+            & h_{A \times_{k} k[\varepsilon]} \arrow[uu, "f_{1}", shift left, crossing over] \arrow[uu, "f_{2}" swap, shift right, crossing over] \arrow[ur, "\varphi_{1}", shift left] \arrow[ur, "\varphi_{2}" swap, shift right] &&
+            h_{k[\varepsilon]} \arrow[ll, "\pi"] \arrow[ul]
+        \end{tikzcd}
+    \end{equation}
+    If there exist two elements $\varphi_{1},\varphi_{2}\in \mathcal{F}(A \times_{k} k[\varepsilon])$ making the diagram commutative,
+    then by strong surjectivity, $h_{R}(A \times_{k} k[\varepsilon]) \twoheadrightarrow h_{R}(A) \times_{\mathcal{F}(A)} \mathcal{F}(A \times_{k} k[\varepsilon])$ is surjective,
+    there exist $f_{1},f_{2}\in h_{R}(A \times_{k} k[\varepsilon])$ making the diagram commutative.
+    In particular, we get $f_{1} \circ \eta = f_{2} \circ \eta$.
+    \par
+    Now we have that
+    \begin{equation}
+        \begin{split}
+            \varphi \circ f_{1} \circ \pi & = \varphi_{1} \circ \pi \\
+            & = \varphi_{2} \circ \pi \\
+            & = \varphi \circ f_{2} \circ \pi
+        \end{split}
+    \end{equation}
+    While $h_{R}(k[\varepsilon]) \overset{\sim}{\rightarrow} \mathcal{F}(k[\varepsilon])$ is bijective, 
+    we get $f_{1} \circ \pi = f_{2} \circ \pi$.
+    Thus there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            R \arrow[drr, bend left] \arrow[dr, "f_{1}", shift left] \arrow[dr, "f_{2}" swap, shift right] \arrow[ddr, bend right]&& \\
+            & A \times_{k} k[\varepsilon] \arrow[r, "\pi"] \arrow[d, "\eta"] & 
+            k[\varepsilon] \arrow[d] \\
+            & A \arrow[r] &
+            k \\
+        \end{tikzcd}
+    \end{equation}
+    By universal property of fibered product, we get $f_{1} = f_{2}$.
+    Conclude that $\varphi_{1} = \varphi_{2}$ so that $\mathcal{F}(A \times_{k} k[\varepsilon]) \overset{\sim}{\rightarrow} \mathcal{F}(A) \times_{\mathcal{F}(k)} \mathcal{F}(k[\varepsilon])$ is bijective.
+    \par
+    (e)For small extension $A' \twoheadrightarrow A$, assume the kernel ideal is $(t)$.
+    Then there is an isomorphism $A' \times_{A} A' \overset{\sim}{\rightarrow} A' \times_{k} k[\varepsilon]$ defined by
+    \begin{equation}
+        (x, y) \longmapsto (x, \overline{x} + \overline{\frac{x - y}{t}}\varepsilon)
+    \end{equation}
+    And we get a diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \mathcal{F}(A') \times_{\mathcal{F}(k)} \mathcal{F}(k[\varepsilon]) \arrow[r, "\psi"] \arrow[d, "\sim"] &
+            \mathcal{F}(A') \times_{\mathcal{F}(A)} \mathcal{F}(A') \\
+            \mathcal{F}(A' \times_{k} k[\varepsilon]) \arrow[r, "\sim"] &
+            \mathcal{F}(A' \times_{A} A') \arrow[u, twoheadrightarrow]
+        \end{tikzcd}
+    \end{equation}
+    where $\psi$ comes from composition.
+    Thus we can define a group action that for all $v\in \mathcal{F}(k[\varepsilon])$ and $\eta'\in \mathcal{F}(A)$ mapping to $\eta$,
+    $v(\eta')$ is the second entry in $\psi(\eta, v)$ corresponding to the following natural transformation
+    \begin{equation}
+        h_{A'} \longrightarrow h_{A' \times_{A} A'} \longrightarrow h_{A' \times_{k} k[\varepsilon]} \overset{(\eta, v)}{\longrightarrow} \mathcal{F}
+    \end{equation}
+    \par
+    (f)Similarly consider diagram
+    \begin{equation}
+        \begin{tikzcd}
+            & h_{R} \arrow[dr, "\varphi"] && \\
+            h_{A'} \arrow[ur] \arrow[rr] \arrow[dr, "\eta"] &&
+            \mathcal{F} & \\
+            & h_{A' \times_{A} A''} \arrow[uu, "f_{1}", shift left, crossing over] \arrow[uu, "f_{2}" swap, shift right, crossing over] \arrow[ur, "\varphi_{1}", shift left] \arrow[ur, "\varphi_{2}" swap, shift right] &&
+            h_{A''} \arrow[ll, "\pi"] \arrow[ul]
+        \end{tikzcd}
+    \end{equation}
+    If there exist two elements $\varphi_{1},\varphi_{2}\in \mathcal{F}(A' \times_{A} A'')$ making the diagram commutative,
+    then $h_{R}(A' \times_{A} A'') \twoheadrightarrow \mathcal{F}(A' \times_{A} A'')$ is surjective,
+    there exist $f_{1},f_{2}\in h_{R}(A' \times_{A} A'')$ such that $\varphi \circ f_{i} = \varphi_{i}$.
+    \par
+    Now we have that
+    \begin{equation}
+        \begin{split}
+            \varphi \circ f_{1} \circ \pi & = \varphi_{1} \circ \pi \\
+            & = \varphi_{2} \circ \pi \\
+            & = \varphi \circ f_{2} \circ \pi
+        \end{split}
+        and
+        \begin{split}
+            \varphi \circ f_{1} \circ \eta & = \varphi_{1} \circ \eta \\
+            & = \varphi_{2} \circ \eta \\
+            & = \varphi \circ f_{2} \circ \eta
+        \end{split}
+    \end{equation}
+    While $h_{R}(A') \overset{\sim}{\rightarrow} \mathcal{F}(A')$ and $h_{R}(A'') \overset{\sim}{\rightarrow} \mathcal{F}(A'')$ is bijective, 
+    we get $f_{1} \circ \pi = f_{2} \circ \pi$ and $f_{1} \circ \eta = f_{2} \circ \eta$.
+    Thus there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            R \arrow[drr, bend left] \arrow[dr, "f_{1}", shift left] \arrow[dr, "f_{2}" swap, shift right] \arrow[ddr, bend right]&& \\
+            & A' \times_{A} A'' \arrow[r, "\pi"] \arrow[d, "\eta"] & 
+            A'' \arrow[d] \\
+            & A' \arrow[r] &
+            A \\
+        \end{tikzcd}
+    \end{equation}
+    By universal property of fibered product, we get $f_{1} = f_{2}$.
+    Conclude that $\varphi_{1} = \varphi_{2}$ so that $\mathcal{F}(A' \times_{A} A'') \overset{\sim}{\rightarrow} \mathcal{F}(A') \times_{\mathcal{F}(A)} \mathcal{F}(A'')$ is bijective.
+    \par
+    (g)By (f), we immediately get the map $\psi$ defined in (e) is bijective hence $\{\eta'\in \mathcal{F}(A') \big{|} \eta' \mapsto \eta\}$ is $t_{\mathcal{F}}$-pseudo torsor.
+\end{proof}
+\begin{remark}
+    For (b), in fact we only need one of the two surjections since we can get $h_{A} \rightarrow h_{R}$ by compositing with $h_{A'} \rightarrow h_{R}$ and $h_{A''} \rightarrow h_{R}$ at first,
+    so that the other surjection would similarly give diagram \ref{equation:proposition_versal_family_b_fibered_product}.
+\end{remark}
+
+\subsection{Schelessinger's Criterion}
+\label{subsection:Formal_Family_Schelessinger's_Criterion}
+
+\begin{theorem}
+    Let $\mathcal{F}$ be a functor of artinian local ring.
+    Then $\mathcal{F}$ has miniversal family i.e. there exists $R\in \widehat{\mathcal{C}}$ such that $\varphi: h_{R} \rightarrow \mathcal{F}$ is miniversal,
+    if and only if the following conditions hold \\
+    ($H_{0}$)$\sharp \mathcal{F}(k) = 1$ \\
+    ($H_{1}$)For any small extension $A'' \twoheadrightarrow A$ and any morphism $A' \rightarrow A$, 
+    the natural map $\mathcal{F}(A' \times_{A} A'') \twoheadrightarrow \mathcal{F}(A') \times_{\mathcal{F}(A)} \mathcal{F}(A'')$ is surjective. \\
+    ($H_{2}$)For any morphism $A' \rightarrow A$,
+    the natural map $\mathcal{F}(A' \times_{k} k[\varepsilon]) \twoheadrightarrow \mathcal{F}(A') \times_{\mathcal{F}(k)} \mathcal{F}(k[\varepsilon])$ is bijective. \\
+    ($H_{3}$)$\mathcal{F}(k[\varepsilon])$ is a finite dimensional $k$-vector space.
+    \par
+    Further, $\mathcal{F}$ has universal family if and only if $H_{0}$, $H_{1}$, $H_{2}$, $H_{3}$ and following $H_{4}$ hold \\
+    ($H_{4}$)For any small extension $A' \twoheadrightarrow A$ and $\eta\in \mathcal{F}(A)$,
+    $\{\eta'\in \mathcal{F}(A') \big{|} \eta' \text{ mapping to } \eta\}$ is a $t_{\mathcal{F}}$-pseudo torsor under the group .
+    \label{Theorem 4.1} 
+\end{theorem}
+\begin{example}
+    Let $X_{0}$ be a scheme over $k$.
+    Consider the deformation functor $\mathcal{F}$ of $X_{0}$ defined in Example \ref{example:deformation_functor_of_artinian_local_ring}.
+    If $X$ satisfies either of the two following hypothesis
+    \begin{equation}
+        \begin{split}
+            & \bullet X_{0} \text{ is projective} \\
+            & \bullet X_{0} \text{ is affine with isolated singularities}
+        \end{split}
+    \end{equation}
+    then $\mathcal{F}$ has miniversal family.
+    In fact, $H_{0}$, $H_{1}$ and $H_{2}$ hold for all $k$-scheme $X_{0}$ and the two hypothesis only play a role in $H_{3}$.
+    \par
+    In particular, let $X_{0}$ be a smooth projective variety.
+    There is an obvious question that why we get pseudo torsor condition in previous section but here we only have miniversal family.
+    The difference occurs in the equivalence relations.
+    When we talk about deformation of $X/A$ to $X'/A'$ for star extension $A' \twoheadrightarrow A$,
+    an isomorphism is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            & X \arrow[dr, hookrightarrow] \arrow[dl, hookrightarrow] & \\
+            X_{1}' \arrow[rr, "\sim"] \arrow[dr] &&
+            X_{2}' \arrow[dl] \\
+            & \spec A' &
+        \end{tikzcd}
+    \end{equation}
+    But here in $\mathcal{F}(A')$, an isomorphism is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            & X_{0} \arrow[dr, hookrightarrow] \arrow[dl, hookrightarrow] & \\
+            X_{1}' \arrow[rr, "\sim"] \arrow[dr] &&
+            X_{2}' \arrow[dl] \\
+            & \spec A' &
+        \end{tikzcd}
+    \end{equation}
+    Clearly, the second equivalence relation is much weaker causing that isomorphism classes would be less and hence there exist nontrivial stabilizer.
+\end{example}
+Enlightened by this example, we could give a condition equivalent to universal.
+\begin{proposition}
+    Let $X_{0}$ be a scheme over $k$, $\mathcal{F}$ the deformation functor of $X_{0}$.
+    Assume $X$ satisfies either of the two following hypothesis
+    \begin{equation}
+        \begin{split}
+            & \bullet X_{0} \text{ is projective} \\
+            & \bullet X_{0} \text{ is affine with isolated singularities}
+        \end{split}
+    \end{equation}
+    Then $\mathcal{F}$ has universal family if and only if for all deformation $X'/A'$,
+    the natural map $\aut_{A'}(X'/X_{0}) \rightarrow \aut_{A}(X/X_{0})$ is surjective, where $X = X'\big{|}_{\spec A}$. 
+    \label{Proposition 4.2}
+\end{proposition}
+\begin{proof}
+    "$\Rightarrow$": Suppose there is an automorphism $\varphi: X \overset{\sim}{\rightarrow} X$ which cannot be lifted to $\aut_{A'}(X'/X_{0})$.
+    Denote $i: X_{0} \hookrightarrow X$ and $j: X \hookrightarrow X'$.
+    Then $j: X \hookrightarrow X'$ and $j \circ \varphi: X \hookrightarrow X'$ are not equivalent as deformation of $X$.
+    While $\varphi \circ i = i$, they are equivalent in $\mathcal{F}(A')$.
+    \par
+    If denote equivalence classes under the two different equivalence relations by $[\cdot]_{1}$ and $[\cdot]_{2}$,
+    then since $[(X', j)]_{1} \neq [(X', j \circ \varphi)]_{1}$ and the group action is transitive, 
+    there exists nonzero $v\in t_{\mathcal{F}}$ such that $v[(X', j)]_{1} = [(X', j \circ \varphi)]_{1}$ but $v[(X', j \circ i)]_{2} = [(X', j \circ i)]_{2}$.
+    Thus stabilizer of $[(X', j \circ i)]_{2}$ is nontrivial, contradicting to universal.
+    \par
+    "$\Leftarrow$": Suffice to show that the two equivalence relations are same.
+    Assume $X_{1}'$ and $X_{2}'$ are two deformations of $X$ over $A'$ satisfying that $[X_{1}']_{2} = [X_{2}']_{2}$.
+    Then there is an commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            & X_{0} \arrow[dr, hookrightarrow] \arrow[dl, hookrightarrow] & \\
+            X_{1}' \arrow[rr, "\sim", "\varphi" swap] \arrow[dr] &&
+            X_{2}' \arrow[dl] \\
+            & \spec A' &
+        \end{tikzcd}
+    \end{equation}
+    Now $\varphi$ restricts to an automorphism $\varphi\big{|}_{X}: X \overset{\sim}{\rightarrow} X$.
+    By assumption, there exists $\psi\in \aut_{A'}(X_{1}'/X_{0})$ extending $\varphi\big{|}_{X}^{-1}$.
+    Hence we get commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            X \arrow[r, "\varphi\big{|}_{X}^{-1}", "\sim" swap] \arrow[d, hookrightarrow, "j_{1}"] &
+            X \arrow[r, "\varphi\big{|}_{X}", "\sim" swap] \arrow[d, hookrightarrow, "j_{1}"] &
+            X \arrow[d, hookrightarrow, "j_{2}"] \\
+            X_{1}' \arrow[r, "\sim", "\psi" swap] \arrow[dr] &
+            X_{1}' \arrow[r, "\sim", "\varphi" swap] \arrow[d] &
+            X_{2}' \arrow[dl] \\
+            & \spec A' &
+        \end{tikzcd}
+    \end{equation}
+    which shows that $[X_{1}']_{1} = [X_{2}']_{1}$, done!
+\end{proof}
+\begin{corollary}
+    Let $X_{0}$ be a projective scheme over $k$ with $H^{0}(X_{0}, \mathcal{T}_{X_{0}}) = 0$, $\mathcal{F}$ the deformation functor of $X_{0}$.
+    Then $\mathcal{F}$ has universal family.
+    \label{Corollary 4.1}
+\end{corollary}
+\begin{reason}
+    With $H^{0}(X_{0}, \mathcal{T}_{X_{0}}) = 0$, by induction on length of $A$,
+    we can prove that for all deformation $X/A$, $\aut_{A}(X/A) = \{id\}$.
+    Hence by Proposition \ref{Proposition 4.2}, we are done.
+\end{reason}
+\begin{example}
+    For curve $X_{0}$ of genus at least $2$, as $H^{0}(X_{0}, \mathcal{T}_{X_{0}}) = 0$, $\mathcal{F}$ has universal family.
+    For curve $X_{0}$ of genus $1$, even though $H^{0}(X_{0}, \mathcal{T}_{X_{0}}) = k \neq 0$, $\mathcal{F}$ still has universal family since
+    \begin{equation}
+        \aut_{A'}(X'/X_{0}) = A' \twoheadrightarrow \aut_{A}(X/X_{0}) = A
+    \end{equation}
+    is just the surjection.
+\end{example}
+\begin{example}
+    Consider vector bundles on $\mathbb{P}_{k}^{1}$ of rank $2$, which should of the form $\mathcal{O}(a) \oplus \mathcal{O}(b)$.
+    For example, the automorphism group of $\mathcal{O}^{\oplus 2}$ is $GL_{2}(k)$ and the automorphism group of $\mathcal{O}(-1) \oplus \mathcal{O}(1)$ is $G := \{
+    \begin{pmatrix}
+        \mu & \\
+        f & \lambda
+    \end{pmatrix}
+    \big{|}
+    \mu,\lambda\in k^{\times} \text{ and } f\in H^{0}(\mathcal{O}(2))
+    \}$.
+    Note dimensions are respectively $4$ and $5$.
+    So intuitively, $\aut(\mathcal{O}(-1) \oplus \mathcal{O}(1))$ not always lift to $\aut(\mathcal{O}^{\oplus 2})$.
+\end{example}
+
+\subsection{Crude deformation functor}
+\label{subsection:Formal_Family_Crude_deformation_functor}
+
+\begin{definition}
+    Let $X_{0}$ be a $k$-scheme.
+    Define the crude deformation functor $\mathcal{F}_{1}$ of $X_{0}$ as following
+    \begin{equation}
+        A \longmapsto \mathcal{F}_{1}(A) = \{X \overset{flat}{\rightarrow} \big{|} X \times_{A} k \cong X_{0}\}/\sim_{1}
+    \end{equation}
+    where the equivalence relation is given by the following commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            X_{1} \arrow[rr, "\sim"] \arrow[dr] &&
+            X_{2} \arrow[dl] \\
+            & \spec A &
+        \end{tikzcd}
+    \end{equation}
+\end{definition}
+\begin{remark}
+    Comparing to deformation functor, here the equivalence relation does not ask the isomorphism to be compatible with closed immersions $X_{0} \hookrightarrow X_{1}$ and $X_{0} \hookrightarrow X_{2}$,
+    resulting that $\mathcal{F}_{1}(A)$ is much smaller and $\mathcal{F}_{1}$ is not well behaved in general.
+\end{remark}
+\begin{lemma}
+    Let $X_{0}$ be a $k$-scheme, $\mathcal{F}$ deformation functor of $X_{0}$ and $\mathcal{F}_{1}$ crude deformation functor of $X_{0}$.
+    Then there is a strongly surjective natural transformation $\psi: \mathcal{F} \rightarrow \mathcal{F}_{1}$ defined by
+    \begin{equation}
+        \psi(A): \mathcal{F}(A) \longrightarrow \mathcal{F}_{1}(A)\quad X \longmapsto [X]_{1}
+    \end{equation}
+    where $[X]_{1}$ denotes the equivalence class of $X$ in $\mathcal{F}_{1}(A)$.
+    \label{Lemma 4.3}
+\end{lemma}
+\begin{proof}
+    Obviously, for all $A\in \mathcal{C}$, $\psi(A): \mathcal{F}(A) \rightarrow \mathcal{F}_{1}(A)$ is surjective.
+    For any surjection $B \twoheadrightarrow A$ and commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            h_{A} \arrow[r, "X"] \arrow[d, hookrightarrow] &
+            \mathcal{F} \arrow[d, "\psi"] \\
+            h_{B} \arrow[ur, dashrightarrow, "?" description] \arrow[r, "{[Y]_{1}}" swap] &
+            \mathcal{F}_{1}
+        \end{tikzcd}
+    \end{equation}
+    where $X\in \mathcal{F}(A)$ and $[Y]_{1}\in \mathcal{F}_{1}(B)$,
+    want to show that there exists lifting $h_{B} \rightarrow \mathcal{F}$.
+    \par
+    As the diagram is commutative, we get $Y \sim_{1} X'$ for some deformation of $X$ over $B$. 
+    Thus we can replace $[Y]_{1}$ by $[X']_{1}$.
+    Take $h_{B} \rightarrow \mathcal{F}$ corresponding to $X'\in \mathcal{F}(B)$ and clearly this is our desired lifting.
+\end{proof}
+\begin{proposition}
+    Let $X_{0}$ be a $k$-scheme satisfying one of the two hypothesis in Proposition \ref{Proposition 4.2}, $\mathcal{F}_{1}$ crude deformation functor of $X_{0}$.
+    Then \\
+    (1)$\mathcal{F}_{1}$ has a versal family. \\
+    (2)$\mathcal{F}_{1}$ satisfies ($H_{0}$) and ($H_{1}$). \\
+    (3)$\mathcal{F}_{1}$ has a miniversal family if and only if for any deformation $X \rightarrow \spec k[\varepsilon]$,
+    the natural map $\aut_{k[\varepsilon]}(X) \twoheadrightarrow \aut(X_{0})$ is surjective.
+    \label{Proposition 4.3}
+\end{proposition}
+\begin{proof}
+    (1)Consider deformation functor $\mathcal{F}$ of $X_{0}$ and natural transformation $\psi: \mathcal{F} \rightarrow \mathcal{F}_{1}$ defined in previous lemma.
+    Since $\mathcal{F}$ has a versal family $\varphi: h_{R} \rightarrow \mathcal{F}$, 
+    what we need to show is that composition of strongly surjective natural transformations is still strongly surjective.
+    \par
+    For all $A\in \mathcal{C}$, $\psi \circ \varphi(A): h_{R} \rightarrow \mathcal{F}_{1}(A)$ is composition of surjections hence surjective.
+    For any surjection $B \twoheadrightarrow A$ and commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            h_{A} \arrow[r] \arrow[d, hookrightarrow] &
+            h_{R} \arrow[r, "\varphi"] & 
+            \mathcal{F} \arrow[d, "\psi"] \\
+            h_{B} \arrow[ur, dashrightarrow, "{\delta'}"] \arrow[urr, dashrightarrow, "\delta"] \arrow[rr] &&
+            \mathcal{F}_{1}
+        \end{tikzcd}
+    \end{equation}
+    As $\psi$ is strongly surjective, there exists lifting $\delta: h_{B} \rightarrow \mathcal{F}$ making the diagram commutative.
+    Then again as $\varphi$ is strongly surjective, there exists lifting $\delta': h_{B} \rightarrow h_{R}$ making the diagram commutative, done!
+    \par
+    (2)Now $\psi \circ \varphi: h_{R} \rightarrow \mathcal{F}_{1}$ is a versal family.
+    Then immediately $\mathcal{F}_{1}(k)$ is one-point set and ($H_{0}$) holds.
+    For any morphism $f: A' \rightarrow A$ and any small extension $g: A'' \twoheadrightarrow A$, consider the following commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \mathcal{F}(A' \times_{A} A'') \arrow[r, twoheadrightarrow] \arrow[d, twoheadrightarrow] &
+            \mathcal{F}(A') \times_{\mathcal{F}(A)} \mathcal{F}(A'') \arrow[d, "{\psi(A') \times_{\psi(A)} \psi(A'')}"] \\
+            \mathcal{F}_{1}(A' \times_{A} A'') \arrow[r] &
+            \mathcal{F}_{1}(A') \times_{\mathcal{F}_{1}(A)} \mathcal{F}_{1}(A'')
+        \end{tikzcd}
+    \end{equation}
+    Hence we only need to show that $\psi(A') \times_{\psi(A)} \psi(A'')$ is surjective.
+    For $([X']_{1}, [X'']_{1})\in \mathcal{F}_{1}(A') \times_{\mathcal{F}_{1}(A)} \mathcal{F}_{1}(A'')$,
+    as $\mathcal{F}(A') \twoheadrightarrow \mathcal{F}_{1}(A')$ is surjective, we can lift $[X']_{1}$ to $X'\in \mathcal{F}(A')$.
+    Then there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            h_{A} \arrow[r, "{X'\big{|}_{\spec A}}"] \arrow[d, hookrightarrow] &
+            \mathcal{F} \arrow[d, "\psi"] \\
+            h_{A''} \arrow[ur, dashrightarrow, "{Y''}"] \arrow[r, "{[X'']_{1}}" swap] &
+            \mathcal{F}_{1}
+        \end{tikzcd}
+    \end{equation}
+    as $\psi$ is strongly surjective, there exists lifting $h_{A''} \rightarrow \mathcal{F}$ corresponding to $Y''\in \mathcal{F}(A'')$.
+    Hence $Y''\big{|}_{\spec A} \sim X'\big{|}_{\spec A}$ and $[Y'']_{1} = [X'']_{1}$ so that $(X', Y'') \mapsto ([X']_{1}, [X'']_{1})$.
+    Thus $\psi(A') \times_{\psi(A)} \psi(A'')$ surjective and ($H_{1}$) holds.
+    \par
+    (3)As $\phi$ is miniversal, $\psi \circ \varphi$ is miniversal if and only if $\psi(k[\varepsilon])$ is bijective.
+    Assume the right side holds.
+    For $X_{1}, X_{2}\in \mathcal{F}(k[\varepsilon])$, if $X_{1} \sim_{1} X_{2}$,
+    then there exists isomorphism $\phi$ with commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            X_{1} \arrow[rr, "\sim", "\phi" swap] \arrow[dr] &&
+            X_{2} \arrow[dl] \\
+            & \spec k[\varepsilon] &
+        \end{tikzcd}
+    \end{equation}
+    Restrict $\phi$ to $X_{0}$. 
+    As $\aut_{k[\varepsilon]}(X_{1}) \twoheadrightarrow \aut(X_{0})$ is surjective,
+    then we can extend $\phi\big{|}_{X_{0}}^{-1}$ to an automorphism $\widetilde{\phi}: X_{1} \overset{\sim}{\rightarrow} X_{1}$.
+    \begin{equation}
+        \begin{tikzcd}
+            X_{0} \arrow[r, "\phi\big{|}_{X_{0}}^{-1}", "\sim" swap] \arrow[d, hookrightarrow, "j_{1}"] &
+            X_{0} \arrow[r, "\phi\big{|}_{X_{0}}", "\sim" swap] \arrow[d, hookrightarrow, "j_{1}"] &
+            X_{0} \arrow[d, hookrightarrow, "j_{2}"] \\
+            X_{1} \arrow[r, "\sim", "\widetilde{\phi}" swap] \arrow[dr] &
+            X_{1} \arrow[r, "\sim", "\phi" swap] \arrow[d] &
+            X_{2} \arrow[dl] \\
+            & \spec k[\varepsilon] &
+        \end{tikzcd}
+    \end{equation}
+    Hence $X_{1} \sim X_{2}$ so that $\psi(k[\varepsilon])$ is bijective.
+    \par
+    Conversely, assume $\psi(k[\varepsilon])$ is bijective.
+    Suppose there exists $\phi: X_{0} \overset{\sim}{\rightarrow} X_{0}\in \aut(X_{0})$ cannot be extended to element in $\aut_{k[\varepsilon]}(X)$ for some $(X, i)\in \mathcal{F}(k[\varepsilon])$,
+    where $i: X_{0} \hookrightarrow X$ is the closed immersion. 
+    Then $(X, i)$ must be not equivalent to $(X, \phi \circ i)$, 
+    while $[(X, i)]_{1}$ and $[(X, \phi \circ i)]_{1}$ are obviously same, contradiciton!
+\end{proof}
+\begin{example}
+    Set $k = \mathbb{C}$.
+    Consider maps from scheme $S$ to $[\mathbb{C}^{2}/\mathbb{C}^{\times}]$.
+    By definition, a map is equivalent to datum $(\mathcal{L}, x, y)$ where $\mathcal{L}\in \picardscheme(S)$ is line bundle and $x,y\in H^{0}(S, \mathcal{L})$.
+    Given $\mathcal{L}_{0}\in \picardscheme(\spec \mathbb{C})$ and $x_{0} = y_{0} = 0$, define deformation functor as 
+    \begin{equation*}
+        \mathcal{F}(A) = \{\mathcal{L}\in \picardscheme(\spec A), x,y\in H^{0}(\spec A, \mathcal{L}) \big{|} x,y \equiv 0\!\!\!\! \pmod {\mathfrak{m}} \text{ and } \mathcal{L} \otimes_{A} \mathbb{C} \underset{\theta}{\overset{\sim}{\rightarrow}} \mathcal{L}_{0}\}/\sim
+    \end{equation*}
+    where $(\mathcal{L}_{1}, x_{1}, y_{1}, \theta_{1}) \sim (\mathcal{L}_{2}, x_{2}, y_{2}, \theta_{2})$ if there exists $\varphi: \mathcal{L}_{1} \overset{\sim}{\rightarrow} \mathcal{L}_{2}$ such that $\varphi(x_{1}) = x_{2}$, $\varphi(y_{1}) = y_{2}$ and there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            \mathcal{L}_{1} \otimes_{A} \mathbb{C} \arrow[rr, "\varphi \otimes id"] \arrow[dr, "\theta_{1}" swap] &&
+            \mathcal{L}_{2} \otimes_{A} \mathbb{C} \arrow[dl, "\theta_{2}"] \\
+            & \mathcal{L}_{0} &
+        \end{tikzcd}
+    \end{equation}
+    As line bundle on $\spec A$ can be trivialized, we can rewrite $\mathcal{F}(A)$ as $\{(x, y) \big{|} x,y\in \mathfrak{m}_{A}\}/\sim$,
+    where $x \sim y$ if there exists $h\in 1 + \mathfrak{m}$ such that $x_{1} = hx_{2}$ and $y_{1} = hy_{2}$.
+    \par
+    Consider the tangent space of $\mathcal{F}$.
+    We have that $\mathcal{F}(\mathbb{C}[\varepsilon]) = \{(a\varepsilon, b\varepsilon) \big{|} a,b\in \mathbb{C}\}/\sim$.
+    Suppose $(a_{1}\varepsilon, b_{1}\varepsilon) \sim (a_{2}\varepsilon, b_{2}\varepsilon)$, then there exists $c\in \mathbb{C}$ such that
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                a_{1}\varepsilon = (1 + c\varepsilon)a_{2}\varepsilon \\
+                b_{1}\varepsilon = (1 + c\varepsilon)b_{2}\varepsilon 
+            \end{aligned}
+        \right.
+        \Rightarrow
+        \left\{
+            \begin{aligned}
+                a_{1} = a_{2} \\
+                b_{1} = b_{2}
+            \end{aligned}
+        \right.
+    \end{equation}
+    Hence the equivalence relation is just identity.
+    \par
+    In fact, $\mathcal{F}$ has miniversal family over $R = \widehat{\mathcal{O}_{\mathbb{C}^{2}, (0, 0)}}$.
+    Given $(x, y)\in \mathcal{F}(A)$, we have a spectrum map $\spec A \overset{(x, y)}{\rightarrow} \spec R$.
+    Take $A = \mathbb{C}[t]/(t^{3})$, then $\mathcal{F}(A) = \{(a_{1}t + a_{2}t^{2}, b_{1}t + b_{2}t^{2})\}/\sim$.
+    Suppose $(a_{1}t + a_{2}t^{2}, b_{1}t + b_{2}t^{2}) \sim (\widetilde{a}_{1}t + \widetilde{a}_{2}t^{2}, \widetilde{b}_{1}t + \widetilde{b}_{2}t^{2})$,
+    then there exists $c_{1},c_{2}\in \mathbb{C}$ such that 
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                a_{1}t + a_{2}t^{2} = (1 + c_{1}t + c_{2}t^{2})(\widetilde{a}_{1}t + \widetilde{a}_{2}t^{2})\\
+                b_{1}t + b_{2}t^{2} = (1 + c_{1}t + c_{2}t^{2})(\widetilde{b}_{1}t + \widetilde{b}_{2}t^{2})
+            \end{aligned}
+        \right.
+        \Rightarrow
+        \left\{
+            \begin{aligned}
+                a_{1} = \widetilde{a}_{1}\quad & a_{2} = \widetilde{a}_{1}c + \widetilde{a}_{2} \\
+                b_{1} = \widetilde{b}_{1}\quad & b_{2} = \widetilde{b}_{1}c + \widetilde{b}_{2}
+            \end{aligned}
+        \right.
+    \end{equation}
+    Hence two different spectrum maps from $\spec A$ to $\spec B$ can mapping to same equivalence class in $\mathcal{F}(A)$ so that $h_{R} \rightarrow \mathcal{F}$ is not universal.
+\end{example}
+\begin{remark}
+    In GTM257 written by Hartshorne, Example 18.4.1 gives two example with similar pathology above.
+    One shows that crude deformation functor is not necessarily miniversal,
+    the other shows that deformation functor is not necessarily universal.
+\end{remark}
+
+\section{Algebraization of Formal Moduli}
+\label{section:Algebraization_of_Formal_Moduli}
+
+\begin{example}
+    Let $X_{0}$ be a smooth projective $k$-scheme, $\mathcal{F}$ deformation functor of $X_{0}$.
+    Algebraization of formal moduli is the following process
+    \begin{equation*}
+        \begin{gathered}
+            \text{formal family} \\
+            \begin{tikzcd}
+                h_{R} \arrow[d] \\
+                \mathcal{F}
+            \end{tikzcd}
+        \end{gathered}
+        \rightsquigarrow
+        \begin{gathered}
+            \text{formal scheme} \\
+            \begin{tikzcd}
+                \mathfrak{X} \arrow[d] \\
+                \spf R
+            \end{tikzcd}
+        \end{gathered}
+        \rightsquigarrow
+        \begin{gathered}
+            \text{scheme} \\
+            \begin{tikzcd}[row sep = 1.53 em]
+                \widetilde{X} \arrow[d] \\
+                \spec R
+            \end{tikzcd}
+        \end{gathered}
+        \rightsquigarrow
+        \begin{gathered}
+            \text{family} \\
+            \begin{tikzcd}[row sep = 1.95 em]
+                X \arrow[d] \\
+                S\ni s_{0}
+            \end{tikzcd}
+        \end{gathered}
+    \end{equation*}
+    where $\widetilde{X} \rightarrow \spec R$ is flat and of finite type such that $X \times_{\spec R} \spf R \cong \mathfrak{X}$ in category of formal schemes,
+    and $S$ is of finite type over $k$ such that $R = \widehat{\mathcal{O}_{S, s_{0}}}$, $X \times_{S} \spec R \cong \widetilde{X}$ and $X \times_{S} s_{0} \cong X_{0}$.
+\end{example}
+\begin{definition}
+    Let $A$ be a noetherian, $I \subseteq A$ ideal, $\widehat{A}$ completion of $A$ under $I$-adic topology.
+    Define formal scheme $\spf \widehat{A} = (\mathfrak{X}, \mathcal{O}_{\mathfrak{X}})$ to be a locally ringed space,
+    where $\mathfrak{X} = \spec (\widehat{A}/\widehat{I})$ and structure sheaf $\mathcal{O}_{\mathfrak{X}}$ is defined by
+    \begin{equation}
+        \mathcal{O}_{\mathfrak{X}}(U) = \inverselimit \mathcal{O}_{\spec (\widehat{A}/\widehat{I}^{n})}(U)
+    \end{equation}
+    This is also called completion of $A$ along $I$.
+    Generally, we say a locally ringed space $(\mathfrak{X}, \mathcal{O}_{\mathfrak{X}})$ is a formal scheme if there exists an open covering $U_{i}$ such that $U_{i}$ is completion of noetherian ring $A_{i}$ along ideal $I_{i}$.
+\end{definition}
+\begin{example}
+    (1)Let $A_{0} = k[x, y]$, $I = (x, y)$ and $A = \widehat{A_{0}} = k[[x, y]]$.
+    Then underlying topological space of $\spf A$ is a one-point set with structure sheaf given by $A$. \\
+    (2)Let $A_{0} = k[x, y]$, $I = (x)$ and $A = \widehat{A_{0}} = k[y][[x]]$.
+    Then underlying topological space of $\spf A$ is y-axis and global sections are $\Gamma(\mathfrak{X}, \mathcal{O}_{\mathfrak{X}}) = k[y][[x]]$.
+    For $U = D(y)$, $\Gamma(U, \mathcal{O}_{\mathfrak{X}}) = \widehat{k[y][[x]]_{y}} = k[y, y^{-1}][[x]]$.
+    Note that $x + y$ is also invertible in $\Gamma(U, \mathcal{O}_{\mathfrak{X}})$ since
+    \begin{equation}
+        \frac{1}{x + y} = \frac{y^{-1}}{1 + xy^{-1}} = y^{-1}(\sum_{i} (-xy^{-1})^{i})
+    \end{equation}
+    This coincides with our geometric intuition that $D(y)$ and $D(x + y)$ intersecting with y-axis are both y-axis without origin.
+\end{example}
+\begin{remark}
+    We should be careful with these formal series rings.
+    For example, $ k[[x]][y] \subsetneq k[y][[x]]$ since elements in $k[[x]][y]$ would have a bound for degree of $y$,
+    while elements in $k[y][[x]]$ is a convergent power series with coeffcients in $k[y]$.
+    Thus $\sum_{i} y^{i}x^{i}\in k[y][[x]] \setminus k[[x]][y]$.
+    \label{remark:subtle_difference_between_formal_series_rings}
+\end{remark}
+
+\subsection{Formal family to formal scheme}
+\label{subsection:Algebraization_of_Formal_Moduli_Formal_family_to_formal_scheme}
+
+\begin{definition}
+    Let $\{A_{n}\}$ be an inverse system together with homomorphisms $\varphi_{j,i}: A_{j} \rightarrow A_{i}$.
+    We say that $\{A_{n}\}$ satisfies Mittag-Leffler condition, (ML) for short, 
+    if for all $n$, the decreasing chain 
+    \begin{equation}
+        \varphi_{n + 1, n}(A_{n + 1}) \supseteq \varphi_{n + 2, n}(A_{n + 2}) \supseteq \cdots 
+    \end{equation}
+    is stationary.
+\end{definition}
+\begin{remark}
+    By Proposition 9.1 in Algebraic Geometry, Hartshorne, 
+    we know that if $0 \rightarrow A_{n} \rightarrow B_{n} \rightarrow C_{n} \rightarrow 0$ is an exact sequence of inverse systems with $\{A_{n}\}$ satisfying (ML),
+    then the sequence of inverse limits is also exact
+    \begin{equation}
+        0 \longrightarrow \inverselimit A_{n} \longrightarrow \inverselimit B_{n} \longrightarrow \inverselimit C_{n} \longrightarrow 0
+    \end{equation}
+\end{remark}
+\begin{proposition}
+    Let $(R, \mathfrak{m})$ be a complete local ring with residue field $k$, $X_{0}$ of finite type over $k$.
+    Given formal family $\{X_{n}\}$, where $X_{n}$ is deformation of $X_{0}$ over $R/\mathfrak{m}^{n}$.
+    Then there exists unique formal scheme $\mathfrak{X}$ with morphism of locally ringed spaces $\mathfrak{X} \rightarrow \spf R$ such that $\mathfrak{X} \times_{\spf R} \spec (R/\mathfrak{m}^{n}) \cong X_{n}$.
+    \label{Proposition 5.1}
+\end{proposition}
+\begin{proof}[\textbf{\emph{Idea}}]
+    Given affine open covering $U^{\alpha}$ of $X_{0}$, $B_{n}^{\alpha} := \Gamma(U^{\alpha}, \mathcal{O}_{X_{n}})$ and $B^{\alpha} := \inverselimit B_{n}^{\alpha}$,
+    where $B_{n}^{\alpha}$ can be viewed as deformation of $B_{0}^{\alpha}$ over $R/\mathfrak{m}^{n}$.
+    We need to check that $B^{\alpha}$ is noetherian and $B^{\alpha}/\mathfrak{m}^{n}B^{\alpha} \cong B_{n}^{\alpha}$.
+    \par
+    Since $B_{0}^{\alpha}$ is of finite type over $k$, there is a surjection $A_{0} := k[x_{1}, \cdots, x_{N}] \overset{\varphi_{0}}{\twoheadrightarrow} B_{0}^{\alpha}$.
+    Similarly, set $A_{i} := R/\mathfrak{m}^{i + 1}[x_{1}, \cdots, x_{N}]$.
+    Denote $\psi_{i}: B_{i}^{\alpha} \twoheadrightarrow B_{i - 1}^{\alpha}$.
+    Choose one preimage of $\varphi_{0}(x_{i})$ in $B_{1}^{\alpha}$ for each $x_{i}$, 
+    define homomorphism $\varphi_{1}: A_{1} \rightarrow B_{1}^{\alpha}$ by mapping $x_{i}$ to corresponding preimage.
+    Inductively, we get a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \cdots \arrow[r, twoheadrightarrow] &
+            A_{2} \arrow[r, twoheadrightarrow] \arrow[d, "\varphi_{2}"] &
+            A_{1} \arrow[r, twoheadrightarrow] \arrow[d, "\varphi_{1}"] &
+            A_{0} \arrow[d, "\varphi_{0}"] \\
+            \cdots \arrow[r, twoheadrightarrow] &
+            B_{2}^{\alpha} \arrow[r, twoheadrightarrow, "\psi_{2}"] &
+            B_{1}^{\alpha} \arrow[r, twoheadrightarrow, "\psi_{1}"] &
+            B_{0}^{\alpha} 
+        \end{tikzcd}
+    \end{equation}
+    Consider $A := \inverselimit A_{n} = R\{x_{1}, \cdots, x_{n}\}$ and $I := \inverselimit I_{n}$ where $I_{n} = \ker (\varphi_{i})$,
+    want to show that $B^{\alpha} \cong A/I$.
+    For all $i$, by flatness of $B_{n}^{\alpha}$ over $R/\mathfrak{m}^{n + 1}$, there is a commutative diagram with exact rows
+    \begin{equation}
+        \begin{tikzcd}
+            0 \arrow[r] & 
+            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \arrow[r, hookrightarrow] \arrow[d, "id \otimes \varphi_{n}"] &
+            A_{n} \arrow[r, twoheadrightarrow] \arrow[d, "\varphi_{n}"] &
+            A_{n - 1} \arrow[r] \arrow[d, twoheadrightarrow, "\varphi_{n - 1}"] &
+            0 \\
+            0 \arrow[r] &
+            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \otimes_{R/\mathfrak{m}^{n + 1}} B_{n}^{\alpha} \arrow[r, hookrightarrow] &
+            B_{n}^{\alpha} \arrow[r, twoheadrightarrow, "\psi_{n}"] &
+            B_{n - 1}^{\alpha} \arrow[r] &
+            0
+        \end{tikzcd}
+    \end{equation}
+    Inductively, assume that we have known $\varphi_{i}$ is surjective for all $i \le n - 1$, want to show that $\varphi_{n}$ is surjective.
+    In fact, there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \arrow[r, "\sim"] \arrow[d, "id \otimes \varphi_{n}"] &
+            \mathfrak{m}^{n} \otimes_{R } A_{0} \arrow[d, "id \otimes \varphi_{0}"] \\
+            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \otimes_{R/\mathfrak{m}^{n + 1}} B_{n}^{\alpha} \arrow[r, "\sim"] &
+            \mathfrak{m}^{n} \otimes_{R} B_{0}^{\alpha}
+        \end{tikzcd}
+    \end{equation}
+    Hence $id \otimes \varphi_{n} = id \otimes \varphi_{0}$ is surjective.
+    And by 5 Lemma, we get $\varphi_{n}$ is a surjection.
+    Now we have a commutative diagram with exact rows and columns
+    \begin{equation}
+        \begin{tikzcd}
+            && 0 \arrow[d] &
+            0 \arrow[d] & \\
+            && \mathfrak{m}^{n} \otimes_{R} A_{0} \arrow[r, twoheadrightarrow, "id \otimes \varphi_{0}"] \arrow[d, hookrightarrow] &
+            \mathfrak{m}^{n} \otimes_{R} B_{0}^{\alpha} \arrow[d, hookrightarrow] & \\
+            0 \arrow[r] &
+            I_{n} \arrow[r, hookrightarrow] \arrow[d, "\phi_{n}"] &
+            A_{n} \arrow[r, twoheadrightarrow, "\varphi_{n}"] \arrow[d, twoheadrightarrow] &
+            B_{n}^{\alpha} \arrow[r] \arrow[d, twoheadrightarrow, "\psi_{n}"] &
+            0 \\
+            0 \arrow[r] &
+            I_{n - 1} \arrow[r, hookrightarrow] &
+            A_{n - 1} \arrow[r, hookrightarrow, "\varphi_{n - 1}"] &
+            B_{n - 1}^{\alpha} \arrow[r] &
+            0
+        \end{tikzcd}
+    \end{equation}
+    By Snake Lemma, the following sequence is exact
+    \begin{equation}
+        \begin{tikzcd}
+            \mathfrak{m}^{n} \otimes_{R} A_{0} \arrow[r, twoheadrightarrow, "id \otimes \varphi_{0}"] &
+            \mathfrak{m}^{n} \otimes_{R} B_{0}^{\alpha} \arrow[r] &
+            \coker \phi_{n} \arrow[r] &
+            0 
+        \end{tikzcd}
+    \end{equation}
+    which implies that $\phi_{n}$ is surjective for all $n$.
+    Thus inverse system $\{I_{n}\}$ satisfies (ML) and hence we get exact sequence
+    \begin{equation}
+        0 \longrightarrow I \longrightarrow A \longrightarrow B^{\alpha} \longrightarrow 0
+    \end{equation}
+    so that $B^{\alpha}$ is quotient ring of $A$ hence northerian too.
+    By diagram chasing, we also get $B^{\alpha}/\mathfrak{m}^{n}B^{\alpha} \overset{\sim}{\rightarrow} B_{n}^{\alpha}$.
+\end{proof}
+
+\subsection{Formal scheme to scheme}
+\label{subsection:Algebraization_of_Formal_Moduli_Formal_scheme_to_scheme}
+
+\begin{definition}
+    Let $\mathfrak{X} \rightarrow \spf R$ be the noetherian formal scheme given by previous subsection.
+    We sat that $\mathfrak{X} \rightarrow \spf R$ is effective if there exists scheme $\widetilde{X}$ flat and of finite type over $\spec R$ such that completion of $\widetilde{X}$ along fiber at $\mathfrak{m}$ is $\mathfrak{X}$.
+\end{definition}
+\begin{remark}
+    This is not always possible. 
+    Intuitively, if we take formal completion open covering of $\mathfrak{X}$, denoted by $\{U_{i} = \widehat{X_{i}}\}$,
+    then $U_{i}$ and $U_{j}$ are compatible at $U_{i} \cap U_{j}$.
+    \par
+    However, note that underlying topological spaces of $X_{i}$ and $X_{j}$ are bigger than $\widehat{X_{i}}$ and $\widehat{X_{j}}$,
+    it is not necessary for $X_{i}$ and $X_{j}$ to be compatible at $X_{i} \cap X_{j}$ so that we cannot always glue up $X_{i}$ to get our desired $\widetilde{X}$.
+\end{remark}
+\begin{theorem}[\textbf{\emph{Grothendieck}}]
+    Let $X \rightarrow \spec R$ be a proper morphism with $R\in \widehat{\mathcal{C}}$.
+    Take $\widehat{X}$ to be the completion of $X$ along the fiber at $\mathfrak{m}$.
+    Then $Coh(X) \rightarrow Coh(\widehat{X})$ mapping $\mathcal{F}$ to $\widehat{\mathcal{F}}$ gives equivalence of the two categories.
+    \label{Theorem 5.1}
+\end{theorem}
+\begin{remark}
+    This theorem tells us that for deformation of coherent sheaf is always effective.
+    In addition, properness is necessary.
+    For example, if take $R = k[[x]]$ and $X = \spec k[[x]][y]$, then $\widehat{X} = \spf k[y][[x]]$.
+    While 
+    \begin{equation}
+        \hom_{\mathcal{O}_{X}}(\mathcal{O}_{X}, \mathcal{O}_{X}) = k[[x]][y]\quad \hom_{\mathcal{O}_{\widehat{X}}}(\mathcal{O}_{\widehat{X}}, \mathcal{O}_{\widehat{X}}) = k[y][[x]]
+    \end{equation}
+    are not same as Remark \ref{remark:subtle_difference_between_formal_series_rings},
+    which implies $\mor_{Coh(X)}(\mathcal{O}_{X}, \mathcal{O}_{X}) \neq \mor_{Coh(\widehat{X})}(\mathcal{O}_{\widehat{X}}, \mathcal{O}_{\widehat{X}})$ so that the two categories are not equivalent.
+\end{remark}
+\begin{theorem}[\textbf{\emph{Grothendieck}}]
+    Let $\mathfrak{X} \rightarrow \spf R$ be a proper morphism between formal schemes with $R\in \widehat{\mathcal{C}}$, $X_{0} = \mathfrak{X} \otimes_{\spf R} \spec k$.
+    Assume there exists line bundle $\mathcal{L}$ on $\mathfrak{X}$ such that $\mathcal{L}_{0} := \mathcal{L}\big{|}_{X_{0}}$ is ample.
+    Then $\mathfrak{X} \rightarrow \spec R$ is effective i.e. there exists of finite type morphism $\widetilde{X} \rightarrow \spec R$ and line bundle $L$ on $\widetilde{X}$ such that $\widetilde{X} \times_{\spec R} \spf R \cong \mathfrak{X}$ and $\widehat{L} \cong \mathcal{L}$.
+    \label{Theorem 5.2}
+\end{theorem}
+\begin{reason}
+    Since $\mathcal{L}_{0}$ is ample, we can embed $X$ into a projective space $\mathbb{P}_{k}^{N}$, 
+    then the problem of deformation of scheme $X_{0}$ is equivalent to the problem of deformation of closed subscheme $X_{0} \subseteq \mathbb{P}_{k}^{N}$.
+    While the deformation of subscheme is equivalent to deformation of ideal sheaf, 
+    hence by Theorem \ref{Theorem 5.1}, we get $\mathfrak{X} \rightarrow \spf R$ is effective.
+\end{reason}
+\begin{example}
+    Let $X_{0}$ be a projective $k$-scheme.
+    Assume that deformation of line bundles on $X_{0}$ is unobstructed (for example if $H^{2}(X_{0}, \mathcal{O}_{X_{0}}) = 0$).
+    Then given ample line bundle $\mathcal{L}_{0}$ on $X_{0}$, 
+    we can extend it to compatible $\mathcal{L}_{n}$ to $X_{n}$.
+    Taking inevrse limit, we get our desired $\mathcal{L}$ so that in this case, $\mathfrak{X} \rightarrow \spf R$ is effective.
+\end{example}
+There is also an noneffective example.
+\begin{example}
+    Let $X_{0} \subseteq \mathbb{P}_{k}^{3}$ be a smooth quartic surface with $\characteristic k = 0$.
+    Intuitively, since $H^{2}(X_{0}, \mathcal{O}_{X_{0}}) = k$, deformation of line bundle on $X_{0}$ is not always unobstructed.
+    \par
+    In addition, computing by Hodge theory, 
+    we would see that $H^{0}(X_{0}, \mathcal{N}_{X_{0}/\mathbb{P}_{k}^{3}}) \rightarrow H^{1}(\mathcal{T}_{X_{0}})$ is not surjective,
+    and hence not all deformations of $X_{0}$ comes from deformations of $X_{0}$ as subscheme of $\mathbb{P}_{k}^{3}$.
+    Thus there exists deformation of $X_{0}$ where $\mathcal{L}_{0} := \mathcal{O}_{\mathbb{P}_{k}^{3}}\big{|}_{X_{0}}$ does not deform to.
+    \par
+    There is a fact that for all line bundles $\mathcal{L}\in \picardscheme(X_{0})$,
+    there exists some 1st order deformation $X'$ of $X_{0}$ over $\spec k[\varepsilon]$ such that $\mathcal{L}_{0}$ does not lift to $X'$.
+    While $H^{0}(X_{0}, \mathcal{T}_{X_{0}})= 0$, $H^{2}(X_{0}, \mathcal{T}_{X_{0}}) = 0$ and $H^{1}(X_{0}, \mathcal{T}_{X_{0}}) = k^{20}$ is finite dimensional,
+    we get that deformation of $X_{0}$ over $R$ is universal, where $R$ is formal series ring over $k$ with $20$ variants.
+    \par
+    Suppose that $\mathfrak{X} \rightarrow \spf R$ is effective.
+    Assume that $\widetilde{X} \rightarrow \spec R$ is our desired morphism.
+    As $\widetilde{X} \rightarrow \spec R$ is flat and proper with geometric fibers smooth, 
+    we get $\widetilde{X} \rightarrow \spec R$ itself smooth so that $\widetilde{X}$ is regular.
+    \par
+    Take affine open subset $U \subseteq X$ meeting $X_{0}$.
+    Assume that $D$ is a prime Cartier divisor on $U$ and $D \cap X_{0} \neq \varnothing$.
+    Since $\widetilde{X}$ is regular, $\overline{D}$ is a Cartier divisor and $\overline{D} \cap X_{0}$ is an effective Cartier divisor.
+    \par
+    Take $\mathcal{L}_{0} := \mathcal{O}_{X_{0}}(\overline{D} \cap X_{0})$ which can be lifted to $\widehat{\mathcal{L}_{0}} := \mathcal{O}_{X}(\overline{D})$.
+    While by the fact, there exists 1st deformation $X_{1}$ of $X$ such that $\mathcal{L}_{0}$ does not lift to $X_{1}$.
+    But by universal property, $\mathcal{L}_{0}$ can be lifted to $\mathcal{L}_{1} := \widehat{\mathcal{L}_{0}}\big{|}_{X_{1}}$ on $X_{1}$, contradiciton!
+\end{example}
+In the following, we are going to give a proof of the fact we used in the previous example.
+Let $X$ be a smooth $k$-scheme, $\mathcal{L}$ line bundle on $X$.
+Want to study deformations of pair $(X, \mathcal{L})$.
+\begin{definition}
+    Let $X$ be a smooth $k$-scheme, $\mathcal{L}$ line bundle on $X$.
+    Consider commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            X \arrow[rr, "id"] \arrow[dr, "\Delta"] \arrow[dd, "id"] &&
+            X \arrow[dd] \\
+            & X \times_{k} X \arrow[ur, "q"  swap] \arrow[dl, "p"] & \\
+            X \arrow[rr] &&
+            k
+        \end{tikzcd}
+    \end{equation}
+    Define bundle of 1st jets to be $J^{1}(\mathcal{L}) := q_{\ast}(p^{\ast}\mathcal{L} \otimes_{\mathcal{O}_{X \times X}} \mathcal{O}_{X \times X}/\mathcal{I}_{\Delta_{X}}^{2})$.
+\end{definition}
+\begin{remark}
+    Since $X$ is smooth, we have exact sequence
+    \begin{equation}
+        0 \longrightarrow \Omega_{X}^{1} \otimes_{\mathcal{O}_{X}} \mathcal{L} \overset{\iota}{\longrightarrow} J^{1}(\mathcal{L}) \longrightarrow \mathcal{L} \longrightarrow 0
+        \label{equation:exact_sequence_of_bundle_of_1st_jets}
+    \end{equation}
+    And for all $x\in X$, $J^{1}(\mathcal{L})\big{|}_{x} \cong \mathcal{L}/(\mathfrak{m}_{x})^{2} \cong k^{\dim X + 1}$.
+\end{remark}
+There exists a canonical section $\mathcal{L} \overset{\sigma}{\rightarrow} J^{1}(\mathcal{L})$ which is not $\mathcal{O}_{X}$-linear.
+For $\alpha\in H^{0}(U, \mathcal{L})$ and $f\in H^{0}(U, \mathcal{O}_{X})$, $\sigma(\alpha) := q_{\ast}p^{\ast}(\alpha)$ and
+\begin{equation}
+    \begin{split}
+        \sigma(f\alpha) & = q_{\ast}(f\alpha \otimes 1) \\
+        & = q_{\ast}(\alpha \otimes (f \otimes 1)) \\
+        & = q_{\ast}(\alpha \otimes (df + 1 \otimes f)) \\
+        & = \iota(\alpha \otimes df) + \sigma(\alpha)f
+    \end{split}
+\end{equation}
+satisfying the Leibniz's Law.
+\begin{remark}
+    Intuitively, the definition of $J^{1}(\mathcal{L})$ is similar to giving a bimodule structure on $\mathcal{O}_{X \times X}/\mathcal{I}_{\Delta_{X}^{2}}$,
+    where tensoring with $p_{1}^{\ast}\mathcal{L}$ gives a left module structure and pushing forward gives a right module structure.
+\end{remark}
+\begin{definition}
+    Let $X \rightarrow S$ be a morphism of locally ringed spaces, $\mathcal{M}$ an $\mathcal{O}_{X}$-module.
+    A connection of $\mathcal{M}$ over $S$ is an $\mathcal{O}_{S}$-module homomorphism $\nabla: \mathcal{M} \rightarrow \mathcal{M} \otimes \Omega_{X/S}^{1}$ such that $\nabla(am) = a\nabla(m) + m \otimes da$.
+\end{definition}
+Hence there is a one-to-one correspondence
+\vspace{-8pt} % 减少一行间距
+\usetikzlibrary{decorations.pathmorphing} %波浪线引用
+\begin{equation*}
+    \begin{tikzcd}[column sep = tiny]
+        \{\mathcal{O}_{X} \text{-linear sections } \mathcal{L} \rightarrow J^{1}(\mathcal{L})\} \arrow[d, leftrightsquigarrow]  &
+        \ni & 
+        \varphi \arrow[d, mapsto] &
+        \sigma - \iota \circ \nabla \\
+        \{\nabla: \mathcal{L} \rightarrow \Omega_{X}^{1} \otimes_{\mathcal{O}_{X}} \mathcal{L} \text{ connections}\} &
+        \ni & 
+        \sigma - \varphi &
+        \nabla \arrow[u, mapsto]
+    \end{tikzcd}
+\end{equation*}
+Note that existence of $\mathcal{O}_{X}$-linear section is equivalent to that exact sequence \ref{equation:exact_sequence_of_bundle_of_1st_jets} splits.
+Hence the extension class in $\ext_{\mathcal{O}_{X}}^{1}(\mathcal{L}, \Omega_{X}^{1} \otimes_{\mathcal{O}_{X}} \mathcal{L}) \cong H^{1}(X, \Omega_{X}^{1})$,
+called the Atiyah class, is the obstruction to existence of connection.
+\begin{remark}
+    If consider $H^{1}(X, \Omega_{X}^{1}) \rightarrow H^{2}(X, \mathbb{C}) = H^{2}(X, \mathcal{O}_{X}) \oplus H^{1}(X, \Omega_{X}^{1}) \oplus H^{0}(X, \Omega_{X}^{2})$,
+    then in fact the Atiyah class is mapping to the 1st Chern class of $X$.
+    Hence if the 1st Chern class of $X$ is not zero, then there is no connection.
+\end{remark}
+\begin{definition}
+    Let $X$ be a smooth scheme, $\mathcal{L}$ line bundle on $X$.
+    Define the sheaf of principal parts $\mathcal{P}_{\mathcal{L}}$ as an extension
+    \begin{equation}
+        0 \longrightarrow \mathcal{O}_{X} \longrightarrow \mathcal{P}_{\mathcal{L}} \longrightarrow \mathcal{T}_{X} \longrightarrow 0
+    \end{equation}
+    defined by the cohomology class $c(\mathcal{L})\in H^{1}(X, \Omega_{X}^{1}) \cong \ext_{\mathcal{O}_{X}}^{1}(\mathcal{T}_{X}, \mathcal{O}_{X})$,
+    where $c(\mathcal{L})$ is the image of $[\mathcal{L}]$ under map $H^{1}(X, \mathcal{O}_{X}^{\ast}) \rightarrow H^{1}(X, \Omega_{X}^{1})$ induced by $d\log: \mathcal{O}_{X}^{\ast} \rightarrow \Omega_{X}^{1}$ sending $f$ to $\frac{df}{d}$.
+\end{definition}
+\begin{remark}
+    One way to see that this definition given by Hartshorne is same to our definition of bundle of 1st jets is that the Atiyah class is in fact just $c(\mathcal{L})$.
+\end{remark}
+Apply functor $\hom_{\mathcal{O}_{X}}(\cdot, \mathcal{L})$ to exact sequence \ref{equation:exact_sequence_of_bundle_of_1st_jets} and we get a long exact sequence
+\begin{equation}
+    0 \rightarrow \Gamma(X, \mathcal{O}_{X}) \rightarrow \hom_{\mathcal{O}_{X}}(J^{1}(\mathcal{L}), \mathcal{L}) \rightarrow \Gamma(X, \mathcal{T}_{X}) \rightarrow H^{1}(X, \mathcal{O}_{X}) \rightarrow \cdots
+\end{equation}
+In fact, $\ext_{\mathcal{O}_{X}}^{i}(J^{1}(\mathcal{L}), \mathcal{L}) = H^{i}(X, \mathcal{P}_{\mathcal{L}})$.
+And intuitively, automorphism groups of deformations of $(X, \mathcal{L})$ is just $H^{0}(X, \mathcal{P}_{\mathcal{L}} \otimes J)$,
+deformations are classified by $H^{1}(X, \mathcal{P}_{\mathcal{L}} \otimes J)$ and the obstruction is in $H^{2}(X, \mathcal{P}_{\mathcal{L}} \otimes J)$.
+\par
+Want to prove that for all $\mathcal{L} \neq \mathcal{O}_{X}$, 
+there exists deformation $X'$ of $X$ such that deformation of $\mathcal{L}$ to $X'$ is obstructed i.e. $H^{1}(X, \mathcal{T}_{X}) \overset{c(\mathcal{L})}{\rightarrow} H^{2}(X, \mathcal{O}_{X})$ is not a zero map,
+where $c(\mathcal{L})\in H^{1}(X, \Omega_{X}^{1})$ induces the map by contraction $\mathcal{T}_{X} \otimes \Omega_{X}^{1} \rightarrow \mathcal{O}_{X}$.
+\par
+By Serre duality, map $c(\mathcal{L})$ above is dual to $\mathbb{C} \cong H^{0}(X, \Omega_{X}^{2}) \overset{\widetilde{c}}{\rightarrow}H^{1}(X, \Omega_{X}^{1} \otimes \Omega_{X}^{2}) \cong H^{1}(X, \Omega_{X}^{1})$ sending $1$ to $c(\mathcal{L})$.
+When $\characteristic k = 0$, we have that $H^{1}(X, \mathcal{O}_{X}) = 0$ so that $H^{1}(X, \mathcal{O}_{X}^{\ast}) \rightarrow H^{1}(X, \Omega_{X}^{1})$ is injective.
+Hence nontrivial line bundle gives nonzero $c(\mathcal{L})$ and $\widetilde{c}$ is not zero map.
+Thus $c(\mathcal{L})$ as dual of $\widetilde{c}$ is not either zero map.
+
+\subsection{Scheme to universal family}
+\label{subsection:Algebraization_of_Formal_Moduli_Scheme_to_universal_family}
+
+\begin{theorem}[\textbf{\emph{M.Artin}}]
+    Let $X_{0}$ be a projective smooth scheme over $k$.
+    Assume that $X_{0}$ admits an effective formal versal deformation $\widetilde{X}$ over complete local $k$-algebra $R$.
+    Then there exist flat morphism $X \rightarrow S$ and $s_{0}\in S$ such that $S$ is of finite type over $k$, $R = \widehat{\mathcal{O}_{S, s_{0}}}$, $X \times_{S} \spec R \cong \widetilde{X}$ and $X \times_{S} s_{0} \cong X_{0}$.
+\end{theorem}
+\begin{example}
+    Let $X_{0}$ be smooth projective curve of genus $g \ge 2$.
+    We have that $H^{0}(X_{0}, \mathcal{T}_{X_{0}}) = 0$, $H^{1}(X_{0}, \mathcal{T}_{X_{0}}) = k^{3g - 3}$, $H^{2}(X_{0}, \mathcal{T}_{X_{0}}) = 0$ and $H^{2}(X_{0}, \mathcal{O}_{X_{0}}) = 0$.
+    Then the first three conditions guarantee that deformation functor of $X_{0}$ has a universal family, 
+    and the last condition implies that there is no obstruction to deformation of line bundle.
+    Hence deformation of $X_{0}$ is algebraic.
+\end{example}
+\begin{remark}
+    The algebraization $(X, S, s_{0})$ given by Noether's Theorem is only unique locally around $s_{0}$ in the etale topology,
+    meaning that if $(X', S', s_{0}')$ is another such pair, then there exists $S''$ with a point $s_{0}''$ and etale morphisms $S' \rightarrow S$ and $S'' \rightarrow S'$ sending $s_{0}''$ to $s_{0}$ and $s_{0}'$ respectively such that $X \times_{s} S'' \cong X' \times_{S'} S''$.
+    \par
+    In fact, if given $X, Y$ of finite type over $k$ and $x\in X$, $y\in Y$ are $k$-points with $\widehat{\mathcal{O}_{X, x}} \cong \widehat{\mathcal{O}_{Y, y}}$, then
+    \begin{equation}
+        \begin{tikzcd}[sep = tiny]
+            & z\in Z \arrow[dr, "etale"] \arrow[dl, "etale" swap] & \\
+            x\in X && y\in Y
+        \end{tikzcd}
+    \end{equation}
+    give same etale cover.
+    However, we should be careful about that the isomorphism induced by the same etale cover would not in general be the original one.
+\end{remark}
+\begin{example}
+    Let $X = V(y^{2} - x^{3} - x^{2})$ and $Y = V(uv)$, $x = y = (0, 0)$.
+    Then $\widehat{\mathcal{O}_{X, x_{0}}} = \widehat{\mathcal{O}_{Y, y_{0}}}$ and we have a diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = tiny]
+            & k[x, y, t]/(y^{2} - x^{3} - x^{2}, t^{2} - 1 - x) & \\
+            k[x, y]/(y^{2} - x^{3} - x^{2}) \arrow[ur] && 
+            k[u, v]/(uv) \arrow[ul]
+        \end{tikzcd}
+    \end{equation}
+    where $u$ is mapping to $y - xt$ and $v$ is mapping to $y + xt$.
+\end{example}
+The remark about local uniqueness up to etale cover inspires us to take isomorphisms into consideration when describing the universal property of algebraization.
+Let $X_{0}$ be a smooth projective curve of genus $\ge 2$.
+Given another $(X', S', s_{0}')$ such that $S'$ is of finite type over $k$ and $X' \times_{S'} s_{0}' \cong X_{0}$, 
+define Isom scheme as following.
+\par
+Consider projections
+\begin{equation}
+    \begin{tikzcd}[sep = tiny]
+        & S \times S' \arrow[dr, "q"] \arrow[dl, "p" swap] & \\
+        S &&
+        S'
+    \end{tikzcd}
+\end{equation}
+For $T \rightarrow S \times S'$, we can also define a functor $\isomorphismfunctor(p^{\ast}X, q^{\ast}X')$
+\begin{equation*}
+    T \mapsto \{(\alpha, \beta, \gamma) \big{|} (\alpha, \beta)\in S \times S'(T) \text{ and } \gamma: \alpha^{\ast}X \overset{\sim}{\rightarrow} \beta^{\ast}X'\}
+\end{equation*}
+In fact, $\isomorphismfunctor(p^{\ast}X, q^{\ast}X')$ is representable by some scheme $\isomorphismscheme(p^{\ast}X, q^{\ast}X')$.
+Note that for any field $K$, $K$-valued points of $\isomorphismscheme(p^{\ast}X, q^{\ast}X')$ would correspond to $\isomorphismfunctor(p^{\ast}X, q^{\ast}X')(\spec K)$.
+Hence the set of closed points of $\isomorphismscheme(p^{\ast}X, q^{\ast}X')$ is $\{(y, \theta) \big{|} x\in S \times S' \text{ closed point}, p(y) = s, q(y) = s' \text{ and } \theta: X_{s} \overset{\sim}{\rightarrow} X'_{s'}\}$.
+\par
+Take $\theta_{0}$ to be the given isomorphism $X_{s_{0}} \overset{\sim}{\rightarrow} X'_{s_{0}'}$.
+There is a one-to-one correspondence for all $A\in \mathscr{C}$
+\begin{equation*}
+    \{\spec A \rightarrow (S', s_{0}')\} \leftrightsquigarrow \{\spec A \rightarrow (\isomorphismscheme(p^{\ast}X, q^{\ast}X'), \theta_{0})\}
+\end{equation*}
+For each $\alpha': \spec A \rightarrow S'$, consider pull back $\spec A \times_{S'} k(s_{0}')$ which is a deformation of $X_{0}$ over $A$.
+By universal property of $\widetilde{X}$, we get there exists $\alpha: \spec A \rightarrow S$ such that $\spec A \times_{S} k(s_{0}) \cong \spec A \times_{S'} k(s_{0}')$.
+Denote the isomorphism by $\gamma$ and we get an element $(\alpha, \alpha', \delta)\in \isomorphismfunctor(p^{\ast}X, q^{\ast}X')(\spec A)$.
+By property of universal family, we see that this corresponds to $\spec A \rightarrow (\isomorphismscheme(p^{\ast}X, q^{\ast}X'), \theta_{0})$.
+\par
+Now with the correspondence, as the deformation functor of $X_{0}$ has universal family, $\isomorphismscheme(p^{\ast}X, q^{\ast}X') \rightarrow S'$ is etale near $\theta_{0} \mapsto s_{0}'$.
+When $S'$ also has this universal property, then we also get $\isomorphismscheme(p^{\ast}X, q^{\ast}X') \rightarrow X'$ is etale near $\theta_{0} \mapsto s_{0}$ so that the Isom scheme gives our desired locally etale cover.
+
+\section{Derived Category}
+\label{section:Derived_Category}
+
+\subsection{Derived category}
+\label{subsection:Derived_Category_Derived_category}
+
+\begin{definition}
+    Let $\mathscr{A}$ be an abelian category.
+    Denote $\mathcal{C}(\mathscr{A})$ to be the set of cochain complexes in $\mathscr{A}$.
+    For $A,B\in \mathcal{C}(\mathscr{A})$, a morphism $f: A \rightarrow B$ is called a quasi-isomorphism if $H^{\bullet}(f): H^{\bullet}(A) \overset{\sim}{\rightarrow} H^{\bullet}(B)$ are isomorphic.
+\end{definition}
+\begin{definition}
+    Let $\mathscr{A}$ be an abelian category.
+    Define derived category of $\mathscr{A}$ to be $\mathcal{D}(\mathscr{A}) := \{\text{cochain complexes in } \mathscr{A}\}/\text{quasi-isomorphisms}$.
+\end{definition}
+\begin{remark}
+    If $\mathscr{A}$ has enough injective objects, then for each $A\in \mathscr{A}$,
+    we can take an injective resolution $0 \rightarrow A \rightarrow I^{\bullet}$ and this would give a quasi-isomorphism
+    \begin{equation}
+        \begin{tikzcd}
+            0 \arrow[r] & 
+            A \arrow[r] \arrow[d, hookrightarrow] &
+            0 & \\
+            0 \arrow[r] &
+            I^{0} \arrow[r] &
+            I^{1} \arrow[r] & 
+            \cdots
+        \end{tikzcd}
+    \end{equation}
+    In addition, recall that for additive functor $\mathcal{F}$, we can define $R^{i}\mathcal{F}(A) := H^{i}(\mathcal{F}(I^{\bullet}))$.
+    But taking cohomology would give up a lot of messages, so we prefer to remember the whole complex.
+    \par
+    For $A^{\bullet}\in \mathcal{C}^{\ge 0}(\mathscr{A})$, there is a Cartan-Eilenburg resolution
+    \begin{equation}
+        \begin{tikzcd}
+            & 0 \arrow[d] &
+            0 \arrow[d] &
+            0 \arrow[d] & \\
+            0 \arrow[r] & 
+            A^{0} \arrow[r] \arrow[d, hookrightarrow] &
+            A^{1} \arrow[r] \arrow[d, hookrightarrow] &
+            A^{2} \arrow[r] \arrow[d, hookrightarrow] &
+            \cdots \\
+            0 \arrow[r] &
+            I^{0,0} \arrow[r] \arrow[d] &
+            I^{1,0} \arrow[r] \arrow[d] &
+            I^{2,0} \arrow[r] \arrow[d] &
+            \cdots \\
+            0 \arrow[r] &
+            I^{0,1} \arrow[r] \arrow[d] &
+            I^{1,1} \arrow[r] \arrow[d] &
+            I^{2,1} \arrow[r] \arrow[d] &
+            \cdots \\
+            & \cdots &
+            \cdots &
+            \cdots &
+        \end{tikzcd}
+    \end{equation}
+    where for all $i$, $0 \rightarrow A^{i} \rightarrow I^{i, \ast}$ is injective resolution of $A^{i}$.
+    We have that $A^{\bullet} \rightarrow Tot(I^{\bullet, \ast})$ is a quasi-isomorphism and hyper cohomology is defined as $R^{i}\mathcal{F}(A^{\bullet}) := H^{i}(\mathcal{F}(Tot(I^{\bullet, \ast})))$.
+\end{remark}
+\begin{example}
+    Let $X$ be a smooth projective variety over $\mathbb{C}$, $X^{\analytification}$ analytification of $X$.
+    There is a resolution of $\mathbb{C}$
+    \begin{equation}
+        0 \rightarrow \mathbb{C}_{X^{\analytification}} \rightarrow \mathcal{O}_{X^{\analytification}} \rightarrow \Omega_{X^{\analytification}}^{1} \rightarrow \Omega_{X^{\analytification}}^{2} \rightarrow \cdots
+    \end{equation}
+    Even though $\Omega_{X^{\analytification}}^{\bullet}$ is not a injective resolution,
+    we can apply hyper cohomology to compute cohomology of $\mathbb{C}$.
+    In fact, spectral sequence $E_{1}^{p, q} := H^{q}(X, \Omega_{X}^{p})$ converges to $H^{1}(X, \mathbb{C})$.
+\end{example}
+Intuitively, we can think that $ob(\mathcal{D}(\mathscr{A})) = ob(\mathcal{C}(\mathscr{A}))$,
+while quasi-isomorphisms in $\mathcal{C}(\mathscr{A})$ are identified as isomorphisms in $\mathcal{D}(\mathscr{A})$.
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category and $\mathscr{B}$ be any category, $\mathcal{F}: \mathcal{C}(\mathscr{A}) \rightarrow \mathscr{B}$ functor.
+    Assume that for all $f$ quasi-isomorphism, $\mathcal{F}(f)$ is isomorphism in $\mathscr{B}$.
+    Then $\mathcal{F}$ factor through unique $\mathcal{G}: \mathcal{D}(\mathscr{A}) \rightarrow \mathscr{B}$.
+    \begin{equation}
+        \begin{tikzcd}
+            \mathcal{C}(\mathscr{A}) \arrow[r] \arrow[dr, "\mathcal{F}"] &
+            \mathcal{D}(\mathscr{A}) \arrow[d, dashrightarrow, "\exists! \mathcal{G}"] \\
+            & \mathscr{B}
+        \end{tikzcd}
+    \end{equation}
+    \label{Lemma 6.1}
+\end{lemma}
+\begin{example}
+    Let $0 \rightarrow A^{\bullet} \overset{u}{\rightarrow} B^{\bullet} \overset{v}{\rightarrow} C^{\bullet} \rightarrow 0$ be a short exact sequence in $\mathcal{C}(\mathscr{A})$.
+    Then we get connecting maps $H^{i}(C^{\bullet}) \rightarrow H^{i + 1}(A^{\bullet})$.
+    And there really exists a morphism $C^{\bullet} \rightarrow A^{\bullet}[1]$ in $\mathcal{D}(\mathscr{A})$ given as following
+    \begin{equation}
+        \begin{tikzcd}
+            B^{\bullet} \arrow[r] \arrow[dr] &
+            \cone(u) \arrow[r] \arrow[d] & 
+            A^{\bullet} \\
+            & C^{\bullet} \arrow[ur, dashrightarrow] &
+        \end{tikzcd}
+    \end{equation}
+    where $\cone(u) = B^{\bullet} \oplus A^{\bullet}[1]$ and $\cone(u) \rightarrow C^{\bullet}$ sending $(b, a)$ to $v(b)$ is a quasi-isomorphism.
+\end{example}
+
+
+\end{document}rce.
+          files: |
+            # 下面的路径是 latex-action 的默认输出路径
+            # 请根据你上一步的实际输出PDF文件名修改 'main.pdf'
+            main.pdf
+          draft: false
+          prerelease: false
+          replace_assets: true # 覆盖已存在的资源文件（实现覆盖Release的关键）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
