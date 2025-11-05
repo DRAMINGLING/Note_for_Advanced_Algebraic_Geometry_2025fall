@@ -2328,6 +2328,7 @@ When $S'$ also has this universal property, then we also get $\isomorphismscheme
     \end{equation}
     where for all $i$, $0 \rightarrow A^{i} \rightarrow I^{i, \ast}$ is injective resolution of $A^{i}$.
     We have that $A^{\bullet} \rightarrow Tot(I^{\bullet, \ast})$ is a quasi-isomorphism and hyper cohomology is defined as $R^{i}\mathcal{F}(A^{\bullet}) := H^{i}(\mathcal{F}(Tot(I^{\bullet, \ast})))$.
+    \label{remark:derived_functor_when_there_are_enough_injective_objects}
 \end{remark}
 \begin{example}
     Let $X$ be a smooth projective variety over $\mathbb{C}$, $X^{\analytification}$ analytification of $X$.
@@ -2367,6 +2368,7 @@ while quasi-isomorphisms in $\mathcal{C}(\mathscr{A})$ are identified as isomorp
         \end{tikzcd}
     \end{equation}
     where $\cone(u) = B^{\bullet} \oplus A^{\bullet}[1]$ and $\cone(u) \rightarrow C^{\bullet}$ sending $(b, a)$ to $v(b)$ is a quasi-isomorphism.
+    \label{example:short_exact_sequence_of_complexes_inducing_a_triangle}
 \end{example}
 Given a morphism $E \rightarrow F$ in $\mathcal{D}(\mathscr{A})$, by definition, it should be of the following form
 \begin{equation*}
@@ -2608,4 +2610,94 @@ To solve this problem, we'd like to adapt a better way to define derived categor
     \end{equation}
     And for chain map $f: E \rightarrow F$, $f = 0$ in $\mathcal{D}(\mathscr{A})$ if and only if there exists quasi-isomorphism $q: E' \rightarrow E$ such that $f \circ q \simeq 0$.
 \end{remark}
+\begin{example}
+    Recall in Example \ref{example:short_exact_sequence_of_complexes_inducing_a_triangle}, 
+    for a short exact sequence of complexes $0 \rightarrow A^{\bullet} \overset{u}{\rightarrow} B^{\bullet} \overset{v}{\rightarrow} C^{\bullet} \rightarrow 0$,
+    there is a triangle up to quasi-isomorphism
+    \begin{equation}
+        \begin{tikzcd}
+            A^{\bullet} \arrow[r, "u"] &
+            B^{\bullet} \arrow[r, "v"] \arrow[dr] &
+            C^{\bullet} \arrow[r] &
+            A^{\bullet}[1] \\
+            && \cone(u) \arrow[u, "qis"] \arrow[ur] &
+        \end{tikzcd}
+    \end{equation}
+    If we view $A\in \mathscr{A}$ as a complex $A[0] = [0 \rightarrow A \rightarrow 0]$ where $A$ is at degree $0$,
+    then for a short sequence $0 \rightarrow A \overset{u}{\rightarrow} B \overset{v}{\rightarrow} C \rightarrow 0$ in $\mathscr{A}$,
+    similarly we have a triangle up to quasi-isomorphism
+    \begin{equation}
+        \begin{tikzcd}
+            A[0] \arrow[r, "u"] &
+            B[0] \arrow[r, "v"] \arrow[dr] &
+            C[0] \arrow[r] &
+            A[-1] \\
+            && \cone(u) \arrow[u, "qis"] \arrow[ur] &
+        \end{tikzcd}
+    \end{equation}
+    In particular, $\cone(u) = [0 \rightarrow A \rightarrow B \rightarrow 0]$ where $B$ is at degree $0$,
+    and the map $\cone(u) \rightarrow A[-1]$ is zero map in $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$ if and only if the given short exact sequence splits.
+\end{example}
+
+\subsection{Derived functor}
+\label{subsection:Derived_Category_Derived_functor}
+
+\begin{definition}
+    Let $\mathscr{A}$ be an abelian category.
+    A cochain complex $A^{\bullet}\in \mathcal{C}(\mathscr{A})$ is said to be strictly bounded-below (resp. above) if there exists some $n_{0}$ such that for all $i < n_{0}$ (resp. $i > n_{0}$), $A^{i} = 0$.
+    Denote $\mathcal{C}^{+}(\mathscr{A})$ (resp. $\mathcal{C}^{-}(\mathscr{A})$) to be the full subcategory of $\mathcal{C}(\mathscr{A})$ of strictly bounded-below (resp. above) complexes.
+    \par
+    A cochain complex $A^{\bullet}\in \mathcal{C}(\mathscr{A})$ is said to be bounded-below (resp. above) if there exists some $n_{0}$ such that for all $i < n_{0}$ (resp. $i > n_{0}$), $H^{i}(A^{\bullet}) = 0$.
+    Denote $\mathcal{D}^{+}(\mathscr{A})$ (resp. $\mathcal{D}^{-}(\mathscr{A})$) to be the set of equivalence classes of bounded-below (resp. above) complexes.
+\end{definition}
+\begin{remark}
+    Clearly, we have that $\mathcal{C}^{+}(\mathscr{A}) = \cup_{n} \mathcal{C}^{\ge n}(\mathscr{A})$ and $\mathcal{C}^{-}(\mathscr{A}) = \cup_{n} \mathcal{C}^{\le n}(\mathscr{A})$.
+\end{remark}
+\begin{definition}
+    Let $\mathscr{A}$ be an abelian category.
+    Define canonical truncation $\tau^{\ge n}$ (resp. $\tau^{\le n}$) to be a functor from $\mathcal{C}(\mathscr{A})$ to $\mathcal{C}(\mathscr{A})$
+    \begin{equation*}
+        A^{\bullet} \longmapsto [0 \rightarrow A^{n}/\im \partial_{n - 1} \rightarrow A^{n + 1} \rightarrow \cdots]
+    \end{equation*}
+    and respectively
+    \begin{equation*}
+        A^{\bullet} \longmapsto [\cdots \rightarrow A^{n - 1} \rightarrow \ker \partial_{n} \rightarrow 0]
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    There are also notions of naive truncations (or say stupid truncations) which sending $A^{\bullet}$ to $[0 \rightarrow A^{n} \rightarrow A^{n + 1} \rightarrow \cdots]$ or $[\cdots \rightarrow A^{n - 1} \rightarrow A^{n} \rightarrow 0]$.
+\end{remark}
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category.
+    Then $\mathcal{K}^{+}(\mathscr{A})$ (resp. $\mathcal{K}^{-}(\mathscr{A})$) can be identified with the localization of $\mathcal{C}^{+}(\mathscr{A})$ (resp. $\mathcal{C}^{-}(\mathscr{A})$) by quasi-isomorphisms.
+    \label{Lemma 6.6}
+\end{lemma}
+\begin{reason}
+    Linguistically, for all $A^{\bullet}\in \mathcal{D}^{+}(\mathscr{A})$, 
+    we only need to find a quasi-isomorphism $A^{\bullet} \rightarrow B^{\bullet}$ with $B^{bullet}$ strictly bounded-below.
+    Since $A^{\bullet}\in \mathcal{D}^{+}(\mathscr{A})$, there exists some $n_{0}$ such that for all $i < n_{0}$, $H^{i}(A^{\bullet}) = 0$.
+    It is natural to consider canonical truncation $\tau^{\ge n_{0} - 1}$.
+    There is a natural chain map
+    \begin{equation}
+        \begin{tikzcd}
+            \cdots \arrow[r] &
+            A^{n_{0} - 2} \arrow[r] \arrow[d] &
+            A^{n_{0} - 1} \arrow[r] \arrow[d] &
+            A^{n_{0}} \arrow[r] \arrow[d] &
+            \cdots \\
+            \cdots \arrow[r] &
+            0 \arrow[r] &
+            A^{n_{0} - 1}/\im \partial_{n_{0} - 2} \arrow[r] &
+            A^{n_{0}} \arrow[r] &
+            \cdots
+        \end{tikzcd}
+    \end{equation}
+    Clearly, this is a quasi-isomorphism and $\tau^{\ge n_{0} - 1}(A^{\bullet})$ is strictly bounded-below.
+\end{reason}
+Recall that in Remark \ref{remark:derived_functor_when_there_are_enough_injective_objects},
+when $\mathscr{A}$ has enough injective objects,
+we have defined derived functors both for objects in $\mathscr{A}$ and complexes in $\mathcal{C}^{+}(\mathscr{A})$.
+And same idea works for strictly bounded-below complex in $\mathcal{C}^{+}(\mathscr{A})$. 
+But what's about the case that $\mathscr{A}$ does not have enough injective objects?
+In the following, we would give a sufficient condition for existence of derived functor.
 \end{document}
