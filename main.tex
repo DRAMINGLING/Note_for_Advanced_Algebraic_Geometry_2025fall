@@ -55,6 +55,7 @@
 \newcommand{\characteristic}{\operatorname{Char}}
 \newcommand{\analytification}{\operatorname{an}}
 \newcommand{\cone}{\operatorname{cone}}
+\newcommand{\totalcomplex}{\operatorname{Tot}}
 
 \newcommand{\inverselimit}{\underset{\longleftarrow}{\lim}} 
 \newcommand{\colimit}{\underset{\longrightarrow}{\lim}}
@@ -2712,8 +2713,17 @@ Now given $\mathcal{F}$ and $\mathscr{A}' \subseteq \mathscr{A}$ satisfying $\ma
 by definition, for all $A\in \mathscr{A}$, we can find a $\mathcal{F}$-resolution $J^{\bullet}$ of $A$.
 Similar to the case when $\mathscr{A}$ has enough injective objects, we can just define $R^{i}\mathcal{F}(A) = H^{i}(\mathcal{F}(J^{\bullet}))$.
 \par
-For complexes, by same strategy of construction of Cartan-Eilenburg resolution, we can also define hyper cohomology.
-
+For complexes, by same strategy of construction of Cartan-Eilenburg resolution, there exists resolution $\mathcal{I}^{\bullet, \ast}$ for all $A^{\bullet}\in \mathcal{C}^{+}(\mathscr{A})$. 
+Hence we can also define hyper cohomology $R^{i}\mathcal{F}(A^{\bullet}) = H^{i}(\totalcomplex (\mathcal{I}^{\bullet, \ast}))$.
+To define derived functor on derived category, consider the following diagram
+\begin{equation}
+    \begin{tikzcd}
+        \mathcal{K}^{+}(\mathscr{A}) \arrow[r, "\mathcal{F}"] \arrow[d] &
+        \mathcal{K}^{+}(\mathscr{B}) \arrow[d] \\
+        \mathcal{D}^{+}(\mathscr{A}) \arrow[r, dashrightarrow, "R\mathcal{F}"] &
+        \mathcal{D}^{+}(\mathscr{B})
+    \end{tikzcd}
+\end{equation}
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
     Assume that there are two 
