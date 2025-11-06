@@ -2713,8 +2713,9 @@ Now given $\mathcal{F}$ and $\mathscr{A}' \subseteq \mathscr{A}$ satisfying $\ma
 by definition, for all $A\in \mathscr{A}$, we can find a $\mathcal{F}$-resolution $J^{\bullet}$ of $A$.
 Similar to the case when $\mathscr{A}$ has enough injective objects, we can just define $R^{i}\mathcal{F}(A) = H^{i}(\mathcal{F}(J^{\bullet}))$.
 \par
-For complexes, by same strategy of construction of Cartan-Eilenburg resolution, there exists resolution $\mathcal{I}^{\bullet, \ast}$ for all $A^{\bullet}\in \mathcal{C}^{+}(\mathscr{A})$. 
-Hence we can also define hyper cohomology $R^{i}\mathcal{F}(A^{\bullet}) = H^{i}(\totalcomplex (\mathcal{I}^{\bullet, \ast}))$.
+For complexes, by same strategy of construction of Cartan-Eilenburg resolution, there exists resolution $\mathcal{J}^{\bullet, \ast}$ for all $A^{\bullet}\in \mathcal{C}^{+}(\mathscr{A})$. 
+Hence we can also define hyper cohomology $R^{i}\mathcal{F}(A^{\bullet}) = H^{i}(\totalcomplex (\mathcal{J}^{\bullet, \ast}))$.
+And in fact, we would get a quasi-isomorphism $A^{\bullet} \rightarrow \totalcomplex (\mathcal{J}^{\bullet, \ast})$.
 To define derived functor on derived category, consider the following diagram
 \begin{equation}
     \begin{tikzcd}
@@ -2724,6 +2725,8 @@ To define derived functor on derived category, consider the following diagram
         \mathcal{D}^{+}(\mathscr{B})
     \end{tikzcd}
 \end{equation}
+And it is natural to define $R\mathcal{F}(A^{\bullet}) = \mathcal{F}(\totalcomplex (\mathcal{J})^{\bullet, \ast})$.
+To show this definition is well-defined and really a functor, we need following lemmas. 
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
     Assume that there are two 
