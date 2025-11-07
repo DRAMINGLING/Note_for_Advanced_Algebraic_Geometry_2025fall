@@ -810,32 +810,32 @@ For $C$ not regular, we need to define obstruction theory.
         \overset{\varphi}{\longmapsto} ob(A', u)\in V \otimes_{k} J
     \end{equation}
     satisfies the following conditions
-    \begin{equation*}
-        \begin{aligned}
-            \bullet & ob(A', u) = 0 \text{ iff $\exists$ lifting of } u,
-            \begin{tikzcd}
-                C \arrow[r, "u"] \arrow[dr, dashrightarrow] &
-                A \\
-                & A' \arrow[u, twoheadrightarrow]
-            \end{tikzcd}
-            \\
-            \bullet & \text{Functorial in the sense, } \forall K \subset J \text{ $k$-vector subspace}, 
-            \begin{tikzcd}[sep = small]
-                0 \arrow[r] &
-                J \arrow[r] \arrow[d] &
-                A' \arrow[r] \arrow[d] &
-                A \arrow[r] \arrow[d] &
-                0 \\
-                0 \arrow[r] &
-                J/K \arrow[r] &
-                A'/K \arrow[r] &
-                A \arrow[r] &
-                0
-            \end{tikzcd}
-            \\
-            & \varphi(u, A') \mapsto \varphi(u, A'/K) \text{ under } V \otimes J \rightarrow V \otimes J/K
-        \end{aligned}
-    \end{equation*}
+    \begin{itemize}
+        \item $ob(A', u) = 0$ iff $\exists$ lifting of $u$,
+        $
+        \begin{tikzcd}
+            C \arrow[r, "u"] \arrow[dr, dashrightarrow] &
+            A \\
+            & A' \arrow[u, twoheadrightarrow]
+        \end{tikzcd}
+        $
+        \item Functorial in the sense that $\forall K \subset J$ $k$-vector subspace, 
+        $
+        \begin{tikzcd}[sep = small]
+            0 \arrow[r] &
+            J \arrow[r] \arrow[d] &
+            A' \arrow[r] \arrow[d] &
+            A \arrow[r] \arrow[d] &
+            0 \\
+            0 \arrow[r] &
+            J/K \arrow[r] &
+            A'/K \arrow[r] &
+            A \arrow[r] &
+            0
+        \end{tikzcd}
+        $
+        $\varphi(u, A') \mapsto \varphi(u, A'/K)$ under $V \otimes J \rightarrow V \otimes J/K$
+    \end{itemize}
 \end{definition}
 
 \subsection{Canonical obstruction theory}
