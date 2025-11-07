@@ -228,22 +228,18 @@ Fix scheme $X$ and closed subscheme $Z \subset X$.
     Reduce to affine case, assume that $X = \spec A$ and $Z = \spec(A/I)$.
     Denote $A' = A \otimes_{k} k[\varepsilon]$.
     Then a 1st deformation of $Z$ can be expressed by following conditions
-    \begin{equation}
-        \begin{split}
-            & \bullet I' \subset A' \text{ ideal} \\
-            & \bullet A'/I' \otimes_{k[\varepsilon]} k \overset{\sim}{\longrightarrow} A/I \\
-            & \bullet A'/I' \text{ flat over } k[\varepsilon]
-        \end{split}
-    \end{equation}
+    \begin{itemize}
+        \item $I' \subset A'$ ideal 
+        \item $A'/I' \otimes_{k[\varepsilon]} k \overset{\sim}{\longrightarrow} A/I$
+        \item $A'/I'$ flat over $k[\varepsilon]$
+    \end{itemize}
     By Proposition \ref{Proposition 1.1}, we can rewrite the conditions
-    \begin{equation}
-        \begin{split}
-            & \bullet I' \subset A' \text{ ideal} \\
-            & \bullet A'/I' \otimes_{k[\varepsilon]} k \overset{\sim}{\longrightarrow} A/I \\
-            & \bullet A'/I' \text{ flat over } k[t] \text{ under map } t \longmapsto \varepsilon \\
-            & \bullet A/I \overset{\cdot \varepsilon}{\longrightarrow} A'/I' \text{ injective}
-        \end{split}
-    \end{equation}
+    \begin{itemize}
+        \item $I' \subset A'$ ideal
+        \item $A'/I' \otimes_{k[\varepsilon]} k \overset{\sim}{\longrightarrow} A/I$
+        \item $A'/I' \text{ flat over } k[t]$ under map $t \longmapsto \varepsilon$
+        \item $A/I \overset{\cdot \varepsilon}{\longrightarrow} A'/I'$ injective
+    \end{itemize}
     inducing a commutative diagram with exact rows and columns
     \begin{equation}
         \begin{tikzcd}
@@ -331,12 +327,10 @@ Globalized, get $H^{0}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}))$.
 Back to deformation, for $\varphi_{ij} := \varphi_{i}^{-1} \circ \varphi_{j}\big{|}_{U_{ij}}\in Aut(\mathcal{E}'\big{|}_{U_{i} \cap U_{j}}) = H^{0}(U_{i} \cap U_{j}, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}))$.
 Assume that $\varphi_{ij}$ corresponds to $\theta_{ij}$.
 Then 
-\begin{equation}
-    \begin{split}
-        & \bullet \varphi_{ij} \circ \varphi_{jk} = \varphi_{ik} \leftrightsquigarrow \theta_{ij} + \theta_{jk} = \theta_{ik} \\
-        & \bullet \text{modify } \varphi_{i} = \varphi_{i}' \circ \psi_{i} \leftrightsquigarrow \theta_{ij} = \theta_{ij}' + \rho_{i} - \rho_{j}
-    \end{split}
-\end{equation}
+\begin{itemize}
+    \item $\varphi_{ij} \circ \varphi_{jk} = \varphi_{ik} \leftrightsquigarrow \theta_{ij} + \theta_{jk} = \theta_{ik}$ \\
+    \item $\text{modify } \varphi_{i} = \varphi_{i}' \circ \psi_{i} \leftrightsquigarrow \theta_{ij} = \theta_{ij}' + \rho_{i} - \rho_{j}$
+\end{itemize}
 Conclude that 1st order deformations of $\mathcal{E}$ in $X$ is $H^{1}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}))$.
 \begin{remark}
     If generalize vector bundles to coherent sheaves, the answer is $\ext_{X}^{1}(\mathcal{E}, \mathcal{E})$ since each element in $\ext_{X}^{1}(\mathcal{E}, \mathcal{E})$ gives an extension
@@ -1121,13 +1115,11 @@ Now we can get a family in $\mathcal{F}(A)$ by the following commutative diagram
     In particular, element $(\xi_{n})_{n}\in \inverselimit \mathcal{F}(R/\mathfrak{m}^{n})$ is called a formal family.
 \end{definition}
 For a functor $\mathcal{F}$ of artinian local ring, there are several questions
-\begin{equation*}
-    \begin{split}
-        & \bullet \text{When pro-representable?} \\ 
-        & \bullet \text{When algebraic?} \\
-        & \bullet \text{Global moduli}
-    \end{split}
-\end{equation*}
+\begin{itemize}
+    \item When pro-representable?
+    \item When algebraic?
+    \item Existence of global moduli?
+\end{itemize}
 \begin{example}[\textbf{\emph{No moduli of $\mathbb{P}_{k}^{1}$-bundles}}]
     There does not exist moduli space $M$ such that $\mor(S, M) \cong \{\mathbb{P}_{k}^{1}-\text{bundles over } S\}$.
     \label{example:no_moduli_of_bundles_on_projective_line}
@@ -1511,12 +1503,10 @@ Here we begin with a new definition of formal family.
     Let $X_{0}$ be a scheme over $k$.
     Consider the deformation functor $\mathcal{F}$ of $X_{0}$ defined in Example \ref{example:deformation_functor_of_artinian_local_ring}.
     If $X$ satisfies either of the two following hypothesis
-    \begin{equation}
-        \begin{split}
-            & \bullet X_{0} \text{ is projective} \\
-            & \bullet X_{0} \text{ is affine with isolated singularities}
-        \end{split}
-    \end{equation}
+    \begin{itemize}
+        \item $X_{0}$ is projective
+        \item $X_{0}$ is affine with isolated singularities
+    \end{itemize}
     then $\mathcal{F}$ has miniversal family.
     In fact, $H_{0}$, $H_{1}$ and $H_{2}$ hold for all $k$-scheme $X_{0}$ and the two hypothesis only play a role in $H_{3}$.
     \par
