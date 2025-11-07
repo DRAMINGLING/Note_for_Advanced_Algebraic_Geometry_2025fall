@@ -2635,17 +2635,45 @@ I would like to write the last sentence as a lemma.
     \begin{equation}
         \begin{tikzcd}
             [A \arrow[r, hookrightarrow] \arrow[d, "id_{A}"] &
-            B] \arrow[d, "0"] \\
+            B] \arrow[d] \\
             [A \arrow[r] &
             0]
         \end{tikzcd}
-        \label{equation:chain_map_induced_by_identity}
+        \label{equation:chain_map_induced_by_identity_map}
     \end{equation}
     \label{Lemma 6.6}
 \end{lemma}
 \begin{proof}
     Suffice to show the $\Rightarrow$ arrow.
-    Assume chain map \ref{}
+    Assume chain map \ref{equation:chain_map_induced_by_identity_map} is zero map in $\mathcal(K)(\mathscr{A})$,
+    then there exists quasi-isomorphism $X^{\bullet} \overset{\varphi}(\rightarrow) [A \hookrightarrow B]$ such that their composition is null-homotopic.
+    By canonical truncation, we may assume that for all $i \ge 1$, $X^{i} = 0$.
+    Hence there exists morphism $D: X_{0} \rightarrow A$ such that the following diagram commutes
+    \begin{equation}
+        \begin{tikzcd}
+            X^{-1} \arrow[r, "\partial_{X}"] \arrow[d, "\varphi_{-1}"] &
+            X^{0} \arrow[r] \arrow[d, "\varphi_{0}"] \arrow[ddl, "D"] &
+            0 \\
+            A \arrow[r, hookrightarrow] \arrow[d, "id_{A}"] &
+            B \arrow[d] & 
+            0 \\
+            A \arrow[r] &
+            0
+        \end{tikzcd}
+    \end{equation}
+    Note that $\varphi$ is a quasi-isomorphism, for all $b\in B$,
+    there exists some $x\in X^{0}$ such that $\overline{\varphi_{0}(x)} = \overline{b}$ in $B/A$.
+    Hence $a := \varphi_{0}(x) - b\in A$.
+    Define $s(b) = a - D(x)$.
+    \par
+    First to check that $s$ is well-defined.
+    Assume that $x_{1},x_{2}\in X^{0}$ satisfies that $\overline{x_{1}} = \overline{b} = \overline{x_{2}}$.
+    Then $x_{1} - x_{2}\in \im \partial_{X}$ so that there exists $x'\in X^{-1}$ mapping to $x_{1} - x_{2}$.
+    Denote $a_{1} = \varphi_{0}(x_{1}) - b$ and $a_{2} = \varphi_{0}(x_{2}) - b$.
+    Note that $a_{1} - a_{2} = \varphi_{0}(x_{1} - x_{2}) = \varphi_{0} \circ \partial_{X}(x') = \varphi_{-1}(x)$.
+    Thus $a_{1} - g(x_{1}) - (a_{2} - g(x_{2})) = (a_{1} - a_{2}) - g(x_{1} - x_{2}) = (a_{1} - a_{2}) - \varphi_{-1}(x')= 0$ so that $s$ is well-defined.
+    And $s(a) = a - 0 = a$.
+    Conclude that chain map \ref{equation:chain_map_induced_by_identity_map} is null-homotopic.
 \end{proof}
 
 \subsection{Derived functor}
