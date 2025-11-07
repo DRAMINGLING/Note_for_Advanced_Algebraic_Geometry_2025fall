@@ -2627,6 +2627,26 @@ To solve this problem, we'd like to adapt a better way to define derived categor
     In particular, $\cone(u) = [0 \rightarrow A \rightarrow B \rightarrow 0]$ where $B$ is at degree $0$,
     and the map $\cone(u) \rightarrow A[1]$ is zero map in $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$ if and only if the given short exact sequence splits.
 \end{example}
+I would like to write the last sentence as a lemma.
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category.
+    Assume $A \rightarrow B$ is an injection in $\mathscr{A}$.
+    Then the following chain map is zero map in $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$.
+    \begin{equation}
+        \begin{tikzcd}
+            [A \arrow[r, hookrightarrow] \arrow[d, "id_{A}"] &
+            B] \arrow[d, "0"] \\
+            [A \arrow[r] &
+            0]
+        \end{tikzcd}
+        \label{equation:chain_map_induced_by_identity}
+    \end{equation}
+    \label{Lemma 6.6}
+\end{lemma}
+\begin{proof}
+    Suffice to show the $\Rightarrow$ arrow.
+    Assume chain map \ref{}
+\end{proof}
 
 \subsection{Derived functor}
 \label{subsection:Derived_Category_Derived_functor}
@@ -2659,7 +2679,7 @@ To solve this problem, we'd like to adapt a better way to define derived categor
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
     Then $\mathcal{K}^{+}(\mathscr{A})$ (resp. $\mathcal{K}^{-}(\mathscr{A})$) can be identified with the localization of $\mathcal{C}^{+}(\mathscr{A})$ (resp. $\mathcal{C}^{-}(\mathscr{A})$) by quasi-isomorphisms.
-    \label{Lemma 6.6}
+    \label{Lemma 6.7}
 \end{lemma}
 \begin{reason}
     Linguistically, for all $A^{\bullet}\in \mathcal{D}^{+}(\mathscr{A})$, 
