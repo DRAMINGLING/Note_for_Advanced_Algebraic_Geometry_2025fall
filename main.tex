@@ -819,8 +819,8 @@ For $C$ not regular, we need to define obstruction theory.
             & A' \arrow[u, twoheadrightarrow]
         \end{tikzcd}
         $
-        \item Functorial in the sense that $\forall K \subset J$ $k$-vector subspace, 
-        $
+        \item Functorial in the sense that $\forall K \subset J$ $k$-vector subspace, in the following commutative diagram
+        $$
         \begin{tikzcd}[sep = small]
             0 \arrow[r] &
             J \arrow[r] \arrow[d] &
@@ -833,7 +833,7 @@ For $C$ not regular, we need to define obstruction theory.
             A \arrow[r] &
             0
         \end{tikzcd}
-        $
+        $$
         $\varphi(u, A') \mapsto \varphi(u, A'/K)$ under $V \otimes J \rightarrow V \otimes J/K$
     \end{itemize}
 \end{definition}
@@ -2413,6 +2413,8 @@ To solve this problem, we'd like to adapt a better way to define derived categor
     \end{equation}
     \label{Lemma 6.2}
 \end{lemma}
+\vspace{-\baselineskip} % 减少一行间距
+\vspace{-\baselineskip} % 减少一行间距
 \begin{proof}
     Firstly, it is clear that $p \circ i$ is zero map hence null-homotopic.
     Suffices to show $i \circ f \simeq 0$ and $f[1] \circ p \simeq 0$.
@@ -2634,10 +2636,10 @@ I would like to write the last sentence as a lemma.
     Then the following chain map is zero map in $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$.
     \begin{equation}
         \begin{tikzcd}
-            [A \arrow[r, hookrightarrow] \arrow[d, "id_{A}"] &
-            B] \arrow[d] \\
-            [A \arrow[r] &
-            0]
+            {[A} \arrow[r, hookrightarrow] \arrow[d, "id_{A}"] &
+            {B]} \arrow[d] \\
+            {[A} \arrow[r] &
+            {0]}
         \end{tikzcd}
         \label{equation:chain_map_induced_by_identity_map}
     \end{equation}
@@ -2654,8 +2656,8 @@ I would like to write the last sentence as a lemma.
             X^{-1} \arrow[r, "\partial_{X}"] \arrow[d, "\varphi_{-1}"] &
             X^{0} \arrow[r] \arrow[d, "\varphi_{0}"] \arrow[ddl, "D"] &
             0 \\
-            A \arrow[r, hookrightarrow] \arrow[d, "id_{A}"] &
-            B \arrow[d] & 
+            A \arrow[r, hookrightarrow] \arrow[d, "id_{A}" swap] &
+            B \arrow[r] \arrow[d] & 
             0 \\
             A \arrow[r] &
             0
@@ -2664,15 +2666,15 @@ I would like to write the last sentence as a lemma.
     Note that $\varphi$ is a quasi-isomorphism, for all $b\in B$,
     there exists some $x\in X^{0}$ such that $\overline{\varphi_{0}(x)} = \overline{b}$ in $B/A$.
     Hence $a := \varphi_{0}(x) - b\in A$.
-    Define $s(b) = a - D(x)$.
+    Define $s(b) = D(x) - a$.
     \par
     First to check that $s$ is well-defined.
     Assume that $x_{1},x_{2}\in X^{0}$ satisfies that $\overline{x_{1}} = \overline{b} = \overline{x_{2}}$.
     Then $x_{1} - x_{2}\in \im \partial_{X}$ so that there exists $x'\in X^{-1}$ mapping to $x_{1} - x_{2}$.
     Denote $a_{1} = \varphi_{0}(x_{1}) - b$ and $a_{2} = \varphi_{0}(x_{2}) - b$.
     Note that $a_{1} - a_{2} = \varphi_{0}(x_{1} - x_{2}) = \varphi_{0} \circ \partial_{X}(x') = \varphi_{-1}(x)$.
-    Thus $a_{1} - g(x_{1}) - (a_{2} - g(x_{2})) = (a_{1} - a_{2}) - g(x_{1} - x_{2}) = (a_{1} - a_{2}) - \varphi_{-1}(x')= 0$ so that $s$ is well-defined.
-    And $s(a) = a - 0 = a$.
+    Thus $D(x_{1}) - a_{1} - (D(x_{2}) - a_{2}) = D(x_{1} - x_{2}) - (a_{1} - a_{2}) = \varphi_{-1}(x') - (a_{1} - a_{2}) = 0$ so that $s$ is well-defined.
+    And $s(a) = 0 - (-a) = a$.
     Conclude that chain map \ref{equation:chain_map_induced_by_identity_map} is null-homotopic.
 \end{proof}
 
