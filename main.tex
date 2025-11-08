@@ -396,16 +396,16 @@ Conclude that 1st order deformations of $\mathcal{E}$ in $X$ is $H^{1}(X, \sheaf
     \par
     As $A$ is smooth over $k$, there is an exact sequence of locally free sheaves 
     \begin{equation}
-        0 \longrightarrow I/I^{2} \longrightarrow \Omega_{P/k} \otimes_{k} A \longrightarrow \Omega_{A/k} \longrightarrow 0
+        0 \longrightarrow I/I^{2} \longrightarrow \Omega_{P/k} \otimes_{P} A \longrightarrow \Omega_{A/k} \longrightarrow 0
     \end{equation}
     Apply $\hom_{A}(\cdot, J)$, get
     \begin{equation}
         \begin{tikzcd}
-            \hom_{A}(\Omega_{P/k} \otimes_{k} A, J) \arrow[r, twoheadrightarrow] \arrow[d, equal] &
+            \hom_{A}(\Omega_{P/k} \otimes_{P} A, J) \arrow[r, twoheadrightarrow] \arrow[d, equal] &
             \hom_{A}(I/I^{2}, J) \arrow[d, equal] \\
-            \hom_{k}(\Omega_{P/k}, J) \arrow[d, equal] &
+            \hom_{P}(\Omega_{P/k}, J) \arrow[d, equal] &
             \hom_{P}(I, J) \\
-            Der_{P}(P, J) &
+            Der_{k}(P, J) &
         \end{tikzcd}
     \end{equation}
     By surjectivity, we can find appropriate $\delta$ such that $I \rightarrow J$ induced by $\varphi + \delta$ is zero map.
