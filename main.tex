@@ -71,6 +71,8 @@
 \newcommand{\isomorphismscheme}{\operatorname{Isom}}
 \newcommand{\isomorphismfunctor}{\mathcal{I}\kern -.5pt som}
 
+\newcommand{\abeliangroups}{\mathcal{A}\kern -.5pt b}
+
 \title{代数几何进阶-2025秋}
 \author{}
 \date{}
@@ -2329,6 +2331,7 @@ When $S'$ also has this universal property, then we also get $\isomorphismscheme
     Even though $\Omega_{X^{\analytification}}^{\bullet}$ is not a injective resolution,
     we can apply hyper cohomology to compute cohomology of $\mathbb{C}$.
     In fact, spectral sequence $E_{1}^{p, q} := H^{q}(X, \Omega_{X}^{p})$ converges to $H^{1}(X, \mathbb{C})$.
+    \label{example:compute_cohomology_of_complex_field_with_hyper_cohomology}
 \end{example}
 Intuitively, we can think that $ob(\mathcal{D}(\mathscr{A})) = ob(\mathcal{C}(\mathscr{A}))$,
 while quasi-isomorphisms in $\mathcal{C}(\mathscr{A})$ are identified as isomorphisms in $\mathcal{D}(\mathscr{A})$.
@@ -2504,7 +2507,7 @@ To solve this problem, we'd like to adapt a better way to define derived categor
             F'
         \end{tikzcd}
     \end{equation}
-    where $r$ and $g$ are natural inclusion.
+    where $r$ and $g$ are natural inclusions.
     Want to check that $r$ is quasi-isomorphism and the diagram is commutative in the sense up to homotopy.
     \par
     For $[f]\in H^{n}(F)$, $[f]$ is mapping to $[(0, f, 0)]$.
@@ -2617,7 +2620,7 @@ To solve this problem, we'd like to adapt a better way to define derived categor
     \end{equation}
     If we view $A\in \mathscr{A}$ as a complex $A[0] = [0 \rightarrow A \rightarrow 0]$ where $A$ is at degree $0$,
     then for a short sequence $0 \rightarrow A \overset{u}{\rightarrow} B \overset{v}{\rightarrow} C \rightarrow 0$ in $\mathscr{A}$,
-    similarly we have a triangle up to quasi-isomorphism
+    similarly we have an exact triangle up to quasi-isomorphism
     \begin{equation}
         \begin{tikzcd}
             A[0] \arrow[r, "u"] &
@@ -2646,6 +2649,7 @@ I would like to write the last sentence as a lemma.
     \end{equation}
     \label{Lemma 6.6}
 \end{lemma}
+\vspace{-\baselineskip} % 减少一行间距
 \begin{proof}
     Suffice to show the $\Rightarrow$ arrow.
     Assume chain map \ref{equation:chain_map_induced_by_identity_map} is zero map in $\mathcal(K)(\mathscr{A})$,
@@ -2678,6 +2682,10 @@ I would like to write the last sentence as a lemma.
     And $s(a) = 0 - (-a) = a$.
     Conclude that chain map \ref{equation:chain_map_induced_by_identity_map} is null-homotopic.
 \end{proof}
+\begin{remark}
+    Note that cohomology group homomorphism induced by chain map \ref{equation:chain_map_induced_by_identity_map} is always a zero map,
+    this is also an example that nonzero morphism in $\mathcal{K}(\mathscr{A})$ induces trivial cohomology group homomorphism.
+\end{remark}
 
 \subsection{Derived functor}
 \label{subsection:Derived_Category_Derived_functor}
@@ -2709,7 +2717,7 @@ I would like to write the last sentence as a lemma.
 \end{remark}
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
-    Then $\mathcal{K}^{+}(\mathscr{A})$ (resp. $\mathcal{K}^{-}(\mathscr{A})$) can be identified with the localization of $\mathcal{C}^{+}(\mathscr{A})$ (resp. $\mathcal{C}^{-}(\mathscr{A})$) by quasi-isomorphisms.
+    Then $\mathcal{D}^{+}(\mathscr{A})$ (resp. $\mathcal{D}^{-}(\mathscr{A})$) can be identified with the localization of $\mathcal{C}^{+}(\mathscr{A})$ (resp. $\mathcal{C}^{-}(\mathscr{A})$) by quasi-isomorphisms.
     \label{Lemma 6.7}
 \end{lemma}
 \begin{reason}
@@ -2741,7 +2749,7 @@ And same idea works for strictly bounded-below complex in $\mathcal{C}^{+}(\math
 But what's about the case that $\mathscr{A}$ does not have enough injective objects?
 In the following, we would give a sufficient condition for existence of derived functor.
 \begin{definition}
-    Let $\mathscr{A}, \mathscr{B}$ be abelian categories, $\mathcal{F}: \mathscr{A} \rightarrow \mathscr{B}$ an additive functor, $\mathscr{A}' \subseteq \mathscr{A}$ full additive category.
+    Let $\mathscr{A}, \mathscr{B}$ be abelian categories, $\mathcal{F}: \mathscr{A} \rightarrow \mathscr{B}$ an additive functor, $\mathscr{A}' \subseteq \mathscr{A}$ full additive subcategory.
     We say that $\mathscr{A}'$ satisfies $\mathcal{F}$-condition if \\
     (1)for all $A\in \mathscr{A}$, there is an injection $A \hookrightarrow A'$ with $A'\in \mathscr{A}'$. \\
     (2)for any short exact sequence $0 \rightarrow A \rightarrow B \rightarrow C \rightarrow 0$ in $\mathscr{A}$,
@@ -2764,10 +2772,203 @@ To define derived functor on derived category, consider the following diagram
         \mathcal{D}^{+}(\mathscr{B})
     \end{tikzcd}
 \end{equation}
+where $\mathcal{K}^{+}(\mathscr{A})$ (resp. $\mathcal{K}^{-}(\mathscr{A})$) is the homotopy category of strictly bounded-below (resp. above) complexes.
 And it is natural to define $R\mathcal{F}(A^{\bullet}) = \mathcal{F}(\totalcomplex (\mathcal{J})^{\bullet, \ast})$.
 To show this definition is well-defined and really a functor, we need following lemmas. 
 \begin{lemma}
-    Let $\mathscr{A}$ be an abelian category.
-    Assume that there are two 
+    Let $A^{\bullet} \rightarrow B^{\bullet}$ be a chain map in $\mathcal{C}^{+}(\mathscr{A})$.
+    By argument above, there are two quasi-isomorphisms $A^{\bullet} \rightarrow A'^{\bullet}$ and $B^{\bullet} \rightarrow B'^{\bullet}$ with $A'^{\bullet},B'^{\bullet}\in \mathcal{C}(\mathscr{A}')$.
+    Then there exists morphism $A'^{\bullet} \rightarrow B'^{\bullet}$ in $\mathcal{D}(\mathscr{A}')$ making the following diagram commutes
+    \begin{equation}
+        \begin{tikzcd}
+            A^{\bullet} \arrow[r, "qis"] \arrow[d] &
+            A'^{\bullet} \arrow[d] \\
+            B^{\bullet} \arrow[r, "qis"] &
+            B'^{\bullet}
+        \end{tikzcd}
+    \end{equation}
+    Moreover, the morphism is independent to the choice of quasi-isomorphisms.
+    \label{Lemma 6.8}
+\end{lemma}
+\begin{proof}
+    Applying Lemma \ref{Lemma 6.5} (1), there exists $C^{\bullet}\in \mathcal{C}(\mathscr{A})$ such that the following diagram commutes up to homotopy
+    \begin{equation}
+        \begin{tikzcd}
+            A^{\bullet} \arrow[r, "qis"] \arrow[d] &
+            A'^{\bullet} \arrow[d] \\
+            B^{\bullet} \arrow[r, "qis"] \arrow[d, "qis"] &
+            C^{\bullet} \\
+            B'^{\bullet} &
+        \end{tikzcd}
+    \end{equation}
+    Note that $C^{\bullet}$ is also bounded-below, by Cartan-Eilenburg resolution, we can replace $C^{\bullet}$ by $C'^{\bullet}\in \mathcal{C}(\mathscr{A}')$ with $C^{\bullet} \overset{qis}{\rightarrow} C'^{\bullet}$.
+    Again apply Lemma \ref{Lemma 6.5} (1), there exists $D^{\bullet}\in \mathcal{C}(\mathscr{A}')$ such that the following diagram commutes up to homotopy
+    \begin{equation}
+        \begin{tikzcd}
+            A^{\bullet} \arrow[r, "qis"] \arrow[d] &
+            A'^{\bullet} \arrow[d] \\
+            B^{\bullet} \arrow[r, "qis"] \arrow[d, "qis"] &
+            C^{\bullet} \arrow[d] \\
+            B'^{\bullet} \arrow[r, "qis"] &
+            D^{\bullet}
+        \end{tikzcd}
+    \end{equation}
+    Hence we get a morphism $A'^{\bullet} \rightarrow B'^{\bullet}$ in $\mathcal{D}(\mathscr{A}')$.
+    Independentness is clear.
+\end{proof}
+\begin{lemma}
+    Let $A^{\bullet} \rightarrow B^{\bullet}$ be a quasi-isomorphism in $\mathcal{C}(\mathscr{A}')$.
+    Then $\mathcal{F}(A^{\bullet}) \rightarrow \mathcal{F}(B^{\bullet})$ is also a quasi-isomorphism.
+    \label{Lemma 6.9}
+\end{lemma}
+\begin{reason}
+    As $\mathcal{F}$ is exact on $\mathscr{A}'$, it preserves kernel, image and hence cohomology group.
+\end{reason}
+\begin{remark}
+    This lemma tells us we can well define $\mathcal{F}$ on $\mathcal{D}(\mathscr{A}')$.
+\end{remark}
+\begin{lemma}
+    $R\mathcal{F}$ is well defined.
+    \label{Lemma 6.10}
+\end{lemma}
+\begin{proof}
+    Assume that there are two quasi-isomorphisms $f: A^{\bullet} \rightarrow A'^{\bullet}$ and $g: A^{\bullet} \rightarrow A''^{\bullet}$ with $A'^{\bullet},A''^{\bullet}\in \mathcal{C}(\mathscr{A}')$.
+    Similar to proof of Lemma \ref{Lemma 6.5} (1), taking $A'''^{\bullet} = \cone((f, g))$, we get a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            A^{\bullet} \arrow[r, "g"] \arrow[d, "f"] &
+            A''^{\bullet} \arrow[d, "\beta"] \\
+            A'^{\bullet} \arrow[r, "-\alpha"] &
+            A'''^{\bullet} 
+        \end{tikzcd}
+    \end{equation}
+    where $\alpha$ and $\beta$ are natural inclusions.
+    By same argument as proof of Lemma \ref{Lemma 6.5} (1), $\alpha$ and $\beta$ are both quasi-isomorphism.
+    By Lemma \ref{Lemma 6.9}, $\mathcal{F}(A'^{\bullet}) = \mathcal{F}(A'''^{\bullet}) = \mathcal{F}(A''^{\bullet})$ in $\mathcal{D}(\mathscr{A})$,
+\end{proof}
+Recall that between triangulated categories, a triangulated functor (or say exact functor) is a functor respecting the triangulated structure i.e it commutes with shift functor and preserves exact triangles.
+Then for any additive functor $\mathcal{F}: \mathscr{A} \rightarrow \mathscr{B}$, the induced functor $\mathcal{F}: \mathcal{K}(\mathscr{A}) \rightarrow \mathcal{K}(\mathscr{B})$ is triangulated.
+\par
+With lemmas above, we can define a natural transformation
+\begin{equation}
+    \begin{tikzcd}
+        \mathcal{K}^{+}(\mathscr{A}) \arrow[r, "\mathcal{F}"] \arrow[d] &
+        \mathcal{K}^{+}(\mathscr{B}) \arrow[d] \arrow[dl, Rightarrow, "\varepsilon" swap] \\
+        \mathcal{D}^{+}(\mathscr{A}) \arrow[r, "R\mathcal{F}"] &
+        \mathcal{D}^{+}(\mathscr{B})
+    \end{tikzcd}
+\end{equation}
+For all $A^{\bullet}\in \mathcal{K}^{+}(\mathscr{A})$, take quasi-isomorphism $A^{\bullet} \rightarrow A'^{\bullet}$ with $A'^{\bullet}\in \mathcal{C}(\mathscr{A}')$.
+The morphism $\varepsilon(A^{\bullet})$ in $\mathcal{D}(\mathscr{A})$ is just the morphism in $\mathcal{K}(\mathscr{A})$ induced by $A^{\bullet} \overset{qis}{\rightarrow} A'^{\bullet}$.
+And for all morphism $f: A^{\bullet} \rightarrow B^{\bullet}$ in $\mathcal{C}^{+}(\mathscr{A})$, there is a commutative diagram 
+\begin{equation}
+    \begin{tikzcd}
+        \mathcal{F}(A^{\bullet}) \arrow[r, "\varepsilon(A^{\bullet})"] \arrow[d, "\mathcal{F}f"] &
+        R\mathcal{F}(A^{\bullet}) = \mathcal{F}(A'^{\bullet}) \arrow[d, "\mathcal{F}\widetilde{f}"] \\
+        \mathcal{F}(B^{\bullet}) \arrow[r, "\varepsilon(B^{\bullet})"] &
+        R\mathcal{F}(B^{\bullet}) = \mathcal{F}(B'^{\bullet})
+    \end{tikzcd}
+\end{equation}
+where $\widetilde{f}$ is the morphism in $\mathcal{D}(\mathscr{A}')$ given by Lemma \ref{Lemma 6.8}.
+\par
+In addition, $R\mathcal{F}$ is an exact functor and $(R\mathcal{F}, \varepsilon)$ has universal property as following.
+Given exact functor $\mathcal{G}: \mathcal{D}^{+}(\mathscr{A}) \rightarrow \mathcal{D}^{+}(\mathscr{B})$ and a natural transformation
+\begin{equation}
+    \begin{tikzcd}
+        \mathcal{K}^{+}(\mathscr{A}) \arrow[r, "\mathcal{F}"] \arrow[d] &
+        \mathcal{K}^{+}(\mathscr{B}) \arrow[d] \arrow[dl, Rightarrow, "{\varepsilon'}" swap] \\
+        \mathcal{D}^{+}(\mathscr{A}) \arrow[r, "\mathcal{G}"] &
+        \mathcal{D}^{+}(\mathscr{B})
+    \end{tikzcd}
+\end{equation}
+there exists unique natural transformation $\pi: R\mathcal{F} \rightarrow \mathcal{G}$ such that $\varepsilon' = \pi \circ \varepsilon$.
+\begin{example}
+    Let $X$ be a smooth projective complex manifold.
+    As Example \ref{example:compute_cohomology_of_complex_field_with_hyper_cohomology}, there is a resolution of $\mathbb{C}$
+    \begin{equation}
+        0 \rightarrow \mathbb{C}_{X} \rightarrow \mathcal{O}_{X} = \Omega_{X}^{0} \rightarrow \Omega_{X}^{1} \rightarrow \Omega_{X}^{2} \rightarrow \cdots
+    \end{equation}
+    Hence $\mathcal{C}_{X}[0] \rightarrow \Omega_{X}^{\bullet}$ is a quasi-isomorphism and $R\Gamma(X, \mathbb{C}_{X}[0]) = R\Gamma(X, \Omega_{X}^{\bullet})$.
+    \par
+    Algebraically, the same complex is not still exact.
+    However, by Serre's GAGA, we claim that $R\Gamma(X^{\operatorname{alg}}, \Omega_{X^{\operatorname{alg}}}^{\bullet}) = R\Gamma(X^{\analytification}, \Omega_{X^{\analytification}}^{\bullet})$.
+\end{example}
+
+\subsection{Total hom functor}
+\label{subsection:Derived_Category_Total_hom_functor}
+
+\begin{definition}
+    Let $\mathscr{A}$ be an abelian category, $A^{\bullet},B^{\bullet}\in \mathcal{C}(\mathscr{A})$.
+    Define total hom complex $\hom^{\bullet}(A^{\bullet}, B^{\bullet})$, where $\hom^{p}(A^{\bullet}, B^{\bullet}) = \prod_{n} \hom_{\mathscr{A}}(A^{n}, B^{n + p})$.
+    In fact, this is the total complex of the following diagram
+    \begin{equation}
+        \begin{tikzcd}
+            & \cdots \arrow[d] &
+            \cdots \arrow[d] & \\ 
+            \cdots \arrow[r] &
+            \hom_{\mathscr{A}}(A^{n}, B^{n + p}) \arrow[r, "\circ \partial_{A}^{n - 1}"] \arrow[d, "\partial_{B}^{n + p} \circ"] &
+            \hom_{\mathscr{A}}(A^{n - 1}, B^{n + p}) \arrow[r] \arrow[d, "\partial_{B}^{n + p} \circ"] &
+            \cdots \\
+            \cdots \arrow[r] &
+            \hom_{\mathscr{A}}(A^{n}, B^{n + p + 1}) \arrow[r, "\circ \partial_{A}^{n - 1}"] \arrow[d] &
+            \hom_{\mathscr{A}}(A^{n - 1}, B^{n + p + 1}) \arrow[r] \arrow[d] &
+            \cdots \\
+            & \cdots &
+            \cdots &
+        \end{tikzcd}
+    \end{equation}
+    with boundary map given by $f \mapsto \partial_{B}^{n + p} \circ f - (-1)^{p}f \circ \partial_{A}^{n - 1}$.
+\end{definition}
+Fixed $A^{\bullet}$, we would get a covariant functor $\hom^{\bullet}(A^{\bullet}, \cdot)$, called total hom functor.
+While total hom functor does not comes from some functor $\mathcal{F}: \mathscr{A} \rightarrow \abeliangroups$,
+to define derived functor of it, we need generalize our argument in subsection \ref{subsection:Derived_Category_Derived_functor}.
+\begin{definition}
+    Let $\mathscr{A}, \mathscr{B}$ be abelian categories, $\mathcal{F}: \mathcal{K}(\mathscr{A}) \rightarrow \mathcal{K}(\mathscr{B})$ a triangulated functor, $\mathcal{K}' \subseteq \mathcal{K}(\mathscr{A})$ full triangulated subcategory.
+    We say that $\mathcal{K}'$ satisfies $\mathcal{F}$-condition if \\
+    (1)for all $A^{\bullet}\in \mathcal{K}(\mathscr{A})$, there is a quasi-isomorphism $A^{\bullet} \rightarrow A'^{\bullet}$ with $A'^{\bullet}\in \mathcal{K}'$. \\
+    (2)for all $A^{\bullet}\in \mathcal{K}'$ acyclic, $\mathcal{F}A^{\bullet}$ is also acyclic.
+\end{definition}
+\begin{remark}
+    Here, we directly ask quasi-isomorphism exist.
+    Hence we do not need the strictly bounded-below condition, which guarantees that we can take resolution in the past.
+\end{remark}
+Now given $\mathcal{F}$ and $\mathcal{K}' \subseteq \mathcal{K}(\mathscr{A})$ satisfying $\mathcal{F}$-condition,
+by definition, for all $A\in \mathcal{K}(\mathscr{A})$, there is a quasi-isomorphism $A^{\bullet} \rightarrow A'^{\bullet}$ with $A'^{\bullet}\in \mathcal{K}'$.
+To define derived functor on derived category, consider the following diagram
+\begin{equation}
+    \begin{tikzcd}
+        \mathcal{K}(\mathscr{A}) \arrow[r, "\mathcal{F}"] \arrow[d] &
+        \mathcal{K}(\mathscr{B}) \arrow[d] \\
+        \mathcal{D}(\mathscr{A}) \arrow[r, dashrightarrow, "R\mathcal{F}"] &
+        \mathcal{D}(\mathscr{B})
+    \end{tikzcd}
+\end{equation}
+And it is natural to define $R\mathcal{F}(A^{\bullet}) = \mathcal{F}(A'^{\bullet})$.
+To show this definition is well-defined and really a functor, we need following generalized lemmas,
+and most of the proofs are same as their original version and we only provide proof of Lemma \ref{Lemma 6.12} here.
+\begin{lemma}
+    Let $A^{\bullet} \rightarrow B^{\bullet}$ be a chain map in $\mathcal{C}(\mathscr{A})$.
+    By definition, there are two quasi-isomorphisms $A^{\bullet} \rightarrow A'^{\bullet}$ and $B^{\bullet} \rightarrow B'^{\bullet}$ with $A'^{\bullet},B'^{\bullet}\in \mathcal{K}'$.
+    Then there exists morphism $A'^{\bullet} \rightarrow B'^{\bullet}$ in $\mathcal{D}(\mathcal{K}')$ making the following diagram commutes
+    \begin{equation}
+        \begin{tikzcd}
+            A^{\bullet} \arrow[r, "qis"] \arrow[d] &
+            A'^{\bullet} \arrow[d] \\
+            B^{\bullet} \arrow[r, "qis"] &
+            B'^{\bullet}
+        \end{tikzcd}
+    \end{equation}
+    where $\mathcal{D}(\mathcal{K}')$ is the localization of $\mathcal{K}'$ over quasi-isomorphisms.
+    Moreover, the morphism is independent to the choice of quasi-isomorphisms.
+    \label{Lemma 6.11}
+\end{lemma}
+\begin{lemma}
+    Let $A^{\bullet} \rightarrow B^{\bullet}$ be a quasi-isomorphism in $\mathcal{K}'$.
+    Then $\mathcal{F}(A^{\bullet}) \rightarrow \mathcal{F}(B^{\bullet})$ is also a quasi-isomorphism.
+    \label{Lemma 6.12}
+\end{lemma}
+\begin{lemma}
+    $R\mathcal{F}$ is well defined.
+    \label{Lemma 6.13}
 \end{lemma}
 \end{document}
