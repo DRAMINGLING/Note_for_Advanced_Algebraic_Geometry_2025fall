@@ -38,6 +38,7 @@
 \newcommand{\der}{\operatorname{Der}}
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\im}{\operatorname{im}}
+\newcommand{\identity}{\operatorname{id}}
 \newcommand{\trdeg}{\operatorname{trdeg}}
 \newcommand{\codim}{\operatorname{codim}}
 \newcommand{\ext}{\operatorname{Ext}}
@@ -497,7 +498,7 @@ We have a commutative diagram with exact rows
     \begin{tikzcd}
         0 \arrow[r] &
         I \arrow[r, "\cdot \varepsilon"] \arrow[d, equal] &
-        B' \arrow[r] \arrow[d, "id" swap] \arrow[d, "id + \delta", bend left]&
+        B' \arrow[r] \arrow[d, "\identity" swap] \arrow[d, "\identity + \delta", bend left]&
         B \arrow[r] \arrow[d, equal] &
         0 \\
         0 \arrow[r] &
@@ -547,7 +548,7 @@ Let's begin with a bady example.
     \begin{equation}
         0 \longrightarrow W \longrightarrow V \overset{\pi}{\longrightarrow} V/W \longrightarrow 0
     \end{equation}
-    Fix $\sigma: V/W \rightarrow V$ such that $id_{V/W}$.
+    Fix $\sigma: V/W \rightarrow V$ such that $\identity_{V/W}$.
     Thus there exists $T$-invariant complement if and only if there exists $\sigma$ such that $\sigma\overline{T} = T\sigma$.
     We say that $\sigma\overline{T} - T\sigma\in \hom_{k}(V/W, W)$ is an obstruction.
     \par
@@ -1000,7 +1001,7 @@ Notations are same.
         \end{tikzcd}
     \end{equation}
     where all surjections are quotient maps.
-    Note that by definition of obstruction theory, $id_{V} \otimes \alpha: V \otimes I/\mathfrak{m}_{P}I \rightarrow V \otimes k$ sends $\varphi(u, P/\mathfrak{m}_{P}I) + \mathfrak{m}_{P}^{n}$ to $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} + \ker(\alpha))$.
+    Note that by definition of obstruction theory, $\identity_{V} \otimes \alpha: V \otimes I/\mathfrak{m}_{P}I \rightarrow V \otimes k$ sends $\varphi(u, P/\mathfrak{m}_{P}I) + \mathfrak{m}_{P}^{n}$ to $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} + \ker(\alpha))$.
     \par
     For every $\alpha \neq 0$, by canonical obstruction theory, we know that $u$ cannot by extended to $P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n} + \ker(\alpha)$.
     Hence the corresponding element of $\varphi(u, P/\mathfrak{m}_{P}I + \mathfrak{m}_{P}^{n})$ in $\hom_{k}(V_{C}, V)$ is an injection. 
@@ -1074,7 +1075,7 @@ For $R\in \widehat{\mathcal{C}}$, define contravariant functor $h_{R}: \mathcal{
     then $\mathcal{F} \cong h_{R}$ where $R = \widehat{\mathcal{O}_{\hilbertscheme, [X_{0}]}}$.
 \end{example}
 Note that for a moduli space, we can naturally define a universal family.
-But here $R$ needn't be artinian local ring so that we cannot give the universal family by $id_{R}\in \hom(R, R)$.
+But here $R$ needn't be artinian local ring so that we cannot give the universal family by $\identity_{R}\in \hom(R, R)$.
 To simulate the universal family of moduli space, we consider $\mathcal{F}(R/\mathfrak{m}^{n})$ for all $n$.
 \par
 Assume $\mathcal{F} \cong h_{R}$, then for each $n$, $\mathcal{F}(R/\mathfrak{m}^{n}) \cong \hom(R, R/\mathfrak{m}^{n})$.
@@ -1594,7 +1595,7 @@ Enlightened by this example, we could give a condition equivalent to universal.
 \end{corollary}
 \begin{reason}
     With $H^{0}(X_{0}, \mathcal{T}_{X_{0}}) = 0$, by induction on length of $A$,
-    we can prove that for all deformation $X/A$, $\aut_{A}(X/A) = \{id\}$.
+    we can prove that for all deformation $X/A$, $\aut_{A}(X/A) = \{\identity\}$.
     Hence by Proposition \ref{Proposition 4.2}, we are done.
 \end{reason}
 \begin{example}
@@ -1767,7 +1768,7 @@ Enlightened by this example, we could give a condition equivalent to universal.
     where $(\mathcal{L}_{1}, x_{1}, y_{1}, \theta_{1}) \sim (\mathcal{L}_{2}, x_{2}, y_{2}, \theta_{2})$ if there exists $\varphi: \mathcal{L}_{1} \overset{\sim}{\rightarrow} \mathcal{L}_{2}$ such that $\varphi(x_{1}) = x_{2}$, $\varphi(y_{1}) = y_{2}$ and there is a commutative diagram
     \begin{equation}
         \begin{tikzcd}[sep = small]
-            \mathcal{L}_{1} \otimes_{A} \mathbb{C} \arrow[rr, "\varphi \otimes id"] \arrow[dr, "\theta_{1}" swap] &&
+            \mathcal{L}_{1} \otimes_{A} \mathbb{C} \arrow[rr, "\varphi \otimes \identity"] \arrow[dr, "\theta_{1}" swap] &&
             \mathcal{L}_{2} \otimes_{A} \mathbb{C} \arrow[dl, "\theta_{2}"] \\
             & \mathcal{L}_{0} &
         \end{tikzcd}
@@ -1950,7 +1951,7 @@ Enlightened by this example, we could give a condition equivalent to universal.
     \begin{equation}
         \begin{tikzcd}
             0 \arrow[r] & 
-            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \arrow[r, hookrightarrow] \arrow[d, "id \otimes \varphi_{n}"] &
+            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \arrow[r, hookrightarrow] \arrow[d, "\identity \otimes \varphi_{n}"] &
             A_{n} \arrow[r, twoheadrightarrow] \arrow[d, "\varphi_{n}"] &
             A_{n - 1} \arrow[r] \arrow[d, twoheadrightarrow, "\varphi_{n - 1}"] &
             0 \\
@@ -1965,20 +1966,20 @@ Enlightened by this example, we could give a condition equivalent to universal.
     In fact, there is a commutative diagram
     \begin{equation}
         \begin{tikzcd}
-            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \arrow[r, "\sim"] \arrow[d, "id \otimes \varphi_{n}"] &
-            \mathfrak{m}^{n} \otimes_{R } A_{0} \arrow[d, "id \otimes \varphi_{0}"] \\
+            \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \arrow[r, "\sim"] \arrow[d, "\identity \otimes \varphi_{n}"] &
+            \mathfrak{m}^{n} \otimes_{R } A_{0} \arrow[d, "\identity \otimes \varphi_{0}"] \\
             \mathfrak{m}^{n}/\mathfrak{m}^{n + 1} \otimes_{R/\mathfrak{m}^{n + 1}} A_{n} \otimes_{R/\mathfrak{m}^{n + 1}} B_{n}^{\alpha} \arrow[r, "\sim"] &
             \mathfrak{m}^{n} \otimes_{R} B_{0}^{\alpha}
         \end{tikzcd}
     \end{equation}
-    Hence $id \otimes \varphi_{n} = id \otimes \varphi_{0}$ is surjective.
+    Hence $\identity \otimes \varphi_{n} = \identity \otimes \varphi_{0}$ is surjective.
     And by 5 Lemma, we get $\varphi_{n}$ is a surjection.
     Now we have a commutative diagram with exact rows and columns
     \begin{equation}
         \begin{tikzcd}
             && 0 \arrow[d] &
             0 \arrow[d] & \\
-            && \mathfrak{m}^{n} \otimes_{R} A_{0} \arrow[r, twoheadrightarrow, "id \otimes \varphi_{0}"] \arrow[d, hookrightarrow] &
+            && \mathfrak{m}^{n} \otimes_{R} A_{0} \arrow[r, twoheadrightarrow, "\identity \otimes \varphi_{0}"] \arrow[d, hookrightarrow] &
             \mathfrak{m}^{n} \otimes_{R} B_{0}^{\alpha} \arrow[d, hookrightarrow] & \\
             0 \arrow[r] &
             I_{n} \arrow[r, hookrightarrow] \arrow[d, "\phi_{n}"] &
@@ -1995,7 +1996,7 @@ Enlightened by this example, we could give a condition equivalent to universal.
     By Snake Lemma, the following sequence is exact
     \begin{equation}
         \begin{tikzcd}
-            \mathfrak{m}^{n} \otimes_{R} A_{0} \arrow[r, twoheadrightarrow, "id \otimes \varphi_{0}"] &
+            \mathfrak{m}^{n} \otimes_{R} A_{0} \arrow[r, twoheadrightarrow, "\identity \otimes \varphi_{0}"] &
             \mathfrak{m}^{n} \otimes_{R} B_{0}^{\alpha} \arrow[r] &
             \coker \phi_{n} \arrow[r] &
             0 
@@ -2097,7 +2098,7 @@ Want to study deformations of pair $(X, \mathcal{L})$.
     Consider commutative diagram
     \begin{equation}
         \begin{tikzcd}[sep = small]
-            X \arrow[rr, "id"] \arrow[dr, "\Delta"] \arrow[dd, "id"] &&
+            X \arrow[rr, "\identity"] \arrow[dr, "\Delta"] \arrow[dd, "\identity"] &&
             X \arrow[dd] \\
             & X \times_{k} X \arrow[ur, "q"  swap] \arrow[dl, "p"] & \\
             X \arrow[rr] &&
@@ -2467,7 +2468,7 @@ To solve this problem, we'd like to adapt a better way to define derived categor
 \end{proof}
 \begin{definition}
     Let $\mathscr{C}$ be a category, $Q$ a class of morphisms in $\mathscr{C}$ is a left ore system if it satisfies the following conditions \\
-    (1)$Q$ is multiplicative i.e. $Q \circ Q \subseteq Q$ and $id_{C}\in Q$ for all object $C\in \mathscr{C}$. \\
+    (1)$Q$ is multiplicative i.e. $Q \circ Q \subseteq Q$ and $\identity_{C}\in Q$ for all object $C\in \mathscr{C}$. \\
     (2)Every pair of morphism $A' \overset{q}{\leftarrow} A \overset{f}{\rightarrow} B$ with $q\in Q$ can be completed to a commutative diagram
     \begin{equation}
         \begin{tikzcd}
@@ -2640,7 +2641,7 @@ I would like to write the last sentence as a lemma.
     Then the following chain map is zero map in $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$.
     \begin{equation}
         \begin{tikzcd}
-            {[A} \arrow[r, hookrightarrow] \arrow[d, "id_{A}"] &
+            {[A} \arrow[r, hookrightarrow] \arrow[d, "\identity_{A}"] &
             {B]} \arrow[d] \\
             {[A} \arrow[r] &
             {0]}
@@ -2661,7 +2662,7 @@ I would like to write the last sentence as a lemma.
             X^{-1} \arrow[r, "\partial_{X}"] \arrow[d, "\varphi_{-1}"] &
             X^{0} \arrow[r] \arrow[d, "\varphi_{0}"] \arrow[ddl, "D"] &
             0 \\
-            A \arrow[r, hookrightarrow] \arrow[d, "id_{A}" swap] &
+            A \arrow[r, hookrightarrow] \arrow[d, "\identity_{A}" swap] &
             B \arrow[r] \arrow[d] & 
             0 \\
             A \arrow[r] &
@@ -2685,6 +2686,42 @@ I would like to write the last sentence as a lemma.
 \begin{remark}
     Note that cohomology group homomorphism induced by chain map \ref{equation:chain_map_induced_by_identity_map} is always a zero map,
     this is also an example that nonzero morphism in $\mathcal{K}(\mathscr{A})$ induces trivial cohomology group homomorphism.
+\end{remark}
+We end this subsection with an important proposition, which deeply characterizes quasi-isomorphisms.
+\begin{proposition}
+    Let $f: A^{\bullet} \rightarrow B^{\bullet}$ be a chain map in $\mathcal{C}(\mathscr{A})$.
+    Then $f$ is quasi-isomorphism if and only if $\cone(f)$ is acyclic.
+    \label{Proposition 6.1}
+\end{proposition}
+\begin{proof}
+    "$\Rightarrow$": Assume $[(b, a)]\in H^{n}(\cone(f))$, then $\partial (b, a) = (\partial b + f(a), -\partial a) = 0$.
+    Hence $[f(a)] = 0$ in $H^{n + 1}(B^{\bullet})$.
+    Since $f$ is quasi-isomorphism, $[a] = 0$ in $H^{n + 1}(A^{\bullet})$ so there exists $a'\in A^{n}$ mapping to $a$ under boundary map.
+    Take $(0, -a')\in \cone(f)^{n - 1}$, we get
+    \begin{equation}
+        (b, a) - \partial (0, -a') = (b, a) - (-f(a'), a) = (b + f(a'), 0)
+    \end{equation}
+    Note that $\partial (b + f(a')) = \partial b + f(a) = 0$, we get $[b + f(a')]\in H^{n}(B^{\bullet})$.
+    Again since $f$ is quasi-isomorphism, there exists $[a'']\in H^{n}(A^{\bullet})$ such that $[f(a'')] = [b + f(a')]$.
+    Hence there exists $b'\in B^{n - 1}$ such that $\partial b' = b + f(a') - f(a'')$.
+    Take $(b', a'' - a')$, we get
+    \begin{equation}
+        \partial (b', a'' - a') = (\partial b' + f(a'') - f(a'), \partial a' - \partial a'') = (b, a)
+    \end{equation}
+    Hence $[(b, a)] = 0$ in $H^{n}(\cone(f))$ and conclude that $\cone(f)$ is acyclic.
+    \par
+    "$\Leftarrow$": If $[f(a)] = 0$ in $H^{n}(B^{\bullet})$ for some $[a]\in H^{n}(A^{\bullet})$, then there exists $b\in B^{n - 1}$ such that $\partial b = f(a)$.
+    Then $\partial (b, -a) = 0$.
+    As $\cone(f)$ is acyclic, there exists $(b', a')\in \cone(f)^{n - 2}$ such that $\partial (b', a') = (b, -a)$.
+    Then we get $\partial a' = a$ so that $[a] = 0$ and $f^{\ast}$ is injective.
+    \par
+    For all $[b]\in H^{n}(B^{\bullet})$, we get $[(b, 0)]\in H^{n}(\cone(f))$.
+    As $\cone(f)$ is acyclic, there exists $(b', a)\in \cone(f)^{n - 1}$ such that $\partial (b', a) = (b, 0)$.
+    Hence $[a]\in H^{n}(A^{\bullet})$ and $[f(a)] = [b]$.
+    Conclude that $f$ is quasi-isomorphism.
+\end{proof}
+\begin{remark}
+    With this proposition, somehow we can much more simplify proof of Lemma \ref{Lemma 6.5}.
 \end{remark}
 
 \subsection{Derived functor}
@@ -2967,8 +3004,139 @@ and most of the proofs are same as their original version and we only provide pr
     Then $\mathcal{F}(A^{\bullet}) \rightarrow \mathcal{F}(B^{\bullet})$ is also a quasi-isomorphism.
     \label{Lemma 6.12}
 \end{lemma}
+\begin{proof}
+    Firstly, by Proposition \ref{Proposition 6.1}, $\cone(f)$ is acyclic.
+    By definition, we know $\mathcal{F}\cone(f)$ is still acyclic.
+    Consider exact triangle
+    \begin{equation}
+        A^{\bullet} \overset{f}{\longrightarrow} B^{\bullet} \longrightarrow \cone(f) \longrightarrow A^{\bullet}[1] 
+    \end{equation}
+    As $\mathcal{F}$ is a triangulated functor, applying $\mathcal{F}$, we get an exact triangle
+    \begin{equation}
+        \mathcal{F}A^{\bullet} \overset{\mathcal{F}f}{\longrightarrow} \mathcal{F}B^{\bullet} \longrightarrow \mathcal{F}\cone(f) \longrightarrow \mathcal{F}A^{\bullet}[1] 
+    \end{equation}
+    By axiom ($TR3$) of triangulated category, there is a commutative diagram in $\mathcal{K}'$
+    \begin{equation}
+        \begin{tikzcd}
+            \mathcal{F}A^{\bullet} \arrow[r, "\mathcal{F}f"] \arrow[d, equal] &
+            \mathcal{F}B^{\bullet} \arrow[r] \arrow[d, equal] &
+            \cone(\mathcal{F}f) \arrow[r] \arrow[d, "\varphi"] &
+            \mathcal{F}A^{\bullet}[1] \arrow[d, equal] \\
+            \mathcal{F}A^{\bullet} \arrow[r, "\mathcal{F}f"] &
+            \mathcal{F}B^{\bullet} \arrow[r] &
+            \mathcal{F}\cone(f) \arrow[r] &
+            \mathcal{F}A^{\bullet}[1]
+        \end{tikzcd}
+    \end{equation}
+    By 5 Lemma, $\varphi$ is an isomorphism and hence $\cone(\mathcal{F}f)$ is acyclic.
+    Again by Proposition \ref{Proposition 6.1}, we get $\mathcal{F}f$ is quasi-isomorphism.
+\end{proof}
 \begin{lemma}
     $R\mathcal{F}$ is well defined.
     \label{Lemma 6.13}
 \end{lemma}
+Assume that $\mathscr{A}$ has enough injective objects.
+Take $\mathcal{K}'$ to be the homotopy category of bound-below complexes of injective objects.
+To define derived functor of total hom functor,
+it remains to show that $\mathcal{K}'$ satisfies $\hom^{\bullet}(A^{\bullet}, \cdot)$-condition for all $A^{\bullet}$.
+Here we only prove for the acyclic condition.
+\begin{proposition}
+    For all complexes $A^{\bullet},B^{\bullet}\in \mathcal{C}(\mathscr{A})$,
+    we have that $H^{n}(\hom^{\bullet}(A^{\bullet}, B^{\bullet})) = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B^{\bullet}[n])$. 
+    \label{Proposition 6.2}
+\end{proposition}
+\begin{proof}
+    For chain map $f: A^{\bullet} \rightarrow B^{\bullet}$ in $\ker (\partial_{\hom^{\bullet}}^{n})$,
+    we have that $-(-1)^{n}f_{i} \circ \partial_{A^{\bullet}}^{i - 1} + \partial_{B^{\bullet}}^{i + n - 1} \circ f_{i - 1} = 0$ so that $f_{i} \circ \partial_{A^{\bullet}}^{i - 1} = \partial_{B^{\bullet}[n]}^{i - 1} \circ f_{i - 1}$.
+    Hence each $f$ defines a chain map $\widetilde{f}: A^{\bullet} \rightarrow B^{\bullet}[n]$.
+    \par
+    For $[f] = [g]$ in $H^{n}(\hom^{\bullet}(A^{\bullet}, B^{\bullet}))$,
+    we get that $f - g = \partial h$ for some $h\in \hom^{n - 1}(A^{\bullet}, B^{\bullet})$.
+    While 
+    \begin{equation}
+        \begin{split}
+            \partial h & = (-(-1)^{n - 1}h_{i} \circ \partial_{A^{\bullet}}^{i - 1} + \partial_{B^{\bullet}}^{i + n - 1} \circ g_{i - 1}) \\
+            & = ((-1)^{n}(g_{i} \circ \partial_{A^{\bullet}}^{i - 1} + \partial_{B^{\bullet}}^{i + n - 1} \circ g_{i - 1}))
+        \end{split}
+    \end{equation}
+    so that $\widetilde{f}$ is homotopic to $\widetilde{g}$.
+    Thus we get a well-defined map from $H^{n}(\hom^{\bullet}(A^{\bullet}, B^{\bullet}))$ to $\hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B^{\bullet}[n])$.
+    Clearly, the map is bijective.
+\end{proof}
+Recall that in homological algebra, we say a complex $A^{\bullet}$ is contractible if $\identity_{A^{\bullet}}$ is null-homotopic and all acyclic bounded-below complex of injective objects is contractible.
+We have the following lemma.
+\begin{lemma}
+    Let $I^{\bullet}\in \mathcal{K}'$ be acyclic bounded-below complex of injective objects.
+    Then for all complex $A^{\bullet}$, $\hom^{\bullet}(A^{\bullet}, I^{\bullet})$ is still acyclic.
+    \label{Lemma 6.14}
+\end{lemma}
+\begin{proof}
+    By Proposition \ref{Proposition 6.2}, this is equivalent to $\hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, I^{\bullet}[n]) = \{0\}$ for all $n$.
+    Hence, we suffice to show that any chain map $f: A^{\bullet} \rightarrow I^{\bullet}$ is null-homotopic, 
+    which immediately comes from the fact that $I^{\bullet}$ is contractible.
+\end{proof}
+Hence $\mathcal{K}'$ satisfies $\hom^{\bullet}(A^{\bullet}, \cdot)$ for all $A^{\bullet}$.
+And we can define derived functor, denoted by $R\hom(A^{\bullet}, \cdot)$.
+\begin{lemma}
+    Let $I^{\bullet}\in \mathcal{K}'$.
+    Then for all complex $A^{\bullet}$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, I^{\bullet}) = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, I^{\bullet})$.
+    \label{Lemma 6.15}
+\end{lemma}
+\begin{proof}
+    Only need to show that for any morphism $A^{\bullet} \rightarrow B^{\rightarrow} \overset{qis}{\leftarrow} I^{\bullet}$,
+    there exists chain map $A^{\bullet} \rightarrow I^{\bullet}$ making the diagram commutative up to homotopy
+    \begin{equation}
+        \begin{tikzcd}
+            & B^{\bullet} & \\
+            A^{\bullet} \arrow[ur] \arrow[rr] &&
+            I^{\bullet} \arrow[ul, "qis"]
+        \end{tikzcd}
+    \end{equation}
+    While here we prove a stronger fact that there exists chain map $B^{\bullet} \rightarrow I^{\bullet}$,
+    whose composition with the quasi-isomorphism is homotopy to $\identity_{I^{\bullet}}$.
+    \par
+    In fact, since $q: I^{\bullet} \rightarrow B^{\bullet} \rightarrow B'^{\bullet}$ is quasi-isomorphism.
+    By Proposition \ref{Proposition 6.1}, $\cone(q)\in \mathcal{K}'$ is acyclic and hence contractible.
+    Hence just as proof of Lemma \ref{Lemma 6.14}, the natural map $\cone(q) \rightarrow I^{\bullet}[1]$ is null-homotopic.
+    Consider the chain homotopy $D_{n} = (\alpha_{n}, \beta_{n}): \cone(q)^{n} \rightarrow I^{n}$.
+    Then 
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                & \partial_{I^{\bullet}} \circ \alpha_{n} = \alpha_{n + 1} \circ \partial_{\cone(q)} \\
+                & \identity_{I^{\bullet}} = \alpha_{n + 1} \circ q - \partial_{I^{\bullet}} \circ \beta_{n} - \beta_{n + 1} \circ \partial_{I^{\bullet}}
+            \end{aligned}
+        \right.
+    \end{equation}
+    Hence $\alpha$ is a chain map and $\alpha \circ q$ is homotopy to $\identity_{I^{\bullet}}$.
+\end{proof}
+\begin{lemma}
+    For all quasi-isomorphism $E \rightarrow E'$ in $\mathcal{C}(\mathscr{A})$,
+    the induced map $\hom^{\bullet}(E', F) \rightarrow \hom^{\bullet}(E, F)$ is also a quasi-isomorphism for all $F\in \mathcal{K}'$.
+    \label{Lemma 6.16}
+\end{lemma}
+\begin{proof}
+    By Lemma \ref{Lemma 6.15}, we immediately get $H^{n}(\hom^{\bullet}(E', F)) = \hom_{\mathcal{D}(\mathscr{A})}(E', F[n])$ and $H^{n}(\hom^{\bullet}(E, F)) = \hom_{\mathcal{D}(\mathscr{A})}(E, F[n])$.
+    Hence 
+    \begin{equation}
+        \hom_{\mathcal{D}(\mathscr{A})}(E', F[n]) \overset{\circ (E' \rightarrow E)}{\longrightarrow} \hom_{\mathcal{D}(\mathscr{A})}(E, F[n])
+    \end{equation}
+    is an isomorphism.
+    Conclude that $\hom^{\bullet}(E', F) \rightarrow \hom^{\bullet}(E, F)$ is a quasi-isomorphism.
+\end{proof}
+\begin{remark}
+    With the previous two lemmas, when consider a total hom functor, we can directly take $A^{\bullet}\in \mathcal{D}(\mathscr{A})$.
+    In addition, if we denote $\ext^{n}(A^{\bullet}, B^{\bullet}) = H^{n}(R\hom(A^{\bullet}, B^{\bullet}))$, then
+    \begin{equation}
+        \begin{split}
+            \ext^{n}(A^{\bullet}, B^{\bullet}) & = H^{n}(R\hom(A^{\bullet}, B^{\bullet})) \\
+            & = H^{n}(\hom^{\bullet}(A^{\bullet}, B'^{\bullet})) \\
+            & = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B'^{\bullet}) \\
+            & = \hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, B'^{\bullet}) \\
+            & = \hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, B^{\bullet})
+        \end{split}
+    \end{equation}
+    so that we can directly write out extension classes without annoying $A'^{\bullet}$ or $B'^{\bullet}$.
+\end{remark}
+
 \end{document}
