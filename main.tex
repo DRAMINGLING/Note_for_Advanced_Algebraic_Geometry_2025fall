@@ -35,7 +35,7 @@
 \newcommand{\sheafext}{\mathcal{E}\kern -.5pt xt}
 \newcommand{\sheafend}{\mathcal{E}\kern -.5pt nd}
 
-\newcommand{\der}{\operatorname{Der}}
+\newcommand{\derivation}{\operatorname{Der}}
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\im}{\operatorname{im}}
 \newcommand{\identity}{\operatorname{id}}
@@ -73,6 +73,7 @@
 \newcommand{\isomorphismfunctor}{\mathcal{I}\kern -.5pt som}
 
 \newcommand{\abeliangroups}{\mathcal{A}\kern -.5pt b}
+\newcommand{\module}{\operatorname{Mod}}
 
 \title{代数几何进阶-2025秋}
 \author{}
@@ -2654,7 +2655,7 @@ I would like to write the last sentence as a lemma.
 \begin{proof}
     Suffice to show the $\Rightarrow$ arrow.
     Assume chain map \ref{equation:chain_map_induced_by_identity_map} is zero map in $\mathcal(K)(\mathscr{A})$,
-    then there exists quasi-isomorphism $X^{\bullet} \overset{\varphi}(\rightarrow) [A \hookrightarrow B]$ such that their composition is null-homotopic.
+    then there exists quasi-isomorphism $X^{\bullet} \overset{\varphi}{\rightarrow} [A \hookrightarrow B]$ such that their composition is null-homotopic.
     By canonical truncation, we may assume that for all $i \ge 1$, $X^{i} = 0$.
     Hence there exists morphism $D: X_{0} \rightarrow A$ such that the following diagram commutes
     \begin{equation}
@@ -2687,6 +2688,32 @@ I would like to write the last sentence as a lemma.
     Note that cohomology group homomorphism induced by chain map \ref{equation:chain_map_induced_by_identity_map} is always a zero map,
     this is also an example that nonzero morphism in $\mathcal{K}(\mathscr{A})$ induces trivial cohomology group homomorphism.
 \end{remark}
+More specially, there is another funny lemma.
+\begin{lemma}
+    Let $\mathscr{A}$ be an abelian category, $A\in \mathscr{A}$.
+    Then for any $B^{\bullet}\in \mathcal{C}^{\le 0}(\mathscr{A})$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0]) = \ker (\hom_{\mathscr{A}}(B^{0}, A) \overset{\circ \partial}{\rightarrow} \hom_{\mathscr{A}}(B^{-1}, A))$.
+    Similarly, for any $B^{\bullet}\in \mathcal{C}^{\ge 0}(\mathscr{A})$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(A[0], B^{\bullet}) = \ker (\hom_{\mathscr{A}}(A, B^{0}) \overset{\circ \partial}{\rightarrow} \hom_{\mathscr{A}}(A, B^{1}))$.
+    \label{Lemma 6.7}
+\end{lemma}
+\begin{proof}
+    We only prove for the first case, given a morphism in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$,
+    we can interpret it as $B^{\bullet} \overset{qis}{\leftarrow} C^{\bullet} \overset{f}{\rightarrow} A[0]$.
+    Consider the commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            C^{-1} \arrow[r, "\partial_{C^{\bullet}}"] \arrow[d] &
+            C^{0} \arrow[r] \arrow[d, "f"] &
+            0 \\
+            0 \arrow[r] &
+            A \arrow[r] &
+            0
+        \end{tikzcd}
+    \end{equation}
+    As $f \circ \partial_{C^{\bullet}} = 0$, $f$ factors through $\coker \partial_{C^{\bullet}} = H^{0}(C^{\bullet})$.
+    Note that $C^{\bullet} \rightarrow B^{\bullet}$ is a quasi-isomorphism, we get $\coker \partial_{B^{\bullet}} = H^{0}(B^{\bullet}) = H^{0}(C^{\bullet})$.
+    Hence $f$ induces an element in $\ker (\hom_{\mathscr{A}}(B^{0}, A) \overset{\circ \partial}{\rightarrow} \hom_{\mathscr{A}}(B^{-1}, A))$.
+    By universal property of cokernel, the correspondence is bijective, done!
+\end{proof}
 We end this subsection with an important proposition, which deeply characterizes quasi-isomorphisms.
 \begin{proposition}
     Let $f: A^{\bullet} \rightarrow B^{\bullet}$ be a chain map in $\mathcal{C}(\mathscr{A})$.
@@ -2755,7 +2782,7 @@ We end this subsection with an important proposition, which deeply characterizes
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
     Then $\mathcal{D}^{+}(\mathscr{A})$ (resp. $\mathcal{D}^{-}(\mathscr{A})$) can be identified with the localization of $\mathcal{C}^{+}(\mathscr{A})$ (resp. $\mathcal{C}^{-}(\mathscr{A})$) by quasi-isomorphisms.
-    \label{Lemma 6.7}
+    \label{Lemma 6.8}
 \end{lemma}
 \begin{reason}
     Linguistically, for all $A^{\bullet}\in \mathcal{D}^{+}(\mathscr{A})$, 
@@ -2825,7 +2852,7 @@ To show this definition is well-defined and really a functor, we need following 
         \end{tikzcd}
     \end{equation}
     Moreover, the morphism is independent to the choice of quasi-isomorphisms.
-    \label{Lemma 6.8}
+    \label{Lemma 6.9}
 \end{lemma}
 \begin{proof}
     Applying Lemma \ref{Lemma 6.5} (1), there exists $C^{\bullet}\in \mathcal{C}(\mathscr{A})$ such that the following diagram commutes up to homotopy
@@ -2856,7 +2883,7 @@ To show this definition is well-defined and really a functor, we need following 
 \begin{lemma}
     Let $A^{\bullet} \rightarrow B^{\bullet}$ be a quasi-isomorphism in $\mathcal{C}(\mathscr{A}')$.
     Then $\mathcal{F}(A^{\bullet}) \rightarrow \mathcal{F}(B^{\bullet})$ is also a quasi-isomorphism.
-    \label{Lemma 6.9}
+    \label{Lemma 6.10}
 \end{lemma}
 \begin{reason}
     As $\mathcal{F}$ is exact on $\mathscr{A}'$, it preserves kernel, image and hence cohomology group.
@@ -2866,7 +2893,7 @@ To show this definition is well-defined and really a functor, we need following 
 \end{remark}
 \begin{lemma}
     $R\mathcal{F}$ is well defined.
-    \label{Lemma 6.10}
+    \label{Lemma 6.11}
 \end{lemma}
 \begin{proof}
     Assume that there are two quasi-isomorphisms $f: A^{\bullet} \rightarrow A'^{\bullet}$ and $g: A^{\bullet} \rightarrow A''^{\bullet}$ with $A'^{\bullet},A''^{\bullet}\in \mathcal{C}(\mathscr{A}')$.
@@ -2881,7 +2908,7 @@ To show this definition is well-defined and really a functor, we need following 
     \end{equation}
     where $\alpha$ and $\beta$ are natural inclusions.
     By same argument as proof of Lemma \ref{Lemma 6.5} (1), $\alpha$ and $\beta$ are both quasi-isomorphism.
-    By Lemma \ref{Lemma 6.9}, $\mathcal{F}(A'^{\bullet}) = \mathcal{F}(A'''^{\bullet}) = \mathcal{F}(A''^{\bullet})$ in $\mathcal{D}(\mathscr{A})$,
+    By Lemma \ref{Lemma 6.10}, $\mathcal{F}(A'^{\bullet}) = \mathcal{F}(A'''^{\bullet}) = \mathcal{F}(A''^{\bullet})$ in $\mathcal{D}(\mathscr{A})$,
 \end{proof}
 Recall that between triangulated categories, a triangulated functor (or say exact functor) is a functor respecting the triangulated structure i.e it commutes with shift functor and preserves exact triangles.
 Then for any additive functor $\mathcal{F}: \mathscr{A} \rightarrow \mathscr{B}$, the induced functor $\mathcal{F}: \mathcal{K}(\mathscr{A}) \rightarrow \mathcal{K}(\mathscr{B})$ is triangulated.
@@ -2906,7 +2933,7 @@ And for all morphism $f: A^{\bullet} \rightarrow B^{\bullet}$ in $\mathcal{C}^{+
         R\mathcal{F}(B^{\bullet}) = \mathcal{F}(B'^{\bullet})
     \end{tikzcd}
 \end{equation}
-where $\widetilde{f}$ is the morphism in $\mathcal{D}(\mathscr{A}')$ given by Lemma \ref{Lemma 6.8}.
+where $\widetilde{f}$ is the morphism in $\mathcal{D}(\mathscr{A}')$ given by Lemma \ref{Lemma 6.9}.
 \par
 In addition, $R\mathcal{F}$ is an exact functor and $(R\mathcal{F}, \varepsilon)$ has universal property as following.
 Given exact functor $\mathcal{G}: \mathcal{D}^{+}(\mathscr{A}) \rightarrow \mathcal{D}^{+}(\mathscr{B})$ and a natural transformation
@@ -2982,7 +3009,7 @@ To define derived functor on derived category, consider the following diagram
 \end{equation}
 And it is natural to define $R\mathcal{F}(A^{\bullet}) = \mathcal{F}(A'^{\bullet})$.
 To show this definition is well-defined and really a functor, we need following generalized lemmas,
-and most of the proofs are same as their original version and we only provide proof of Lemma \ref{Lemma 6.12} here.
+and most of the proofs are same as their original version and we only provide proof of Lemma \ref{Lemma 6.13} here.
 \begin{lemma}
     Let $A^{\bullet} \rightarrow B^{\bullet}$ be a chain map in $\mathcal{C}(\mathscr{A})$.
     By definition, there are two quasi-isomorphisms $A^{\bullet} \rightarrow A'^{\bullet}$ and $B^{\bullet} \rightarrow B'^{\bullet}$ with $A'^{\bullet},B'^{\bullet}\in \mathcal{K}'$.
@@ -2997,12 +3024,12 @@ and most of the proofs are same as their original version and we only provide pr
     \end{equation}
     where $\mathcal{D}(\mathcal{K}')$ is the localization of $\mathcal{K}'$ over quasi-isomorphisms.
     Moreover, the morphism is independent to the choice of quasi-isomorphisms.
-    \label{Lemma 6.11}
+    \label{Lemma 6.12}
 \end{lemma}
 \begin{lemma}
     Let $A^{\bullet} \rightarrow B^{\bullet}$ be a quasi-isomorphism in $\mathcal{K}'$.
     Then $\mathcal{F}(A^{\bullet}) \rightarrow \mathcal{F}(B^{\bullet})$ is also a quasi-isomorphism.
-    \label{Lemma 6.12}
+    \label{Lemma 6.13}
 \end{lemma}
 \begin{proof}
     Firstly, by Proposition \ref{Proposition 6.1}, $\cone(f)$ is acyclic.
@@ -3033,7 +3060,7 @@ and most of the proofs are same as their original version and we only provide pr
 \end{proof}
 \begin{lemma}
     $R\mathcal{F}$ is well defined.
-    \label{Lemma 6.13}
+    \label{Lemma 6.14}
 \end{lemma}
 Assume that $\mathscr{A}$ has enough injective objects.
 Take $\mathcal{K}'$ to be the homotopy category of bound-below complexes of injective objects.
@@ -3068,7 +3095,7 @@ We have the following lemma.
 \begin{lemma}
     Let $I^{\bullet}\in \mathcal{K}'$ be acyclic bounded-below complex of injective objects.
     Then for all complex $A^{\bullet}$, $\hom^{\bullet}(A^{\bullet}, I^{\bullet})$ is still acyclic.
-    \label{Lemma 6.14}
+    \label{Lemma 6.15}
 \end{lemma}
 \begin{proof}
     By Proposition \ref{Proposition 6.2}, this is equivalent to $\hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, I^{\bullet}[n]) = \{0\}$ for all $n$.
@@ -3080,7 +3107,7 @@ And we can define derived functor, denoted by $R\hom(A^{\bullet}, \cdot)$.
 \begin{lemma}
     Let $I^{\bullet}\in \mathcal{K}'$.
     Then for all complex $A^{\bullet}$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, I^{\bullet}) = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, I^{\bullet})$.
-    \label{Lemma 6.15}
+    \label{Lemma 6.16}
 \end{lemma}
 \begin{proof}
     Only need to show that for any morphism $A^{\bullet} \rightarrow B^{\rightarrow} \overset{qis}{\leftarrow} I^{\bullet}$,
@@ -3097,7 +3124,7 @@ And we can define derived functor, denoted by $R\hom(A^{\bullet}, \cdot)$.
     \par
     In fact, since $q: I^{\bullet} \rightarrow B^{\bullet} \rightarrow B'^{\bullet}$ is quasi-isomorphism.
     By Proposition \ref{Proposition 6.1}, $\cone(q)\in \mathcal{K}'$ is acyclic and hence contractible.
-    Hence just as proof of Lemma \ref{Lemma 6.14}, the natural map $\cone(q) \rightarrow I^{\bullet}[1]$ is null-homotopic.
+    Hence just as proof of Lemma \ref{Lemma 6.15}, the natural map $\cone(q) \rightarrow I^{\bullet}[1]$ is null-homotopic.
     Consider the chain homotopy $D_{n} = (\alpha_{n}, \beta_{n}): \cone(q)^{n} \rightarrow I^{n}$.
     Then 
     \begin{equation}
@@ -3113,10 +3140,10 @@ And we can define derived functor, denoted by $R\hom(A^{\bullet}, \cdot)$.
 \begin{lemma}
     For all quasi-isomorphism $E \rightarrow E'$ in $\mathcal{C}(\mathscr{A})$,
     the induced map $\hom^{\bullet}(E', F) \rightarrow \hom^{\bullet}(E, F)$ is also a quasi-isomorphism for all $F\in \mathcal{K}'$.
-    \label{Lemma 6.16}
+    \label{Lemma 6.17}
 \end{lemma}
 \begin{proof}
-    By Lemma \ref{Lemma 6.15}, we immediately get $H^{n}(\hom^{\bullet}(E', F)) = \hom_{\mathcal{D}(\mathscr{A})}(E', F[n])$ and $H^{n}(\hom^{\bullet}(E, F)) = \hom_{\mathcal{D}(\mathscr{A})}(E, F[n])$.
+    By Lemma \ref{Lemma 6.16}, we immediately get $H^{n}(\hom^{\bullet}(E', F)) = \hom_{\mathcal{D}(\mathscr{A})}(E', F[n])$ and $H^{n}(\hom^{\bullet}(E, F)) = \hom_{\mathcal{D}(\mathscr{A})}(E, F[n])$.
     Hence 
     \begin{equation}
         \hom_{\mathcal{D}(\mathscr{A})}(E', F[n]) \overset{\circ (E' \rightarrow E)}{\longrightarrow} \hom_{\mathcal{D}(\mathscr{A})}(E, F[n])
@@ -3131,12 +3158,137 @@ And we can define derived functor, denoted by $R\hom(A^{\bullet}, \cdot)$.
         \begin{split}
             \ext^{n}(A^{\bullet}, B^{\bullet}) & = H^{n}(R\hom(A^{\bullet}, B^{\bullet})) \\
             & = H^{n}(\hom^{\bullet}(A^{\bullet}, B'^{\bullet})) \\
-            & = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B'^{\bullet}) \\
-            & = \hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, B'^{\bullet}) \\
-            & = \hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, B^{\bullet})
+            & = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B'^{\bullet}[n]) \\
+            & = \hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, B'^{\bullet}[n]) \\
+            & = \hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, B^{\bullet}[n])
         \end{split}
     \end{equation}
     so that we can directly write out extension classes without annoying $A'^{\bullet}$ or $B'^{\bullet}$.
 \end{remark}
+Let $\mathscr{A} = \module(\mathcal{O}_{X})$.
+For short, we denote homotopy category and derived category by $\mathcal{K}(X)$ and $\mathcal{D}(X)$ respectively.
+Consider total tensor product $\mathcal{F}^{\bullet} \otimes_{\mathcal{O}_{X}}^{n} \mathcal{G}^{\bullet} = \oplus_{p + q = n} \mathcal{F}^{p} \otimes_{\mathcal{O}_{X}} \mathcal{G}^{q}$.
+Replacing injective objects by flat $\mathcal{O}_{X}$-modules, 
+we can also define derived functor of total tensor functor.
+In particular, we have derived pull back $Lf^{\ast}$.
+
+\section{Cotangent Complex}
+\label{section:Cotangent_Complex}
+
+\subsection{Some properties of cotangent complex}
+\label{subsection:Cotangent_Complex_Some_properties_of_cotangent_complex}
+
+Let $f: X \rightarrow Y$ be a morphism of scheme.
+Denote the cotangent complex of $f$ by $\mathbb{L}_{f}$, or when there is no confusion by $\mathbb{L}_{X/Y}$.
+At most of time, we would view it as an element in $\mathcal{D}^{\le 0}(X)$.
+Firstly, let's state some properties about cotangent complex.
+\begin{proposition}
+    Given commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = tiny]
+            X \arrow[rr, "f"] \arrow[dr] &&
+            Y \arrow[dl] \\
+            & S &
+        \end{tikzcd}
+    \end{equation}
+    there is an exact triangle in $\mathcal{D}(X)$
+    \begin{equation}
+        Lf^{\ast}\mathbb{L}_{Y/S} \longrightarrow \mathbb{L}_{X/S} \longrightarrow \mathbb{L}_{f} \longrightarrow Lf^{\ast}\mathbb{L}_{Y/S}[1]
+    \end{equation}
+    \vspace{-1.5\baselineskip} % 减少一行间距
+    \label{Proposition 7.1}
+\end{proposition}
+\begin{remark}
+    In fact, $H^{0}(\mathbb{L}_{X/Y}) = \Omega_{X/Y}^{1}$ and when taking sheaf cohomology, we would get a long exact sequence
+    \begin{equation}
+        \cdots \longrightarrow H^{-1}(\mathbb{L}_{f}) \longrightarrow f^{\ast}\Omega_{Y/S}^{1} \longrightarrow \Omega_{X/S}^{1} \longrightarrow \Omega_{X/Y}^{1} \longrightarrow 0
+    \end{equation}
+    which is a generalization of classic short exact sequence of Kahler differentials.
+    Hence to some extent, $H^{-1}(\mathbb{L}_{f})$ measures the singularities of $f$.
+\end{remark}
+\begin{lemma}
+    Let $X \rightarrow Y$ be an etale morphism.
+    Then $\mathbb{L}_{X/Y} = 0$.
+    \label{Lemma 7.1}
+\end{lemma}
+\begin{lemma}
+    Let $X \rightarrow Y$ be a smooth morphism.
+    Then $\mathbb{L}_{X/Y} = \Omega_{X/Y}^{1}[0]$.
+    \label{Lemma 7.2}
+\end{lemma}
+\begin{lemma}
+    Let $X \rightarrow Y$ be a morphism of schemes.
+    Assume $X \rightarrow Y$ factors $W$ such that $X \hookrightarrow W$ is a regular embedding with ideal sheaf $\mathcal{I}$ and $W \rightarrow Y$ is smooth.
+    Then $\mathbb{L}_{X/Y} = [\mathcal{I}/\mathcal{I}^2 \rightarrow \Omega_{W/Y}^{1}\big{|}_{X}]$.
+    \label{Lemma 7.3}
+\end{lemma}
+\begin{definition}
+    Let $X \rightarrow Y$ be a morphism of schemes.
+    Define naive cotangent complex of $f$ to be $\mathbb{L}_{X/Y}^{\ge -1} = \tau^{\ge -1}\mathbb{L}_{X/Y}$.
+    In some references, this would also be denoted as $N\mathbb{L}_{X/Y}$.
+\end{definition}
+\begin{lemma}
+    Let $X \rightarrow Y$ be a morphism of schemes.
+    Assume $X \rightarrow Y$ factors $W$ such that $X \hookrightarrow W$ is a closed embedding with ideal sheaf $\mathcal{I}$ and $W \rightarrow Y$ is smooth.
+    Then $\mathbb{L}_{X/Y}^{\ge -1} = [\mathcal{I}/\mathcal{I}^2 \rightarrow \Omega_{W/Y}^{1}\big{|}_{X}]$.
+    \label{Lemma 7.4}
+\end{lemma}
+\begin{proposition}
+    Let $X \hookrightarrow Y$ be a closed immersion with ideal sheaf $\mathcal{I}$.
+    Then $\mathbb{L}_{X/Y}^{\ge -1} = \mathcal{I}/\mathcal{I}^{2}[1]$.
+    \label{Proposition 7.2}
+\end{proposition}
+\begin{reason}
+    Consider $X \hookrightarrow Y \overset{\identity_{Y}}{\rightarrow} Y$.
+    By Lemma \ref{Lemma 7.4}, we get $\mathbb{L}_{X/Y}^{\ge -1} = [\mathcal{I}/\mathcal{I}^2 \rightarrow \Omega_{Y/Y}^{1}\big{|}_{X}] = \mathcal{I}/\mathcal{I}^{2}[1]$.
+\end{reason}
+
+\subsection{Deformation of map}
+\label{subsection:Cotangent_Complex_Deformation_of_map}
+
+Consider deformation problem of map over $K$-scheme.
+Here $K$ is a ring, not necessarily a field.
+Given closed immersion $T \hookrightarrow T'$ with ideal sheaf $\mathcal{J}$ of square $0$.
+Assume there is a morphism $f: T \rightarrow X$.
+Question if there exists extension $T' \rightarrow X$ making the daigram commutative
+\begin{equation}
+    \begin{tikzcd}[sep = tiny]
+        T' \arrow[rr, dashrightarrow] &&
+        X \\
+        & T \arrow[ul] \arrow[ur, "f" swap] &
+    \end{tikzcd}
+\end{equation}
+In fact, we have that
+\begin{itemize}
+    \item no automorphism 
+    \item extensions are pseudo-torsor under $\ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J})$ 
+    \item obstruction lies in $\ext_{T}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J})$.
+\end{itemize}
+For extensions of map, assume that there are two extensions
+\begin{equation}
+    \begin{tikzcd}
+        T' \arrow[rr, "g", shift left] \arrow[rr, "h" swap, shift right] &&
+        X \\
+        & T \arrow[ul] \arrow[ur, "f" swap] &
+    \end{tikzcd}
+\end{equation}
+then locally we have that
+\begin{equation}
+    \begin{tikzcd}
+        A' \arrow[dr, twoheadrightarrow] &&
+        B \arrow[dl, "f^{\sharp}"] \arrow[ll, "g^{\sharp}" swap, shift right] \arrow[ll, "h^{\sharp}", shift left] \\
+        & A &
+    \end{tikzcd}
+\end{equation}
+By commutativity, $g^{\sharp} - h^{\sharp}$ defines a $K$-module homomorphism $B \rightarrow J$.
+Thus
+\begin{equation}
+    \begin{split}
+        \{\text{extensions}\} & \leftrightsquigarrow \derivation_{K}(B, J) \\
+        & \leftrightsquigarrow \hom_{B}(\Omega_{B}, J)
+    \end{split}
+\end{equation}
+where $\hom_{B}(\Omega_{B}, J) = \hom_{B}(\Omega_{B}, \hom_{A}(A, J)) = \hom_{A}(\Omega_{B} \otimes_{B} A, J)$.
+Hence globally, extensions are classified by $\hom_{T}(f^{\ast}\Omega_{X}^{1}, \mathcal{J})$.
 
 \end{document}
