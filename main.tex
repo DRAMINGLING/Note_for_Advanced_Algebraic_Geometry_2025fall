@@ -2619,7 +2619,7 @@ In addition, the following corollary tells us there is a more easy understanding
             A^{\bullet} \\
         \end{tikzcd}
     \end{equation}
-    there is a commutative diagram up to homotopy
+    there exists chain map $h: C^{\bullet} \rightarrow D^{\bullet}$ such that commutative diagram up to homotopy
     \begin{equation}
         \begin{tikzcd}
             & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[d, "h"] \arrow[ddl, "g_{1}" swap] & \\
@@ -2628,7 +2628,6 @@ In addition, the following corollary tells us there is a more easy understanding
             A^{\bullet} \\
         \end{tikzcd}
     \end{equation}
-    Moreover, by symmetry, in fact $h$ has a homotopic inverse.
     \label{Corollary 6.1}
 \end{corollary}
 \begin{proof}
@@ -2642,7 +2641,24 @@ In addition, the following corollary tells us there is a more easy understanding
             & E^{\bullet} & \\
         \end{tikzcd}
     \end{equation}
+    Then we have chain homotopy $D = D_{1} \oplus D_{2} \oplus D_{3}: C^{\bullet} \rightarrow E^{\bullet}$.
+    By definition, we get
+    \begin{equation}
+        \left\{
+            \begin{aligned}
+                & f_{1} = D_{1} \circ \partial + \partial \circ D_{1} + f_{2} \circ D_{3} \\ 
+                & g_{2} = D_{2} \circ \partial + \partial \circ D_{2} + g_{2} \circ D_{3} \\
+                & D_{3} \circ \partial - \partial \circ D_{3} = 0
+            \end{aligned}
+        \right.
+    \end{equation}
+    Hence $D_{3}$ is a chain map and just our desired $h$.
 \end{proof}
+\begin{remark}
+    In Corollary \ref{Corollary 6.1}, what we have is only existence.
+    Even though by symmetry, there would also exist chain map $h': D^{\bullet} \rightarrow C^{\bullet}$ having similar property.
+    The two chain maps in general would not be homotopic inverse of each other. 
+\end{remark}
 \begin{example}
     Recall in Example \ref{example:short_exact_sequence_of_complexes_inducing_a_triangle}, 
     for a short exact sequence of complexes $0 \rightarrow A^{\bullet} \overset{u}{\rightarrow} B^{\bullet} \overset{v}{\rightarrow} C^{\bullet} \rightarrow 0$,
