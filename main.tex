@@ -2698,6 +2698,7 @@ More specially, there is another funny lemma.
 \begin{proof}
     We only prove for the first case, given a morphism in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$,
     we can interpret it as $B^{\bullet} \overset{qis}{\leftarrow} C^{\bullet} \overset{f}{\rightarrow} A[0]$.
+    By truncation $\tau^{\ge 0}$, we may assume that $C^{\bullet}\in \mathcal{C}^{\le 0}(\mathscr{A})$
     Consider the commutative diagram
     \begin{equation}
         \begin{tikzcd}
@@ -2711,8 +2712,30 @@ More specially, there is another funny lemma.
     \end{equation}
     As $f \circ \partial_{C^{\bullet}} = 0$, $f$ factors through $\coker \partial_{C^{\bullet}} = H^{0}(C^{\bullet})$.
     Note that $C^{\bullet} \rightarrow B^{\bullet}$ is a quasi-isomorphism, we get $\coker \partial_{B^{\bullet}} = H^{0}(B^{\bullet}) = H^{0}(C^{\bullet})$.
-    Hence $f$ induces an element in $\ker (\hom_{\mathscr{A}}(B^{0}, A) \overset{\circ \partial}{\rightarrow} \hom_{\mathscr{A}}(B^{-1}, A))$.
-    By universal property of cokernel, the correspondence is bijective, done!
+    Hence $f$ induces an element in $\hom_{\mathcal{C}(\mathscr{A})}(B^{\bullet}, A[0])$.
+    By universal property of cokernel, we get a well defined map.
+    \par
+    Obviously, the map is surjective.
+    Remains to show that the map is injective.
+    Given two different interpretation of same morphism in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$
+    \begin{equation}
+        \begin{tikzcd}
+            & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[ddl, "g_{1}" swap] & \\
+            & D^{\bullet} \arrow[dr, "f_{2}"] \arrow[dl, "g_{2}" swap] & \\
+            B^{\bullet} &&
+            A[0] \\
+        \end{tikzcd}
+    \end{equation}
+    By Lemma \ref{Lemma 6.5}, if we take $E^{\bullet} = \cone((f_{2}, g_{2}))$.
+    Then there is a commutative diagram up to homotopy
+    \begin{equation}
+        \begin{tikzcd}
+            & C^{\bullet} \arrow[dr, "f_{1}"] \arrow[dl, "g_{1}" swap] & \\
+            B^{\bullet} \arrow[dr] &&
+            A[0] \arrow[dl] \\
+            & E^{\bullet} & \\
+        \end{tikzcd}
+    \end{equation}
 \end{proof}
 We end this subsection with an important proposition, which deeply characterizes quasi-isomorphisms.
 \begin{proposition}
@@ -3291,6 +3314,6 @@ Thus
 where $\hom_{B}(\Omega_{B}, J) = \hom_{B}(\Omega_{B}, \hom_{A}(A, J)) = \hom_{A}(\Omega_{B} \otimes_{B} A, J)$.
 Hence globally, extensions are classified by $\hom_{T}(f^{\ast}\Omega_{X}^{1}, \mathcal{J})$.
 \begin{lemma}
-    
+
 \end{lemma}
 \end{document}
