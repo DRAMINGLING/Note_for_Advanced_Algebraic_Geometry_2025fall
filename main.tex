@@ -3382,6 +3382,37 @@ Thus
 where $\hom_{B}(\Omega_{B}, J) = \hom_{B}(\Omega_{B}, \hom_{A}(A, J)) = \hom_{A}(\Omega_{B} \otimes_{B} A, J)$.
 Hence globally, extensions are classified by $\hom_{T}(f^{\ast}\Omega_{X}^{1}, \mathcal{J})$.
 \begin{lemma}
-
+    In fact, $\hom_{T}(f^{\ast}\Omega_{X}^{1}, \mathcal{J}) = \ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}) = \ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J})$.
+    \label{Lemma 7.5}
 \end{lemma}
+\begin{proof}
+    We firstly show the second equality.
+    Consider flat resolution of cotangent complex $\mathbb{L}_{X}$
+    \begin{equation}
+        \begin{tikzcd}
+            & \cdots \arrow[d] &
+            \cdots \arrow[d] & \\
+            \cdots \arrow[r] &
+            \mathcal{F}^{-1, -2} \arrow[r] \arrow[d] &
+            \mathcal{F}^{0, -2} \arrow[r] \arrow[d] &
+            0 \\
+            \cdots \arrow[r] &
+            \mathcal{F}^{-1, -1} \arrow[r] \arrow[d] &
+            \mathcal{F}^{0, -1} \arrow[r] \arrow[d] &
+            0 \\
+            \cdots \arrow[r] &
+            \mathcal{\mathcal{F}}^{-1, 0} \arrow[r] \arrow[d] &
+            \mathcal{\mathcal{F}}^{0, 0} \arrow[r] \arrow[d] &
+            0 \\
+            \cdots \arrow[r] &
+            \mathbb{L}_{X}^{-1} \arrow[r] \arrow[d] &
+            \mathbb{L}_{X}^{0} \arrow[r] \arrow[d] &
+            0 \\
+        \end{tikzcd}
+    \end{equation}
+    Take total complex, we get quasi-isomorphism $\totalcomplex (\mathcal{F}^{\bullet, \ast}) \rightarrow \mathbb{L}_{X}$.
+    Note that by truncation $\tau^{\ge -1}$, $\totalcomplex (\mathcal{F}^{\bullet}, \ast)^{\ge -1} \rightarrow \mathbb{L}_{X}^{\ge -1}$ also a quasi-isomorphism,
+    we have that $\partial_{Lf^{\ast}\mathbb{L}_{X}}^{-1} = \partial_{Lf^{\ast}\mathbb{L}^{\ge -1}}^{-1}$.
+    While by Proposition \ref{Proposition 6.2} and Lemma \ref{Lemma 6.7}, $\ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}) = \hom_{\mathcal{D}(T)}()$
+\end{proof}
 \end{document}
