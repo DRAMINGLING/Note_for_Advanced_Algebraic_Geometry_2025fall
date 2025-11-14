@@ -2746,8 +2746,8 @@ I would like to write the last sentence as a lemma.
 More specially, there is another funny lemma.
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category, $A\in \mathscr{A}$.
-    Then for any $B^{\bullet}\in \mathcal{C}^{\le 0}(\mathscr{A})$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0]) = \ker (\hom_{\mathscr{A}}(B^{0}, A) \overset{\circ \partial}{\rightarrow} \hom_{\mathscr{A}}(B^{-1}, A))$.
-    Similarly, for any $B^{\bullet}\in \mathcal{C}^{\ge 0}(\mathscr{A})$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(A[0], B^{\bullet}) = \ker (\hom_{\mathscr{A}}(A, B^{0}) \overset{\circ \partial}{\rightarrow} \hom_{\mathscr{A}}(A, B^{1}))$.
+    Then for any $B^{\bullet}\in \mathcal{C}^{\le 0}(\mathscr{A})$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0]) = \hom_{\mathcal{C}(\mathscr{A})}(B^{\bullet}, A[0])$.
+    Similarly, for any $B^{\bullet}\in \mathcal{C}^{\ge 0}(\mathscr{A})$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(A[0], B^{\bullet}) = \hom_{\mathcal{C}(\mathscr{A})}(A[0], B^{\bullet})$.
     \label{Lemma 6.7}
 \end{lemma}
 \begin{proof}
@@ -2801,6 +2801,9 @@ More specially, there is another funny lemma.
     \par
     Obviously, the map is surjective.
     Remains to show that the map is injective.
+    Assume that $B^{\bullet} \overset{qis}{\leftarrow} C^{\bullet} \overset{f}{\rightarrow} A[0]$ is mapping to zero map.
+    Then $H^{0}(C^{\bullet}) \rightarrow A$ is zero map so that $f$ is zero map.
+    Conclude that the map is bijective.
 \end{proof}
 We end this subsection with an important proposition, which deeply characterizes quasi-isomorphisms.
 \begin{proposition}
