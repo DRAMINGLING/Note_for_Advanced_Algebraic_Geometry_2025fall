@@ -2773,20 +2773,10 @@ More specially, there is another funny lemma.
     by Corollary \ref{Corollary 6.1}, we have a commutative diagram up to homotopy
     \begin{equation}
         \begin{tikzcd}
-            & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[ddl, "g_{1}" swap] & \\
+            & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[d, "h"] \arrow[ddl, "g_{1}" swap] & \\
             & D^{\bullet} \arrow[dr, "f_{2}"] \arrow[dl, "g_{2}" swap] & \\
             B^{\bullet} &&
             A[0] \\
-        \end{tikzcd}
-    \end{equation}
-    By Lemma \ref{Lemma 6.5}, if we take $E^{\bullet} = \cone((f_{2}, g_{2}))$.
-    Then there is a commutative diagram up to homotopy
-    \begin{equation}
-        \begin{tikzcd}
-            & C^{\bullet} \arrow[dr, "f_{1}"] \arrow[dl, "g_{1}" swap] & \\
-            B^{\bullet} \arrow[dr] &&
-            A[0] \arrow[dl] \\
-            & E^{\bullet} & \\
         \end{tikzcd}
     \end{equation}
 \end{proof}
