@@ -3413,6 +3413,16 @@ Hence globally, extensions are classified by $\hom_{T}(f^{\ast}\Omega_{X}^{1}, \
     Take total complex, we get quasi-isomorphism $\totalcomplex (\mathcal{F}^{\bullet, \ast}) \rightarrow \mathbb{L}_{X}$.
     Note that by truncation $\tau^{\ge -1}$, $\totalcomplex (\mathcal{F}^{\bullet}, \ast)^{\ge -1} \rightarrow \mathbb{L}_{X}^{\ge -1}$ also a quasi-isomorphism,
     we have that $\partial_{Lf^{\ast}\mathbb{L}_{X}}^{-1} = \partial_{Lf^{\ast}\mathbb{L}^{\ge -1}}^{-1}$.
-    While by Proposition \ref{Proposition 6.2} and Lemma \ref{Lemma 6.7}, $\ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}) = \hom_{\mathcal{D}(T)}()$
+    While by Proposition \ref{Proposition 6.2} and Lemma \ref{Lemma 6.7}, 
+    \begin{equation}
+        \ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}) = \hom_{\mathcal{D}(T)}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}[0]) = \hom_{\mathcal{C}(T)}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}[0]) = \hom_{T}(\coker \partial_{Lf^{\ast}\mathbb{L}_{X}}^{-1}, \mathcal{J})
+    \end{equation}
+    and
+    \begin{equation}
+        \ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}) = \hom_{\mathcal{D}(T)}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}[0]) = \hom_{\mathcal{C}(T)}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}[0]) = \hom_{T}(\coker \partial_{Lf^{\ast}\mathbb{L}_{X}^{\ge -1}}^{-1}, \mathcal{J})
+    \end{equation}
+    Hence the second equality holds.
+    \par
+    For the first equality, take a flat resolution of 
 \end{proof}
 \end{document}
