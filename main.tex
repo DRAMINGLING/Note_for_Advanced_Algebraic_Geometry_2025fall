@@ -2619,7 +2619,8 @@ In addition, the following corollary tells us there is a more easy understanding
             A^{\bullet} \\
         \end{tikzcd}
     \end{equation}
-    there exists chain map $h: C^{\bullet} \rightarrow D^{\bullet}$ such that commutative diagram up to homotopy
+    where $g_{1}$ and $g_{2}$ are quasi-isomorphisms,
+    there exists a quasi-isomorphism $h: C^{\bullet} \rightarrow D^{\bullet}$ such that commutative diagram up to homotopy
     \begin{equation}
         \begin{tikzcd}
             & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[d, "h"] \arrow[ddl, "g_{1}" swap] & \\
@@ -2653,6 +2654,8 @@ In addition, the following corollary tells us there is a more easy understanding
         \right.
     \end{equation}
     Hence $D_{3}$ is a chain map and just our desired $h$.
+    Since $g_{2} \circ h \simeq g_{1}$, we get ${g_{2}}_{\sharp} \circ h_{\sharp} = {g_{1}}_{\sharp}$ as cohomology group homomorphism.
+    Note that $g_{1}$ and $g_{2}$ are quasi-isomorphisms, we conclude that $h$ is also a quasi-isomorphism.
 \end{proof}
 \begin{remark}
     In Corollary \ref{Corollary 6.1}, what we have is only existence.
@@ -2765,10 +2768,8 @@ More specially, there is another funny lemma.
     As $f \circ \partial_{C^{\bullet}} = 0$, $f$ factors through $\coker \partial_{C^{\bullet}} = H^{0}(C^{\bullet})$.
     Note that $C^{\bullet} \rightarrow B^{\bullet}$ is a quasi-isomorphism, we get $\coker \partial_{B^{\bullet}} = H^{0}(B^{\bullet}) = H^{0}(C^{\bullet})$.
     Hence $f$ induces an element in $\hom_{\mathcal{C}(\mathscr{A})}(B^{\bullet}, A[0])$.
-    By universal property of cokernel, we get a well defined map.
     \par
-    Obviously, the map is surjective.
-    Remains to show that the map is injective.
+    Want to show that this map is well defined.
     Given two different interpretation of same morphism in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$,
     by Corollary \ref{Corollary 6.1}, we have a commutative diagram up to homotopy
     \begin{equation}
@@ -2779,6 +2780,27 @@ More specially, there is another funny lemma.
             A[0] \\
         \end{tikzcd}
     \end{equation}
+    where $h$, $g_{1}$ and $g_{2}$ are quasi-isomorphisms.
+    Note that $\hom_{\mathcal{K}(\mathscr{A})}(C^{\bullet}, A[0]) = \hom_{\mathcal{C}(\mathscr{A})}(C^{\bullet}, A[0])$,
+    we immediately get that $f_{1} = f_{2} \circ h$.
+    Hence by definition, we have a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            C^{0} \arrow[r, "h"] &
+            D^{0} \arrow[r, "f_{2}"] &
+            A \\
+            \ker \partial_{C^{\bullet}}^{0} \arrow[u, hookrightarrow] \arrow[r, "h"] &
+            \ker \partial_{D^{\bullet}}^{0} \arrow[u, hookrightarrow] \arrow[ur] & \\
+            C^{-1} \arrow[u, "\partial_{C^{\bullet}}^{-1}"] \arrow[r, "h"] &
+            D^{-1} \arrow[r, "\partial_{D^{\bullet}}^{-1}"] &
+        \end{tikzcd}
+    \end{equation}
+    By universal property of cokernel, we get $H^{0}(C^{\bullet}) \overset{h_{\sharp}}{\rightarrow} H^{0}(D^{\bullet}) \rightarrow A$.
+    Again by commutativity of the diagram, we get cohomology group homomorphism ${g_{1}}_{\sharp} = {g_{2}}_{\sharp} \circ h_{\sharp}$.
+    Hence the map is well defined.
+    \par
+    Obviously, the map is surjective.
+    Remains to show that the map is injective.
 \end{proof}
 We end this subsection with an important proposition, which deeply characterizes quasi-isomorphisms.
 \begin{proposition}
