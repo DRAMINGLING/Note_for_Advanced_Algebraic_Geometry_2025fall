@@ -2607,6 +2607,42 @@ To solve this problem, we'd like to adapt a better way to define derived categor
     \end{equation}
     And for chain map $f: E \rightarrow F$, $f = 0$ in $\mathcal{D}(\mathscr{A})$ if and only if there exists quasi-isomorphism $q: E' \rightarrow E$ such that $f \circ q \simeq 0$.
 \end{remark}
+In addition, the following corollary tells us there is a more easy understanding way to say two morphisms in derived category are same.
+\begin{corollary}
+    Let $\mathscr{A}$ be an abelian category, $A^{\bullet},B^{\bullet}\in \mathcal{C}(\mathscr{A})$.
+    Given two different interpretations of same morphism in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A^{\bullet})$
+    \begin{equation}
+        \begin{tikzcd}
+            & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[ddl, "g_{1}" swap] & \\
+            & D^{\bullet} \arrow[dr, "f_{2}"] \arrow[dl, "g_{2}" swap] & \\
+            B^{\bullet} &&
+            A^{\bullet} \\
+        \end{tikzcd}
+    \end{equation}
+    there is a commutative diagram up to homotopy
+    \begin{equation}
+        \begin{tikzcd}
+            & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[d, "h"] \arrow[ddl, "g_{1}" swap] & \\
+            & D^{\bullet} \arrow[dr, "f_{2}"] \arrow[dl, "g_{2}" swap] & \\
+            B^{\bullet} &&
+            A^{\bullet} \\
+        \end{tikzcd}
+    \end{equation}
+    Moreover, by symmetry, in fact $h$ has a homotopic inverse.
+    \label{Corollary 6.1}
+\end{corollary}
+\begin{proof}
+    By Lemma \ref{Lemma 6.5}, if we take $E^{\bullet} = \cone((f_{2}, g_{2}))$,
+    there is a commutative diagram up to homotopy
+    \begin{equation}
+        \begin{tikzcd}
+            & C^{\bullet} \arrow[dr, "f_{1}"] \arrow[dl, "g_{1}" swap] & \\
+            B^{\bullet} \arrow[dr] &&
+            A[0] \arrow[dl] \\
+            & E^{\bullet} & \\
+        \end{tikzcd}
+    \end{equation}
+\end{proof}
 \begin{example}
     Recall in Example \ref{example:short_exact_sequence_of_complexes_inducing_a_triangle}, 
     for a short exact sequence of complexes $0 \rightarrow A^{\bullet} \overset{u}{\rightarrow} B^{\bullet} \overset{v}{\rightarrow} C^{\bullet} \rightarrow 0$,
@@ -2717,7 +2753,8 @@ More specially, there is another funny lemma.
     \par
     Obviously, the map is surjective.
     Remains to show that the map is injective.
-    Given two different interpretation of same morphism in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$
+    Given two different interpretation of same morphism in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$,
+    by Corollary \ref{Corollary 6.1}, we have a commutative diagram up to homotopy
     \begin{equation}
         \begin{tikzcd}
             & C^{\bullet} \arrow[ddr, "f_{1}"] \arrow[ddl, "g_{1}" swap] & \\
