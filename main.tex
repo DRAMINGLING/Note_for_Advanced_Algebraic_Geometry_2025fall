@@ -2690,35 +2690,43 @@ In addition, the following corollary tells us there is a more easy understanding
     In particular, $\cone(u) = [0 \rightarrow A \rightarrow B \rightarrow 0]$ where $B$ is at degree $0$,
     and the map $\cone(u) \rightarrow A[1]$ is zero map in $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$ if and only if the given short exact sequence splits.
 \end{example}
-I would like to write the last sentence as a lemma.
+I would like to give a lemma generalizing the last sentence in this example.
 \begin{lemma}
-    Let $\mathscr{A}$ be an abelian category.
-    Assume $A \rightarrow B$ is an injection in $\mathscr{A}$.
+    Let $\mathscr{A}$ be an abelian category, morphism $\pi: A \rightarrow B$ in $\mathscr{A}$.
     Then the following chain map is zero map in $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$.
     \begin{equation}
         \begin{tikzcd}
-            {[A} \arrow[r, hookrightarrow] \arrow[d, "\identity_{A}"] &
+            {[A} \arrow[r, "\pi"] \arrow[d, "f"] &
             {B]} \arrow[d] \\
-            {[A} \arrow[r] &
+            {[C} \arrow[r] &
             {0]}
         \end{tikzcd}
-        \label{equation:chain_map_induced_by_identity_map}
+        \label{equation:chain_map_in_lemma_6.6}
+    \end{equation}
+    In addition, dually, the following chain map is zero map $\mathcal{D}(\mathscr{A})$ if and only if it is zero map in $\mathcal{K}(\mathscr{A})$.
+    \begin{equation}
+        \begin{tikzcd}
+            {[0} \arrow[r] \arrow[d] &
+            {C]} \arrow[d, "f"] \\
+            {[A} \arrow[r, "\pi"] &
+            {B]}
+        \end{tikzcd}
     \end{equation}
     \label{Lemma 6.6}
 \end{lemma}
 \vspace{-\baselineskip} % 减少一行间距
 \begin{proof}
     Suffice to show the $\Rightarrow$ arrow.
-    Assume chain map \ref{equation:chain_map_induced_by_identity_map} is zero map in $\mathcal(K)(\mathscr{A})$,
-    then there exists quasi-isomorphism $X^{\bullet} \overset{\varphi}{\rightarrow} [A \hookrightarrow B]$ such that their composition is null-homotopic.
+    Assume chain map \ref{equation:chain_map_in_lemma_6.6} is zero map in $\mathcal{D}(\mathscr{A})$,
+    then there exists quasi-isomorphism $X^{\bullet} \overset{\varphi}{\rightarrow} [A \overset{\pi}{\rightarrow} B]$ such that their composition is null-homotopic.
     By canonical truncation, we may assume that for all $i \ge 1$, $X^{i} = 0$.
     Hence there exists morphism $D: X_{0} \rightarrow A$ such that the following diagram commutes
     \begin{equation}
         \begin{tikzcd}
             X^{-1} \arrow[r, "\partial_{X}"] \arrow[d, "\varphi_{-1}"] &
-            X^{0} \arrow[r] \arrow[d, "\varphi_{0}"] \arrow[ddl, "D"] &
+            X^{0} \arrow[r] \arrow[d, "\varphi_{0}"] \arrow[ddl, "D" near end] &
             0 \\
-            A \arrow[r, hookrightarrow] \arrow[d, "\identity_{A}" swap] &
+            A \arrow[r, "\pi" near start] \arrow[d, "f" swap] &
             B \arrow[r] \arrow[d] & 
             0 \\
             A \arrow[r] &
@@ -2727,23 +2735,25 @@ I would like to write the last sentence as a lemma.
     \end{equation}
     Note that $\varphi$ is a quasi-isomorphism, for all $b\in B$,
     there exists some $x\in X^{0}$ such that $\overline{\varphi_{0}(x)} = \overline{b}$ in $B/A$.
-    Hence $a := \varphi_{0}(x) - b\in A$.
-    Define $s(b) = D(x) - a$.
+    Hence there exists $a$ such that $\pi(a) = \varphi_{0}(x) - b\in A$.
+    Define $s(b) = D(x) - f(a)$.
     \par
     First to check that $s$ is well-defined.
     Assume that $x_{1},x_{2}\in X^{0}$ satisfies that $\overline{x_{1}} = \overline{b} = \overline{x_{2}}$.
     Then $x_{1} - x_{2}\in \im \partial_{X}$ so that there exists $x'\in X^{-1}$ mapping to $x_{1} - x_{2}$.
-    Denote $a_{1} = \varphi_{0}(x_{1}) - b$ and $a_{2} = \varphi_{0}(x_{2}) - b$.
-    Note that $a_{1} - a_{2} = \varphi_{0}(x_{1} - x_{2}) = \varphi_{0} \circ \partial_{X}(x') = \varphi_{-1}(x)$.
-    Thus $D(x_{1}) - a_{1} - (D(x_{2}) - a_{2}) = D(x_{1} - x_{2}) - (a_{1} - a_{2}) = \varphi_{-1}(x') - (a_{1} - a_{2}) = 0$ so that $s$ is well-defined.
-    And $s(a) = 0 - (-a) = a$.
-    Conclude that chain map \ref{equation:chain_map_induced_by_identity_map} is null-homotopic.
+    Suppose $\pi(a_{1}) = \varphi_{0}(x_{1}) - b$ and $\pi(a_{2}) = \varphi_{0}(x_{2}) - b$.
+    Note that $\pi(a_{1} - a_{2}) = \varphi_{0}(x_{1} - x_{2}) = \varphi_{0} \circ \partial_{X}(x') = \pi \circ \varphi_{-1}(x')$.
+    We get $a_{1} - a_{2} - \varphi_{-1}(x')\in \ker \pi$.
+    \par
+    As $\varphi$ is a quasi-isomorphism, there exists $x''\in \ker \partial_{X}$ such that $\varphi_{-1}(x'') = a_{1} - a_{2} - \varphi_{-1}(x')$.
+    Thus $D(x_{1}) - f(a_{1}) - (D(x_{2}) - f(a_{2})) = D(x_{1} - x_{2}) - f(a_{1} - a_{2}) = f \circ \varphi_{-1}(x') - f(a_{1} - a_{2}) = f \circ \varphi_{-1}(-x'') = D \circ \partial_{X}(-x'') = 0$ so that $s$ is well-defined.
+    And $s(a) = 0 - f(-a) = f(a)$.
+    Conclude that chain map \ref{equation:chain_map_in_lemma_6.6} is null-homotopic.
 \end{proof}
 \begin{remark}
-    Note that cohomology group homomorphism induced by chain map \ref{equation:chain_map_induced_by_identity_map} is always a zero map,
+    Note that when $\pi$ is injective, the cohomology group homomorphism induced by chain map \ref{equation:chain_map_in_lemma_6.6} is always a zero map,
     this is also an example that nonzero morphism in $\mathcal{K}(\mathscr{A})$ induces trivial cohomology group homomorphism.
 \end{remark}
-More specially, there is another funny lemma.
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category, $A\in \mathscr{A}$.
     Then for any $B^{\bullet}\in \mathcal{C}^{\le 0}(\mathscr{A})$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0]) = \hom_{\mathcal{C}(\mathscr{A})}(B^{\bullet}, A[0])$.
@@ -3329,6 +3339,12 @@ Firstly, let's state some properties about cotangent complex.
     Then $\mathbb{L}_{X/Y}^{\ge -1} = [\mathcal{I}/\mathcal{I}^2 \rightarrow \Omega_{W/Y}^{1}\big{|}_{X}]$.
     \label{Lemma 7.4}
 \end{lemma}
+\begin{remark}
+    In affine case, we can always find such a $W$.
+    Let $f: A \rightarrow B$ be a ring homomorphism.
+    We can define naive cotangent complex of $f$ to be $N\mathbb{L}_{B/A} = [I/I^{2} \rightarrow \Omega_{P/A} \otimes_{P} B]$,
+    where $P = A[B]$ and $I$ is kernel of $P \rightarrow B$.
+\end{remark}
 \begin{proposition}
     Let $X \hookrightarrow Y$ be a closed immersion with ideal sheaf $\mathcal{I}$.
     Then $\mathbb{L}_{X/Y}^{\ge -1} = \mathcal{I}/\mathcal{I}^{2}[1]$.
@@ -3346,7 +3362,7 @@ Consider deformation problem of map over $K$-scheme.
 Here $K$ is a ring, not necessarily a field.
 Given closed immersion $T \hookrightarrow T'$ with ideal sheaf $\mathcal{J}$ of square $0$.
 Assume there is a morphism $f: T \rightarrow X$.
-Question if there exists extension $T' \rightarrow X$ making the daigram commutative
+Question if there exists extension $T' \rightarrow X$ making the diagram commutative
 \begin{equation}
     \begin{tikzcd}[sep = tiny]
         T' \arrow[rr, dashrightarrow] &&
@@ -3417,7 +3433,7 @@ Hence globally, extensions are classified by $\hom_{T}(f^{\ast}\Omega_{X}^{1}, \
     \end{equation}
     Take total complex, we get quasi-isomorphism $\totalcomplex (\mathcal{F}^{\bullet, \ast}) \rightarrow \mathbb{L}_{X}$.
     Note that by truncation $\tau^{\ge -1}$, $\totalcomplex (\mathcal{F}^{\ge -1, \ast}) \rightarrow \mathbb{L}_{X}^{\ge -1}$ also a quasi-isomorphism,
-    we have that $\partial_{Lf^{\ast}\mathbb{L}_{X}}^{-1} = \partial_{Lf^{\ast}\mathbb{L}^{\ge -1}}^{-1}$.
+    we have that $\partial_{Lf^{\ast}\mathbb{L}_{X}}^{-1} = \partial_{Lf^{\ast}\mathbb{L}_{X}^{\ge -1}}^{-1}$.
     While by Lemma \ref{Lemma 6.7}, 
     \begin{equation}
         \hom_{\mathcal{D}(T)}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}[0]) = \hom_{\mathcal{C}(T)}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}[0]) = \hom_{T}(\coker \partial_{Lf^{\ast}\mathbb{L}_{X}}^{-1}, \mathcal{J})
@@ -3433,4 +3449,98 @@ Hence globally, extensions are classified by $\hom_{T}(f^{\ast}\Omega_{X}^{1}, \
 \begin{remark}
     Similarly, we also have $\ext_{T}^{1}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}) = \ext_{T}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J})$.
 \end{remark}
+For obstruction, by Proposition \ref{Proposition 7.1}, we have a diagram in $\mathcal{D}(T)$
+\begin{equation}
+    \begin{tikzcd}
+        Lf^{\ast}\mathbb{L}_{X} \arrow[r] &
+        \mathbb{L}_{T} \arrow[r] \arrow[d, equal] &
+        \mathbb{L}_{f} \arrow[r] &
+        Lf^{\ast}\mathbb{L}_{X}[1] \\
+        Li^{\ast}\mathbb{L}_{T'} \arrow[r] &
+        \mathbb{L}_{T} \arrow[r] &
+        \mathbb{L}_{T/T'} \arrow[r] &
+        Li^{\ast}\mathbb{L}_{T'}[1]
+    \end{tikzcd}
+\end{equation}
+Hence we get a morphism $\varphi: Lf^{\ast}\mathbb{L}_{X} \rightarrow \mathbb{L}_{T/T'}^{\ge -1}$.
+Note that by Proposition \ref{Proposition 7.2}, $\mathbb{L}_{T/T'}^{\ge -1} = \mathcal{J}[1]$, 
+the morphism $\varphi$ is an element in $\hom_{\mathcal{D}(T)}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J}[1]) = \ext_{T}^{1}(Lf^{\ast}\mathbb{L}_{X}, J)$.
+In fact $\varphi$ is just our desired obstruction.
+\par
+More explicitly, assume that $X$ is a closed subscheme of some $W$ smooth over $\spec K$ and there exists morphism $g: T' \rightarrow W$ making the following diagram commutative
+\begin{equation}
+    \begin{tikzcd}
+        T \arrow[r, "f"] \arrow[d, hookrightarrow, "i"] &
+        X \arrow[d, hookrightarrow, "j"] \\
+        T' \arrow[r, "g"] &
+        W
+    \end{tikzcd}
+\end{equation}
+Denote the ideal sheaf of $j$ by $\mathcal{I}$, locally we have a commutative diagram
+\begin{equation}
+    \begin{tikzcd}
+        A/J &
+        B/I \arrow[l] \\
+        A \arrow[u, twoheadrightarrow] &
+        B \arrow[l] \arrow[u, twoheadrightarrow]
+    \end{tikzcd}
+\end{equation}
+Hence there is natural map $I/I^{2} \rightarrow J/J^{2} = J$.
+And $B \rightarrow A$ factors through $B/I$ if and only if $I/I^{2} \rightarrow J$ is a zero map.
+Globally we get $g^{\ast}: \mathcal{I}/\mathcal{I}^{2}\big{|}_{T} \rightarrow \mathcal{J}$.
+Suffices to show that $g^{\ast}$ can be modified to zero map if and only if $\varphi = 0$.
+Note that there is an exact sequence
+\begin{equation}
+    \mathcal{I}/\mathcal{I}^{2}\big{|}_{T} \longrightarrow \Omega_{W}^{1}\big{|}_{T} \longrightarrow \Omega_{X}^{1}\big{|}_{T} \longrightarrow 0
+\end{equation}
+By Lemma \ref{Lemma 7.4}, $\mathbb{L}_{X}^{\ge -1} = [\mathcal{I}/\mathcal{I}^{2} \rightarrow \Omega_{W}^{1}\big{|}_{X}]$.
+And $g^{\ast}$ gives a morphism in $\hom_{\mathcal{K}(T)}(f^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}[1])$
+\begin{equation}
+    \begin{tikzcd}
+        {[\mathcal{I}/\mathcal{I}^{2}}\big{|}_{T} \arrow[r] \arrow[d, "g^{\ast}"] &
+        {\Omega_{W}^{1}\big{|}_{T}]} \arrow[dl, dashrightarrow, "h"] \\
+        {[\mathcal{J}} \arrow[r] &
+        {0]}
+    \end{tikzcd}
+\end{equation}
+Hence $g^{\ast}$ can be modified to zero map if and only if $g^{\ast} = 0$ in $\hom_{\mathcal{K}(T)}(f^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}[1])$.
+By Lemma \ref{Lemma 6.6}, this is also equivalent to that $g^{\ast} = 0$ in $\hom_{\mathcal{D}(T)}(f^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}[1])$.
+\begin{lemma}
+    In the setting above, $\ext_{T}^{1}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}) = \hom_{\mathcal{D}(T)}(f^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}[1])$.
+    \label{Lemma 7.6}
+\end{lemma}
+\begin{proof}
+    Take flat resolution $\mathcal{F}^{\bullet}$ of $\mathcal{I}/\mathcal{I}^{2}$.
+    As $\Omega_{W}^{1}\big{|}_{X}$ is locally free, we get a quasi-isomorphism with the first row a complex of flat $\mathcal{O}_{X}$-module sheaves
+    \begin{equation}
+        \begin{tikzcd}
+            \mathcal{F}^{-1} \arrow[r] &
+            \mathcal{F}^{0} \arrow[r] \arrow[d, twoheadrightarrow] &
+            \Omega_{W}^{1}\big{|}_{X} \arrow[r] \arrow[d, equal] &
+            0 \\
+            0 \arrow[r] &
+            \mathcal{I}/\mathcal{I}^{2} \arrow[r] &
+            \Omega_{W}^{1}\big{|}_{X} \arrow[r] &
+            0
+        \end{tikzcd}
+        \label{equation:flat_resolution_of_naive_cotangent_complex}
+    \end{equation}
+    Hence $Lf^{\ast}\mathbb{L}_{X}^{\ge -1} = [\cdots \rightarrow f^{\ast}\mathcal{F}^{-1} \rightarrow f^{\ast}\mathcal{F}^{0} \rightarrow f^{\ast}\Omega_{W}^{1}\big{|}_{X} \rightarrow 0]$.
+    Applying pull back $f^{\ast}$ to chain map \ref{equation:flat_resolution_of_naive_cotangent_complex} , we get
+    \begin{equation}
+        \begin{tikzcd}
+            f^{\ast}\mathcal{F}^{-1} \arrow[r] &
+            f^{\ast}\mathcal{F}^{0} \arrow[r] \arrow[d] &
+            f^{\ast}\Omega_{W}^{1}\big{|}_{X} \arrow[r] \arrow[d, equal] &
+            0 \\
+            0 \arrow[r] &
+            f^{\ast}\mathcal{I}/\mathcal{I}^{2} \arrow[r] &
+            f^{\ast}\Omega_{W}^{1}\big{|}_{X} \arrow[r] &
+            0
+        \end{tikzcd}
+    \end{equation}
+    As pull back is right exact, the cohomology group homomorphisms at degree $-1$ and $0$ are still isomorphic.
+     $\ext_{T}^{1}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}) = \hom_{\mathcal{D}(T)}(Lf^{\ast}\mathbb{L}_{X}^{\ge -1}, \mathcal{J}[1])$,
+    any morphism in which is a 
+\end{proof}
 \end{document}
