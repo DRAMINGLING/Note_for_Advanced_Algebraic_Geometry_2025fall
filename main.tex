@@ -2953,7 +2953,20 @@ We end this subsection with an important proposition, which deeply characterizes
     For $j = 1$, $\partial_{C^{\ge 0}} \circ \widetilde{\psi}_{1} = \partial_{C^{\bullet}} \circ \psi_{0}$ hence ok.
     For $j = 0$, as $\im (\partial \circ \psi) \subseteq \im \partial$, 
     for all $\overline{a}\in D^{0}/\im \partial$, $\widetilde{\psi}_{1} \circ \partial(\overline{a}) = \overline{\psi_{1}(a)}$ is just the the image of $[a]$ under the chain map hence ok.
-    Conclude that the morphism $B^{\bullet} \rightarrow A[0]$ is zero in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\ge 0}, A[0])$. 
+    Conclude that the morphism $B^{\bullet} \rightarrow A[0]$ is zero in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\ge 0}, A[0])$.
+    \par
+    For surjectivity, for any morphism $B^{\bullet} \overset{qis}{\leftarrow} D^{\bullet} \rightarrow A[0]$,
+    since $D^{\bullet} \rightarrow A[0]$ would factor through $D^{\ge 0}$, we get commutative diagram
+    \begin{equation}
+        B^{\bullet} \arrow[d] &
+        D^{\bullet} \arrow[dr] \arrow[d] \arrow[l, "qis"] & \\
+        B^{\ge 0} \arrow[dr] &
+        D^{\ge 0} \arrow[r] \arrow[l, "qis"] &
+        A[0] \arrow[dl, "qis"] \\
+        & C^{\bullet} &
+    \end{equation}
+    where $C^{\bullet}$ is given by Lemma \ref{Lemma 6.5}.
+    By commutativity, we get $B^{\bullet} \overset{qis}{\leftarrow} D^{\bullet} \rightarrow A[0]$ is the image of $B^{\ge 0} \overset{qis}{\leftarrow} D^{\ge 0} \rightarrow A[0]$ under $\varphi$, done!
 \end{proof}
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
