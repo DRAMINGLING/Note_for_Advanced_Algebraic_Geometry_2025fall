@@ -338,7 +338,7 @@ Then
 \end{itemize}
 Conclude that 1st order deformations of $\mathcal{E}$ in $X$ is $H^{1}(X, \sheafend_{\mathcal{O}_{X}}(\mathcal{E}))$.
 \begin{remark}
-    If generalize vector bundles to coherent sheaves, the answer is $\ext_{X}^{1}(\mathcal{E}, \mathcal{E})$ since each element in $\ext_{X}^{1}(\mathcal{E}, \mathcal{E})$ gives an extension
+    If generalize vector bundles to coherent sheaves, the answer is $\ext_{\mathcal{O}_{X}}^{1}(\mathcal{E}, \mathcal{E})$ since each element in $\ext_{\mathcal{O}_{X}}^{1}(\mathcal{E}, \mathcal{E})$ gives an extension
     \begin{eqnarray}
         0 \longrightarrow \mathcal{E} \longrightarrow \mathcal{E}' \longrightarrow \mathcal{E} \longrightarrow 0
     \end{eqnarray}
@@ -3641,4 +3641,106 @@ By Lemma \ref{Lemma 6.6}, this is also equivalent to that $g^{\ast} = 0$ in $\ho
     \end{equation}
     done!
 \end{proof}
+
+\subsection{Local to global spectral sequence}
+\label{subsection:Cotangent_Complex_Local_to_global_spectral_sequence}
+
+Let $X$ be a scheme.
+Consider total hom functor on the category of $\mathcal{O}_{X}$-module sheaves, 
+denoted by $\sheafhom^{\bullet}(\mathcal{F}^{\bullet}, \mathcal{G}^{\bullet})$.
+Then we get derived total sheaf hom $R\sheafhom$.
+As $\Gamma(X, \cdot) \circ \sheafhom = \hom$, it is natural to question if $R\Gamma(X, \cdot) \circ R\sheafhom = R\hom$.
+In fact, this comes from the following lemma.
+\begin{lemma}
+    Let $X$ be a scheme, $\mathcal{F}$ sheaf of flat module.
+    Then for all injective $\mathcal{I}\in \module(\mathcal{O}_{X})$, $\sheafhom_{\mathcal{O}_{X}}(\mathcal{F}, \mathcal{I})$ is still injective.
+    \label{Lemma 7.7}
+\end{lemma}
+\begin{proof}
+    Want to show for all injection $\mathcal{A} \hookrightarrow \mathcal{B}$,
+    the induced map $\hom_{\mathcal{O}_{X}}(\mathcal{B}, \sheafhom_{\mathcal{O}_{X}}(\mathcal{F}, \mathcal{I})) \rightarrow \hom_{\mathcal{O}_{X}}(\mathcal{A}, \sheafhom_{\mathcal{O}_{X}}(\mathcal{F}, \mathcal{I}))$ is surjective.
+    In fact, as sheaf hom and tensor product are adjoint pair, we get commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \hom_{\mathcal{O}_{X}}(\mathcal{B}, \sheafhom_{\mathcal{O}_{X}}(\mathcal{F}, \mathcal{I})) \arrow[r] \arrow[d, equal] &
+            \hom_{\mathcal{O}_{X}}(\mathcal{A}, \sheafhom_{\mathcal{O}_{X}}(\mathcal{F}, \mathcal{I})) \arrow[d, equal] \\
+            \hom_{\mathcal{O}_{X}}(\mathcal{B} \otimes_{\mathcal{O}_{X}} \mathcal{F}, \mathcal{I}) \arrow[r] &
+            \hom_{\mathcal{O}_{X}}(\mathcal{A} \otimes_{\mathcal{O}_{X}} \mathcal{F}, \mathcal{I})
+        \end{tikzcd}
+    \end{equation}
+    Since $\mathcal{F}$ is flat and $\mathcal{I}$ is injective, 
+    $\mathcal{A} \otimes_{\mathcal{O}_{X}} \mathcal{F} \rightarrow \mathcal{B} \otimes_{\mathcal{O}_{X}} \mathcal{F}$ is still injective so that the induced map is surjective.
+\end{proof}
+Recall the following theorem by Grothendieck in homological algebra.
+\begin{theorem}[\textbf{\emph{Grothendieck}}]
+    Let $\mathscr{A} \overset{G}{\rightarrow} \mathscr{B} \overset{F}{\rightarrow} \mathscr{C}$ be covariant additive functors,
+    where $\mathscr{A}, \mathscr{B}$ and $\mathscr{C}$ are abelian categories with enough injective objects.
+    Assume that $F$ is left exact and for $I$ injective, $GI$ is $F$-acyclic.
+    Then for all object $A\in \mathscr{A}$, there is a third quadrant spectral sequence with
+    \begin{equation}
+        E_{2}^{p, q} = (R^{p}F)(R^{q}G)A \underset{p}{\Rightarrow} R^{p + q}(FG)A
+    \end{equation}
+    \vspace{-1.5\baselineskip} % 减少一行间距
+    \label{Theorem 7.1}
+\end{theorem}
+Here we take $\mathscr{A} = \mathscr{B} = \module (\mathcal{O}_{X})$ and $\mathscr{C} = \abeliangroups$ with $F = \Gamma(X, \cdot)$ and $G = \sheafhom_{\mathcal{O}_{X}}(\mathcal{F}, \cdot)$, where $F$ is a flat module sheaves.
+Then Lemma \ref{Lemma 7.7} tells us that conditions of Grothendieck Theorem hold. 
+Hence we get $H^{p}(X, \sheafext_{\mathcal{O}_{X}}^{q}(\mathcal{F}, \mathcal{G})) \underset{p}{\Rightarrow} \ext_{\mathcal{O}_{X}}^{p + q}(\mathcal{F}, \mathcal{G})$.
+And by diagram chasing (cf. Weibel, exercise 5.1.3), we have an exact sequence of low degree terms
+\begin{equation}
+    \begin{split}
+            0 & \rightarrow H^{1}(X, \sheafext_{\mathcal{O}_{X}}^{0}(\mathcal{F}, \mathcal{G})) \rightarrow \ext_{\mathcal{O}_{X}}^{1}(\mathcal{F}, \mathcal{G}) \rightarrow H^{0}(X, \sheafext_{\mathcal{O}_{X}}^{1}(\mathcal{F}, \mathcal{G})) \\
+            & \rightarrow H^{2}(X, \sheafext_{\mathcal{O}_{X}}^{0}(\mathcal{F}, \mathcal{G})) \rightarrow \ext_{\mathcal{O}_{X}}^{2}(\mathcal{F}, \mathcal{G}) 
+    \end{split}
+\end{equation}
+Take injective resolution $\mathcal{I}^{\bullet}$ of $\mathcal{G}$.
+Similar to idea of exact sequence of low degree items, for all $\mathcal{F}^{\bullet}\in \mathcal{C}^{\le 0}(X)$ complex of flat module sheaves,
+consider the following commutative diagram with all rows and columns complexes
+\begin{equation}
+    \begin{tikzcd}[column sep = small]
+        & \cdots &
+        \cdots &
+        \cdots & \\
+        0 \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{-2}, \mathcal{I}^{0}) \arrow[u] \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{-2}, \mathcal{I}^{1}) \arrow[u] \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{-2}, \mathcal{I}^{2}) \arrow[u] \arrow[r] &
+        \cdots \\
+        0 \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{-1}, \mathcal{I}^{0}) \arrow[u] \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{-1}, \mathcal{I}^{1}) \arrow[u] \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{-1}, \mathcal{I}^{2}) \arrow[u] \arrow[r] &
+        \cdots \\
+        0 \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{0}, \mathcal{I}^{0}) \arrow[u] \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{0}, \mathcal{I}^{1}) \arrow[u] \arrow[r] &
+        \hom_{\mathcal{O}_{X}}(\mathcal{F}^{0}, \mathcal{I}^{2}) \arrow[u] \arrow[r] &
+        \cdots \\
+        & 0 \arrow[u] &
+        0 \arrow[u] &
+        0 \arrow[u] &
+    \end{tikzcd}
+\end{equation}
+we can also get an exact sequence of low degree items
+\begin{equation}
+    \begin{split}
+            0 & \rightarrow H^{1}(X, \sheafext_{X}^{0}(\mathcal{F}^{\bullet}, \mathcal{G})) \rightarrow \ext_{X}^{1}(\mathcal{F}^{\bullet}, \mathcal{G}) \rightarrow H^{0}(X, \sheafext_{X}^{1}(\mathcal{F}^{\bullet}, \mathcal{G})) \\
+            & \rightarrow H^{2}(X, \sheafext_{X}^{0}(\mathcal{F}^{\bullet}, \mathcal{G})) \rightarrow \ext_{X}^{2}(\mathcal{F}^{\bullet}, \mathcal{G}) 
+    \end{split}
+    \label{equation:exact_sequence_of_low_degree_items_for_derived_ext}
+\end{equation}
+Note that for all $\mathcal{A}^{\bullet}\in \mathcal{C}^{\le 0}(X)$, we can take such an $\mathcal{F}^{\bullet}$ with quasi-isomorphism $\mathcal{F}^{\bullet} \rightarrow A^{\bullet}$,
+we can replace $\mathcal{F}^{\bullet}$ by $\mathcal{A}^{\bullet}$ in exact sequence \ref{equation:exact_sequence_of_bundle_of_1st_jets}.
+In particular, if we take $A^{\bullet} = Lf^{\ast}\mathbb{L}_{X}$, then we would get
+\begin{equation}
+    \begin{split}
+            0 & \rightarrow H^{1}(X, \sheafext_{X}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})) \rightarrow \ext_{X}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G}) \rightarrow H^{0}(X, \sheafext_{X}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})) \\
+            & \rightarrow H^{2}(X, \sheafext_{X}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})) \rightarrow \ext_{X}^{2}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G}) 
+    \end{split}
+\end{equation}
+Note that $\ext_{X}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})$ is just where obstruction lies, 
+the exact sequence tells us that intuitively obstruction consists of two parts.
+One part is obstruction of locally extension lying in $\ker (H^{0}(X, \sheafext_{X}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})) \rightarrow H^{2}(X, \sheafext_{X}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})))$.
+When local obstruction vanishes, local extension always exists.
+And the obstruction to gluing up such local extensions lies in $H^{1}(X, \sheafext_{X}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G}))$.
 \end{document}
