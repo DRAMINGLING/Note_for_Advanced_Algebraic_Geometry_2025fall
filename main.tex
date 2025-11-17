@@ -2896,7 +2896,7 @@ We end this subsection with an important proposition, which deeply characterizes
     The natural map $B^{\bullet} \rightarrow B^{\ge 0}$ would induces a homomorphism $\varphi: \hom_{\mathcal{D}(\mathscr{A})}(B^{\ge 0}, A[0]) \rightarrow \hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$.
     Want to show that $\varphi$ is bijective.
     \par
-    For injectivity, suppose that $B^{\ge 0} \rightarrow C^{\bullet} \overset{qis}{\leftarrow} A[0]$ is mapping to zero map under $\varphi$.
+    For injectivity, suppose that $B^{\ge 0} \rightarrow C^{\bullet} \overset{qis}{\leftarrow} A[0]$ is mapping to zero under $\varphi$.
     Then there is a commutative diagram
     \begin{equation}
         \begin{tikzcd}
@@ -2933,7 +2933,27 @@ We end this subsection with an important proposition, which deeply characterizes
         \end{tikzcd}
     \end{equation}
     As the zero map $D^{\bullet} \rightarrow A[0]$ factors through $D^{\ge 0}$,
-    we get 
+    we get
+    \begin{equation}
+        \begin{tikzcd}
+            \cdots \arrow[r] & 
+            0 \arrow[r] \arrow[d] &
+            D^{0}/ \im \partial \arrow[r] \arrow[d] \arrow[dl] &
+            D^{1} \arrow[r] \arrow[d] \arrow[dl, "\widetilde{\psi}_{1}"] &
+            \cdots \\
+            \cdots \arrow[r] &
+            0 \arrow[r] &
+            C^{0}/\im \partial \arrow[r] &
+            C^{1} \arrow[r] &
+            \cdots
+        \end{tikzcd}
+    \end{equation}
+    Check that $\widetilde$ is a chain homotopy between $D^{\ge 0} \rightarrow C^{\ge 0}$ and zero map.
+    For $j \ge 2$, $\widetilde{\psi}_{j} = \psi_{j}$ hence ok.
+    For $j = 1$, $\partial_{C^{\ge 0}} \circ \widetilde{\psi}_{1} = \partial_{C^{\bullet}} \circ \psi_{0}$ hence ok.
+    For $j = 0$, as $\im (\partial \circ \psi) \subseteq \im \partial$, 
+    for all $\overline{a}\in D^{0}/\im \partial$, $\widetilde{\psi}_{1} \circ \partial(\overline{a}) = \overline{\psi_{1}(a)}$ is just the the image of $[a]$ under the chain map hence ok.
+    Conclude that the morphism $B^{\bullet} \rightarrow A[0]$ is zero in $\hom_{\mathcal{D}(\mathscr{A})}(B^{\ge 0}, A[0])$. 
 \end{proof}
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
