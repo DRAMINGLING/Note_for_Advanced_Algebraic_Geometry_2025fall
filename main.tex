@@ -2958,12 +2958,14 @@ We end this subsection with an important proposition, which deeply characterizes
     For surjectivity, for any morphism $B^{\bullet} \overset{qis}{\leftarrow} D^{\bullet} \rightarrow A[0]$,
     since $D^{\bullet} \rightarrow A[0]$ would factor through $D^{\ge 0}$, we get commutative diagram
     \begin{equation}
-        B^{\bullet} \arrow[d] &
-        D^{\bullet} \arrow[dr] \arrow[d] \arrow[l, "qis"] & \\
-        B^{\ge 0} \arrow[dr] &
-        D^{\ge 0} \arrow[r] \arrow[l, "qis"] &
-        A[0] \arrow[dl, "qis"] \\
-        & C^{\bullet} &
+        \begin{tikzcd}
+            B^{\bullet} \arrow[d] &
+            D^{\bullet} \arrow[dr] \arrow[d] \arrow[l, "qis"] & \\
+            B^{\ge 0} \arrow[dr] &
+            D^{\ge 0} \arrow[r] \arrow[l, "qis"] &
+            A[0] \arrow[dl, "qis"] \\
+            & C^{\bullet} &
+        \end{tikzcd}
     \end{equation}
     where $C^{\bullet}$ is given by Lemma \ref{Lemma 6.5}.
     By commutativity, we get $B^{\bullet} \overset{qis}{\leftarrow} D^{\bullet} \rightarrow A[0]$ is the image of $B^{\ge 0} \overset{qis}{\leftarrow} D^{\ge 0} \rightarrow A[0]$ under $\varphi$, done!
