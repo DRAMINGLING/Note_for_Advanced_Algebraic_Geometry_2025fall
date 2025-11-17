@@ -2885,6 +2885,56 @@ We end this subsection with an important proposition, which deeply characterizes
 \begin{remark}
     There are also notions of naive truncations (or say stupid truncations) which sending $A^{\bullet}$ to $[0 \rightarrow A^{n} \rightarrow A^{n + 1} \rightarrow \cdots]$ or $[\cdots \rightarrow A^{n - 1} \rightarrow A^{n} \rightarrow 0]$.
 \end{remark}
+\begin{proposition}
+    Let $\mathscr{A}$ be an abelian category, $A\in \mathscr{A}$ and $B^{\bullet}\in \mathcal{C}(\mathscr{A})$.
+    Then for all $i$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[i]) = \hom_{\mathcal{D}(\mathscr{A})}(B^{\ge i}, A[i])$ and $\hom_{\mathcal{D}(\mathscr{A})}(A[i], B^{\bullet}) = \hom_{\mathcal{D}(\mathscr{A})}(A[i], B^{\ge i})$.
+    \label{Proposition 6.2}
+\end{proposition}
+\begin{proof}
+    Here we only prove for the first case.
+    We may assume that $i = 0$.
+    The natural map $B^{\bullet} \rightarrow B^{\ge 0}$ would induces a homomorphism $\varphi: \hom_{\mathcal{D}(\mathscr{A})}(B^{\ge 0}, A[0]) \rightarrow \hom_{\mathcal{D}(\mathscr{A})}(B^{\bullet}, A[0])$.
+    Want to show that $\varphi$ is bijective.
+    \par
+    For injectivity, suppose that $B^{\ge 0} \rightarrow C^{\bullet} \overset{qis}{\leftarrow} A[0]$ is mapping to zero map under $\varphi$.
+    Then there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            B^{\bullet} \arrow[d] &
+            D^{\bullet} \arrow[dd, "0", bend left] \arrow[d] \arrow[l, "qis"] \\
+            B^{\ge 0} \arrow[d] &
+            D^{\ge 0} \arrow[l, "qis"] \\
+            C^{\bullet} &
+            A[0] \arrow[l, "qis"]
+        \end{tikzcd}
+    \end{equation}
+    Hence there exists chain homotopy $\psi: D^{\bullet} \rightarrow C^{\bullet}$ such that $\psi \circ \partial + \partial \circ \psi = D^{\bullet} \overset{qis}{\rightarrow} B^{\bullet} \rightarrow B^{\ge 0} \rightarrow C^{\bullet}$.
+    Note that $A[0] \rightarrow C^{\bullet}$ is a quasi-isomorphism,
+    for all $j < 0$, $C^{\bullet}$ is exact at degree $j$.
+    Hence natural map $C^{\bullet} \rightarrow C^{\ge 0}$ is a quasi-isomorphism and we get another interpretation of the morphism $B^{\ge 0} \rightarrow A[0]$.
+    Consider the following diagram
+    \begin{equation}
+        \begin{tikzcd}
+            \cdots \arrow[r] & 
+            D^{-1} \arrow[r] \arrow[d, "0"] &
+            D^{0} \arrow[r] \arrow[d] \arrow[dl, "\psi_{0}"] &
+            D^{1} \arrow[r] \arrow[d] \arrow[dl, "\psi_{1}"] &
+            \cdots \\
+            \cdots \arrow[r] &
+            C^{-1} \arrow[r] \arrow[d] &
+            C^{0} \arrow[r] \arrow[d, twoheadrightarrow] &
+            C^{1} \arrow[r] \arrow[d, equal] &
+            \cdots \\
+            \cdots \arrow[r] &
+            0 \arrow[r] &
+            C^{0}/\im \partial \arrow[r] &
+            C^{1} \arrow[r] &
+            \cdots
+        \end{tikzcd}
+    \end{equation}
+    As the zero map $D^{\bullet} \rightarrow A[0]$ factors through $D^{\ge 0}$,
+    we get 
+\end{proof}
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category.
     Then $\mathcal{D}^{+}(\mathscr{A})$ (resp. $\mathcal{D}^{-}(\mathscr{A})$) can be identified with the localization of $\mathcal{C}^{+}(\mathscr{A})$ (resp. $\mathcal{C}^{-}(\mathscr{A})$) by quasi-isomorphisms.
