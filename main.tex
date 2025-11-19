@@ -30,34 +30,42 @@
 \newcommand{\mapsfrom}{\mathrel{\reflectbox{\ensuremath{\mapsto}}}}
 \newcommand{\longmapsfrom}{\mathrel{\reflectbox{\ensuremath{\longmapsto}}}}
 \newcommand{\groupaction}{\mathrel{\text{\scalebox{1.5}{\rotatebox[origin=c]{90}{$\circlearrowright$}}}}}
-\newcommand{\sheafhom}{\mathcal{H}\kern -.5pt om}
-\newcommand{\sheaftor}{\mathcal{T}\kern -.5pt or}
-\newcommand{\sheafext}{\mathcal{E}\kern -.5pt xt}
-\newcommand{\sheafend}{\mathcal{E}\kern -.5pt nd}
 
-\newcommand{\derivation}{\operatorname{Der}}
+
 \newcommand{\rank}{\operatorname{rank}}
 \newcommand{\im}{\operatorname{im}}
 \newcommand{\identity}{\operatorname{id}}
 \newcommand{\trdeg}{\operatorname{trdeg}}
 \newcommand{\codim}{\operatorname{codim}}
+\newcommand{\depth}{\operatorname{depth}}
+\newcommand{\projdim}{\dim_{\operatorname{proj}}}
+\newcommand{\characteristic}{\operatorname{Char}}
+
+\newcommand{\derivation}{\operatorname{Der}}
 \newcommand{\ext}{\operatorname{Ext}}
 \newcommand{\mor}{\operatorname{Mor}}
 \newcommand{\aut}{\operatorname{Aut}}
-\newcommand{\enm}{\operatorname{End}}
-\newcommand{\depth}{\operatorname{depth}}
-\newcommand{\projdim}{\dim_{\operatorname{proj}}}
+\newcommand{\homend}{\operatorname{End}}
+
+\newcommand{\sheafhom}{\mathcal{H}\kern -.5pt om}
+\newcommand{\sheaftor}{\mathcal{T}\kern -.5pt or}
+\newcommand{\sheafext}{\mathcal{E}\kern -.5pt xt}
+\newcommand{\sheafend}{\mathcal{E}\kern -.5pt nd}
+
 \newcommand{\coker}{\operatorname{coker}}
 \newcommand{\coim}{\operatorname{coim}}
+\newcommand{\cone}{\operatorname{cone}}
+\newcommand{\totalcomplex}{\operatorname{Tot}}
+
 \newcommand{\spec}{\operatorname{Spec}}
 \newcommand{\proj}{\operatorname{Proj}}
 \newcommand{\spf}{\operatorname{Spf}}
 \newcommand{\fraction}{\operatorname{Frac}}
 \newcommand{\singular}{\operatorname{Sing}}
-\newcommand{\characteristic}{\operatorname{Char}}
+
+\newcommand{\reduction}{\operatorname{red}}
+\newcommand{\normalization}{\operatorname{nor}}
 \newcommand{\analytification}{\operatorname{an}}
-\newcommand{\cone}{\operatorname{cone}}
-\newcommand{\totalcomplex}{\operatorname{Tot}}
 
 \newcommand{\inverselimit}{\underset{\longleftarrow}{\lim}} 
 \newcommand{\colimit}{\underset{\longrightarrow}{\lim}}
@@ -72,8 +80,12 @@
 \newcommand{\isomorphismscheme}{\operatorname{Isom}}
 \newcommand{\isomorphismfunctor}{\mathcal{I}\kern -.5pt som}
 
-\newcommand{\abeliangroups}{\mathcal{A}\kern -.5pt b}
+\newcommand{\abeliangroups}{\mathbf{Ab}}
+\newcommand{\rings}{\mathbf{Ring}}
+\newcommand{\commutativerings}{\mathbf{CRing}}
+
 \newcommand{\module}{\operatorname{Mod}}
+\newcommand{\algebra}{\operatorname{Alg}}
 
 \title{代数几何进阶-2025秋}
 \author{}
@@ -3301,7 +3313,7 @@ We have the following lemma.
 Hence $\mathcal{K}'$ satisfies $\hom^{\bullet}(A^{\bullet}, \cdot)$ for all $A^{\bullet}$.
 And we can define derived functor, denoted by $R\hom(A^{\bullet}, \cdot)$.
 \begin{lemma}
-    Let $I^{\bullet}\in \mathcal{K}'$.
+    Let $I^{\bullet}\in \mathcal{K}'$ be acyclic bounded-below complex of injective objects.
     Then for all complex $A^{\bullet}$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, I^{\bullet}) = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, I^{\bullet})$.
     \label{Lemma 6.16}
 \end{lemma}
@@ -3463,7 +3475,7 @@ Question if there exists extension $T' \rightarrow X$ making the diagram commuta
 In fact, we have that
 \begin{itemize}
     \item no automorphism 
-    \item extensions are pseudo-torsor under $\ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J})$ 
+    \item extensions are pseudo torsor under $\ext_{T}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J})$ 
     \item obstruction lies in $\ext_{T}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{J})$.
 \end{itemize}
 For extensions of map, assume that there are two extensions
@@ -3641,6 +3653,18 @@ By Lemma \ref{Lemma 6.6}, this is also equivalent to that $g^{\ast} = 0$ in $\ho
     \end{equation}
     done!
 \end{proof}
+\begin{remark}
+    However, we do not always have such a setting.
+    Firstly, in general, for $T$ not affine, there is not always a morphism $T \rightarrow W$.
+    In addition, unlike that in the case when $X = \spec A$ is affine, we can take $W = \spec K[A]$,
+    for general scheme $X$, we cannot find such a scheme $W$.
+    \par
+    To deal with general $X$, we need to consider it as a ringed space.
+    Define $\widetilde{X}$ with same underlying topological space as $X$ and structure sheaf $\pi^{-1}\mathcal{O}_{\spec K}[\mathcal{O}_{X}]$ defined as sheafification of the following presheaf of sets
+    \begin{equation}
+        U \longmapsto (\pi^{-1}\mathcal{O}_{\spec K}(U))[\mathcal{O}_{X}(U)]
+    \end{equation}
+\end{remark}
 
 \subsection{Local to global spectral sequence}
 \label{subsection:Cotangent_Complex_Local_to_global_spectral_sequence}
@@ -3743,4 +3767,228 @@ the exact sequence tells us that intuitively obstruction consists of two parts.
 One part is obstruction of locally extension lying in $\ker (H^{0}(X, \sheafext_{X}^{1}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})) \rightarrow H^{2}(X, \sheafext_{X}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G})))$.
 When local obstruction vanishes, local extension always exists.
 And the obstruction to gluing up such local extensions lies in $H^{1}(X, \sheafext_{X}^{0}(Lf^{\ast}\mathbb{L}_{X}, \mathcal{G}))$.
+
+\subsection{Deformation of scheme}
+\label{subsection:Cotangent_Complex_Deformation_of_scheme}
+
+Given closed immersion $S \hookrightarrow S'$ with ideal sheaf $\mathcal{J}$ of square zero and $X$ flat over S,
+we question if there exists $X'$ flat over $S'$ making the following commutes
+\begin{equation}
+    \begin{tikzcd}
+        X \arrow[r, dashrightarrow] \arrow[d, "\pi"] &
+        X' \arrow[d, dashrightarrow] \\
+        S \arrow[r, hookrightarrow] &
+        S'
+    \end{tikzcd}
+\end{equation}
+such that $X \cong X' \times_{S'} S$.
+In fact, we have that
+\begin{itemize}
+    \item automorphisms are $\ext_{X}^{0}(\mathbb{L}_{X/S}, \pi^{\ast}\mathcal{J})$
+    \item extensions are pseudo torsor under $\ext_{X}^{1}(\mathbb{L}_{X/S}, \pi^{\ast}\mathcal{J})$
+    \item obstruction lies in $\ext_{X}^{2}(\mathbb{L}_{X/S}, \pi^{\ast}\mathcal{J})$
+\end{itemize}
+In the following, we would explain these results in the ring case.
+\begin{definition}
+    Let $0 \rightarrow I \rightarrow A' \rightarrow A \rightarrow 0$ be an exact sequence of $\module_{A'}$.
+    We say that it is a 1st order thickening if $I^{2} = 0$. 
+\end{definition}
+Now, given a diagram
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        N \arrow[r, dashrightarrow] &
+        B' \arrow[r, dashrightarrow] &
+        B \arrow[r] &
+        0 \\
+        0 \arrow[r] &
+        I \arrow[u] \arrow[r] &
+        A' \arrow[u, dashrightarrow] \arrow[r] &
+        A \arrow[u] \arrow[r] &
+        0
+    \end{tikzcd}
+    \label{equation:deformation_problem_of_1st_order_thickening}
+\end{equation}
+with the last row a 1st order thickening,
+where $N$ is a $B$-module and $I \rightarrow N$ is $A$-module homomorphism.
+Question if there exists $B'$ fitting into the diagram and making the first row also a 1st order thickening.
+\begin{remark}
+    If we ask $A \rightarrow B$ to be flat, then by the local criterion of flatness Proposition \ref{Proposition 1.1},
+    given a solution $B'$ to this problem, the homomorphism $A' \rightarrow B'$ is flat if and only if $I \otimes_{A} B \cong N$.
+    Hence the new problem contains the original deformation problem.
+\end{remark}
+\begin{lemma}
+    Given a commutative diagram with each row a 1st order thickening 
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            & 0 \arrow[rr] &&
+            N_{2} \arrow[rr] &&
+            B_{2}' \arrow[rr] &&
+            B_{2} \arrow[rr] &&
+            0 \\
+            0 \arrow[rr] &&
+            N_{1} \arrow[ur] \arrow[rr] &&
+            B_{1}' \arrow[ur, dashrightarrow] \arrow[rr] &&
+            B_{1} \arrow[ur] \arrow[rr] &&
+            0 & \\
+            & 0 \arrow[rr] &&
+            I_{2} \arrow[uu] \arrow[rr] &&
+            A_{2}' \arrow[uu] \arrow[rr] &&
+            A_{2} \arrow[uu] \arrow[rr] &&
+            0 \\
+            0 \arrow[rr] &&
+            I_{1} \arrow[uu] \arrow[ur] \arrow[rr] &&
+            A_{1}' \arrow[uu] \arrow[ur] \arrow[rr] &&
+            A_{1} \arrow[uu] \arrow[ur] \arrow[rr] &&
+            0 &
+        \end{tikzcd}
+    \end{equation}
+    question if there exists $B_{1}' \rightarrow B_{2}'$ fitting into the diagram.
+    Then we have that
+    \begin{itemize}
+        \item extensions are pseudo torsor under $\ext_{B_{1}}^{0}(\mathbb{L}_{B_{1}/A_{1}}, N_{2})$
+        \item obstruction lies in $\ext_{B_{1}}^{1}(\mathbb{L}_{B_{1}/A_{1}}, N_{2})$
+    \end{itemize}
+    \label{Lemma 7.8}
+\end{lemma}
+\begin{proof}
+    Given two extensions $\varphi_{1}$ and $\varphi_{2}$, $\varphi_{1} - \varphi_{2}$ gives a map from $B_{1}'$ to $N_{2}$.
+    For all $b\in B_{1}$, take $b_{1}'\in B_{1}'$ mapping to $b_{1}$.
+    Define $\delta: b_{1} \mapsto \varphi_{1} - \varphi_{2}(b_{1}')$.
+    By commutativity, it is clear that $\delta$ is well defined derivation of $B_{1}$ to $N_{2}$ over $A_{1}$.
+    Hence extensions are classified by $\hom_{B_{1}}(\Omega_{B_{1}/A_{1}}, N_{2})$, 
+    by Lemma \ref{Lemma 6.7}, this is just $\ext_{B_{1}}^{0}(\mathbb{L}_{B_{1}/A_{1}}, N_{2})$.
+    \par
+    Take $P = A_{1}[B_{1}]$ and $P' = A_{1}'[B_{1}]$.
+    Denote kernel of $P \twoheadrightarrow B_{1}$ by $J$.
+    Then $\mathbb{L}_{B_{1}/A_{1}}^{\ge -1} = [J/J^{2} \rightarrow \Omega_{P/A_{1}} \otimes_{P} B_{1}]$.
+    For each $b_{1}\in B_{1}$, we take a $b_{1}'$ in $B_{1}'$ mapping to $b_{1}$ and so we get a map $P' \rightarrow B_{1}'$.
+    Similarly, we can also construct a map $P' \rightarrow B_{2}'$.
+    \par
+    Denote kernel of $P' \twoheadrightarrow B_{1}$ by $J'$.
+    Then we get homomorphisms $J' \rightarrow N_{1}$ and $J' \rightarrow N_{2}$.
+    Want to show that $B_{i}'$ is push out of $N_{i}$ along $J' \rightarrow P'$.
+    Assume that there is a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            N_{i} \arrow[r, "f"] &
+            C \\
+            J' \arrow[u] \arrow[r] &
+            P' \arrow[u, "g"] 
+        \end{tikzcd}
+    \end{equation}
+    Then for all $b_{i}''\in B_{i}'$, $b_{i}''$ is mapping to some $b_{i}$ in $B_{i}$.
+    Hence $b_{i}'' - b_{i}'\in N_{i}$.
+    Define $B_{i}' \rightarrow C$ by sending $b_{i}''$ to $f(b_{i}'' - b_{i}') + g([b_{i}])$.
+    It is easy to check that this map is well-defined and is unique to make the following diagram commutes
+    \begin{equation}
+        \begin{tikzcd}
+            && C \\
+            N_{i} \arrow[urr, "f", bend left] \arrow[r] &
+            B_{i}' \arrow[ur, dashrightarrow, "\exists!"] & \\
+            J' \arrow[u] \arrow[r] &
+            P' \arrow[u] \arrow[uur, "g" swap, bend right] &
+        \end{tikzcd}
+    \end{equation}
+    so that $B_{i}'$ is push out.
+    By universal property of push out, the obstruction to this extension problem is equivalent to the obstruction to the commutativity of the following diagram
+    \begin{equation}
+        \begin{tikzcd}
+            N_{1} \arrow[r] &
+            N_{2} \arrow[r] &
+            B_{2}' \\
+            J' \arrow[u] \arrow[rr] &&
+            P' \arrow[u] 
+        \end{tikzcd}
+        \label{equation:equivalent_version_of_obstruction_problem_in_lemma_7.8}
+    \end{equation}
+    Denote $\alpha: J' \rightarrow N_{1}$, $\beta: J' \rightarrow N_{2}$ and $c: N_{1} \rightarrow N_{2}$.
+    Now consider map $J/J^{2} \rightarrow N_{2}$ sending $\overline{f} \rightarrow c \circ \alpha(f') - \beta(f')$,
+    where $f'$ is a lift of $f$ in $J'$.
+    For any two lifts $f_{1}'$ and $f_{2}'$, $f_{1}' - f_{2}'$ would be in $I_{1}[B_{1}]$.
+    As $N_{2}$ is of square zero.
+    The map is well defined.
+    And the diagram \ref{equation:equivalent_version_of_obstruction_problem_in_lemma_7.8} is commutative if and only if the map can be modified to a zero map.
+    \par
+    Now modify each $b_{i}'$ to $b_{i}''$ and the modified map sends $\overline{f}$ to $c \circ \alpha'(f') - \beta'(f')$.
+    Write $f = \sum_{k} a_{k}'[b_{k}]$. 
+    Then the difference is $\sum_{k} a_{k}'(c(b_{k1}'' - b_{k1}') + (b_{k2}'' - b_{k1}'))$.
+    Hence the modification is given by $J/J^{2} \rightarrow \Omega_{P/A_{1}} \otimes_{P} B_{1} \rightarrow N_{2}$ where the second map sends $[b_{1}] \otimes 1$ to $c(b_{1}'' - b_{1}') + b_{2}'' - b_{2}$.
+    Conclude that the obstruction lies in $\ext_{B_{1}}^{1}(\mathbb{L}_{B_{1}/A_{1}}, N_{2})$.
+\end{proof}
+\begin{lemma}
+    In fact, $\ext_{B}^{1}(\mathbb{L}_{B/A}, N) = \hom_{B}(J/J^{2}, N) \rightarrow \hom_{B}(\Omega_{P/A}^{1} \otimes_{P} B, N)$.
+    \label{Lemma 7.9}
+\end{lemma}
+\begin{lemma}
+    Solutions to original problem \ref{equation:deformation_problem_of_1st_order_thickening} is pseudo torsor under $\ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
+    \label{Lemma 7.10}
+\end{lemma}
+\begin{proof}
+    Given two solutions $B_{1}'$ and $B_{2}'$, we have a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}[sep = small]
+            & 0 \arrow[rr] &&
+            N \arrow[rr] &&
+            B_{2}' \arrow[rr] &&
+            B \arrow[rr] &&
+            0 \\
+            0 \arrow[rr] &&
+            N \arrow[ur, equal] \arrow[rr] &&
+            B_{1}' \arrow[ur, dashrightarrow] \arrow[rr] &&
+            B \arrow[ur, equal] \arrow[rr] &&
+            0 & \\
+            & 0 \arrow[rr] &&
+            I \arrow[uu] \arrow[rr] &&
+            A' \arrow[uu] \arrow[rr] &&
+            A \arrow[uu] \arrow[rr] &&
+            0 \\
+            0 \arrow[rr] &&
+            I \arrow[uu] \arrow[ur, equal] \arrow[rr] &&
+            A' \arrow[uu] \arrow[ur, equal] \arrow[rr] &&
+            A \arrow[uu] \arrow[ur, equal] \arrow[rr] &&
+            0 &
+        \end{tikzcd}
+    \end{equation}
+    Hence by Lemma \ref{Lemma 7.8}, the obstruction to existence of $B_{1}' \rightarrow B_{2}'$ fitting into the diagram lies in $\ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
+    Thus $B_{1}' \cong B_{2}'$ if and only if the obstruction vanishes.
+    \par
+    On the other hand, given $\delta\in \ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
+    Note that by Lemma \ref{Lemma 7.9}, we can lift $\delta$ to some $\varphi\in \hom_{B}(J/J^{2}, N)$.
+    Take $P = A'[B]$, given a commutative diagram
+    \begin{equation}
+        \begin{tikzcd}
+            o \arrow[r] &
+            J \arrow[r] \arrow[d, "\theta"] &
+            P \arrow[r] \arrow[d] &
+            B \arrow[r] \arrow[d, equal] &
+            0 \\
+            0 \arrow[r] &
+            N \arrow[r] &
+            B_{1}' \arrow[r] &
+            B \arrow[r] &
+            0 \\
+            0 \arrow[r] &
+            I \arrow[u] \arrow[r] &
+            A' \arrow[u] \arrow[r] &
+            A \arrow[u] \arrow[r] &
+            0
+        \end{tikzcd}
+    \end{equation}
+    $\varphi + \theta$ would give a pushout $B_{2}'$ as following
+    \begin{equation}
+        \begin{tikzcd}
+            J \arrow[r] \arrow[d, "\theta + \varphi"] &
+            P \arrow[d] \\
+            N \arrow[r] &
+            B_{2}'
+        \end{tikzcd}
+    \end{equation}
+    Explicitly, $B_{2}' = \{(n, p)\}/(\theta + \varphi(j) - j)$ and the multiplication is defined by
+    \begin{equation}
+        (n_{1}, p_{1}) \cdot (n_{2}, p_{2}) = (n_{1}p_{1} + n_{2}p_{2}, p_{1}p_{2})
+    \end{equation}
+    where $np$ is well defined since $N$ is a $B$-module.
+    Conclude that solutions are classified by $\ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
+\end{proof}
 \end{document}
