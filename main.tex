@@ -3310,15 +3310,15 @@ We have the following lemma.
     Hence, we suffice to show that any chain map $f: A^{\bullet} \rightarrow I^{\bullet}$ is null-homotopic, 
     which immediately comes from the fact that $I^{\bullet}$ is contractible.
 \end{proof}
-Hence $\mathcal{K}'$ satisfies $\hom^{\bullet}(A^{\bullet}, \cdot)$ for all $A^{\bullet}$.
+Hence $\mathcal{K}'$ satisfies $\hom^{\bullet}(A^{\bullet}, \cdot)$-condition for all $A^{\bullet}$.
 And we can define derived functor, denoted by $R\hom(A^{\bullet}, \cdot)$.
 \begin{lemma}
-    Let $I^{\bullet}\in \mathcal{K}'$ be acyclic bounded-below complex of injective objects.
+    Let $I^{\bullet}\in \mathcal{K}'$ be bounded-below complex of injective objects.
     Then for all complex $A^{\bullet}$, we have that $\hom_{\mathcal{D}(\mathscr{A})}(A^{\bullet}, I^{\bullet}) = \hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, I^{\bullet})$.
     \label{Lemma 6.16}
 \end{lemma}
 \begin{proof}
-    Only need to show that for any morphism $A^{\bullet} \rightarrow B^{\rightarrow} \overset{qis}{\leftarrow} I^{\bullet}$,
+    Only need to show that for any morphism $A^{\bullet} \rightarrow B^{\bullet} \overset{qis}{\leftarrow} I^{\bullet}$,
     there exists chain map $A^{\bullet} \rightarrow I^{\bullet}$ making the diagram commutative up to homotopy
     \begin{equation}
         \begin{tikzcd}
@@ -3917,9 +3917,60 @@ Question if there exists $B'$ fitting into the diagram and making the first row 
     Conclude that the obstruction lies in $\ext_{B_{1}}^{1}(\mathbb{L}_{B_{1}/A_{1}}, N_{2})$.
 \end{proof}
 \begin{lemma}
-    In fact, $\ext_{B}^{1}(\mathbb{L}_{B/A}, N) = \hom_{B}(J/J^{2}, N) \rightarrow \hom_{B}(\Omega_{P/A}^{1} \otimes_{P} B, N)$.
+    Let $\mathscr{A}$ be an abelian category with enough injective objects.
+    Assume $A \overset{f}{\rightarrow} B$ is a morphism in $\mathscr{A}$with $B$ projective.
+    Denote $[0 \rightarrow A \overset{f}{\rightarrow} B \rightarrow 0]$ by $E$.
+    Then for all $C\in \mathscr{A}$, $\hom_{\mathcal{D}(\mathscr{A})}(E, C[1]) \cong \hom_{\mathscr{A}}(A, C)/\hom_{\mathscr{A}}(B, C)$. 
+    In particular, $\ext_{B}^{1}(\mathbb{L}_{B/A}, N) = \hom_{B}(J/J^{2}, N)/\hom_{B}(\Omega_{P/A}^{1} \otimes_{P} B, N)$.
     \label{Lemma 7.9}
 \end{lemma}
+\begin{proof}
+    Take injective resolution $I^{\bullet}$ of $C$, then $\hom_{\mathcal{D}(\mathscr{A})}(E, C[1]) = \hom_{\mathcal{D}(\mathscr{A})}(E, I^{\bullet}[1]) = \hom_{\mathcal{K}(\mathscr{A})}(E, I^{\bullet}[1])$.
+    For any chain map $\varphi$
+    \begin{equation}
+        \begin{tikzcd}
+            0 \arrow[r] &
+            A \arrow[r, "f"] \arrow[d, "\varphi_{-1}" swap] &
+            B \arrow[r] \arrow[d, "\varphi_{0}"] \arrow[dl, dashrightarrow, "\psi" swap] &
+            0 \arrow[d] & \\
+            0 \arrow[r] &
+            I^{0} \arrow[r, "g"] &
+            I^{1} \arrow[r, "h"] &
+            I^{2} \arrow[r] &
+            \cdots 
+        \end{tikzcd}
+    \end{equation}
+    as $h \circ \varphi_{0} = 0$, $\varphi_{0}$ factors through $\ker h$.
+    Since $I^{0} \twoheadrightarrow \im g = \ker h$ and $B$ is projective, 
+    there exists $\psi: B \rightarrow I^{0}$ such that $g \circ \psi = \varphi_{0}$.
+    Now for all $a\in A$, $g(\varphi_{-1} - \psi \circ f(a)) = g \circ \varphi_{-1} - \varphi_{0} \circ f(a) = 0$,
+    hence $\varphi_{-1} - \psi \circ f$ factors through $\ker g = C$.
+    \par
+    Define map $s$ sending $\varphi$ to $\overline{\varphi_{-1} - \psi \circ f}$ in $\hom_{\mathscr{A}}(A, C)/\hom_{\mathscr{A}}(B, C)$.
+    Clearly, $s$ is independent to choice $\psi$ and homotopy and hence well defined.
+    Remains to show that $s$ is bijective.
+    For surjectivity, for any $\overline{\pi}$, take lift $\pi: A \rightarrow C$.
+    Then obviously $\overline{\pi}$ is the image of the following chain map
+    \begin{equation}
+        \begin{tikzcd}
+            0 \arrow[r] &
+            A \arrow[r, "f"] \arrow[d, "\pi" swap] &
+            B \arrow[r] \arrow[d, "0"]&
+            0 \arrow[d] & \\
+            0 \arrow[r] &
+            I^{0} \arrow[r, "g"] &
+            I^{1} \arrow[r, "h"] &
+            I^{2} \arrow[r] &
+            \cdots 
+        \end{tikzcd}
+    \end{equation}
+    so that $s$ is surjective.
+    \par
+    For injectivity, assume that $\varphi$ is mapping to $\overline{0}$.
+    Then $\varphi_{-1} - \psi \circ f = \phi \circ f$ for some $\phi: B \rightarrow C$.
+    Consider $\phi$ as a map from $B$ to $I^{0}$, then $\varphi_{-1} = (\psi + \phi) \circ f$.
+    Take chain homotopy $\psi + \phi$ so that $\varphi$ is null-homotopic, done!
+\end{proof}
 \begin{lemma}
     Solutions to original problem \ref{equation:deformation_problem_of_1st_order_thickening} is pseudo torsor under $\ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
     \label{Lemma 7.10}
@@ -3975,7 +4026,7 @@ Question if there exists $B'$ fitting into the diagram and making the first row 
             0
         \end{tikzcd}
     \end{equation}
-    $\varphi + \theta$ would give a pushout $B_{2}'$ as following
+    $\theta + \varphi$ would give a pushout $B_{2}'$ as following
     \begin{equation}
         \begin{tikzcd}
             J \arrow[r] \arrow[d, "\theta + \varphi"] &
@@ -3991,4 +4042,144 @@ Question if there exists $B'$ fitting into the diagram and making the first row 
     where $np$ is well defined since $N$ is a $B$-module.
     Conclude that solutions are classified by $\ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
 \end{proof}
+For trivial case
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        N \arrow[r, dashrightarrow] &
+        B' \arrow[r, dashrightarrow] &
+        B \arrow[r] &
+        0 \\
+        0 \arrow[r] &
+        0 \arrow[u] \arrow[r] &
+        A \arrow[u, dashrightarrow] \arrow[r, "\identity_{A}"] &
+        A \arrow[u] \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+solutions are just $\ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
+In particular, $0\in \ext_{B}^{1}(\mathbb{L}_{B/A}, N)$ corresponds to $N \oplus B$ with ring structure similar to $B_{2}'$ above.
+Consider
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        I \arrow[r] &
+        A' \arrow[r] &
+        A \arrow[r] &
+        0 \\
+        0 \arrow[r] &
+        0 \arrow[u] \arrow[r] &
+        A' \arrow[u, equal] \arrow[r, "\identity_{A'}"] &
+        A' \arrow[u] \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+corresponding to some $\xi\in \ext_{A}^{\mathbb{L}_{A/A'}, I}$.
+Taking push out of $N$ along $I \rightarrow A'$ and pull back of $A$ along $B' \rightarrow$, 
+we get a commutative diagram
+\begin{equation}
+    \begin{tikzcd}
+        0 \arrow[r] &
+        I \arrow[r] \arrow[d] &
+        A' \arrow[r] \arrow[d] &
+        A \arrow[r] \arrow[d, equal] &
+        0 \arrow[r, rightsquigarrow] &
+        \xi\in \ext_{A}^{1}(\mathbb{L}_{A/A'}, I) \arrow[d, mapsto] \\
+        0 \arrow[r] &
+        N \arrow[r] \arrow[d, equal] &
+        A'' \arrow[r] \arrow[d, equal, "?" description] &
+        A \arrow[r] \arrow[d, equal] &
+        0 \arrow[r, rightsquigarrow] &
+        \xi''\in \ext_{A}^{1}(\mathbb{L}_{A/A'}, N) \arrow[d, equal, "?" description] \\
+        0 \arrow[r] &
+        N \arrow[r] \arrow[d, equal] &
+        B'' \arrow[r] \arrow[d] &
+        A \arrow[r] \arrow[d] &
+        0 \arrow[r, rightsquigarrow] &
+        \xi'''\in \ext_{A}^{1}(\mathbb{L}_{A/A'}, N) \\
+        0 \arrow[r] &
+        N \arrow[r] &
+        B' \arrow[r] &
+        B \arrow[r] &
+        0 \arrow[r, rightsquigarrow] &
+        \xi'\in \ext_{B}^{1}(\mathbb{L}_{B/A'}, N) \arrow[u, mapsto]
+    \end{tikzcd}
+\end{equation}
+Hence by 5 Lemma and universal properties of push out and pull back, 
+$B'$ is a solution to original problem if and only if $A'' = B''$ if and only if $\xi'' = \xi'''$.
+If denote $\ext_{B}^{1}(\mathbb{L}_{B/A'}, N) \rightarrow \ext_{A}^{1}(\mathbb{L}_{A/A'}, N)$ by $\rho$,
+then 
+\begin{itemize}
+    \item solutions are $\rho^{-1}(\xi'')$ a pseudo torsor under $\ker \rho$.
+    \item obstruction class is $[\xi'']\in \coker \rho$.
+\end{itemize}
+For commutative diagram
+\begin{equation}
+    \begin{tikzcd}
+        B &
+        A \arrow[l] \\
+        & A' \arrow[ul] \arrow[u]
+    \end{tikzcd}
+\end{equation}
+by Proposition \ref{Proposition 7.1}, there is an exact triangle
+\begin{equation}
+    \mathbb{L}_{A/A'} \otimes_{A} B \longrightarrow \mathbb{L}_{B/A'} \longrightarrow \mathbb{L}_{B/A} \longrightarrow \mathbb{L}_{A/A'}[1] \otimes_{A} B
+\end{equation}
+Applying $\hom_{\mathcal{D}(\module_{B})}(\cdot, N)$, by Lemma \ref{Lemma 6.3}, there is a long exact sequence
+\begin{equation}
+    \cdots \rightarrow \ext_{B}^{1}(\mathbb{L}_{B/A}, N) \rightarrow \ext_{B}^{1}(\mathbb{L}_{B/A'}, N) \overset{\rho}{\rightarrow} \ext_{B}^{1}(\mathbb{L}_{A/A'} \otimes_{A} B, N) \rightarrow \ext_{B}^{2}(\mathbb{L}_{B/A}, N)
+\end{equation}
+Note that $\ext_{B}^{1}(\mathbb{L}_{A/A'} \otimes_{A} B, N) = \ext_{A}^{1}(\mathbb{L}_{A/A'}, N)$, we can consider the image of $\xi''$ in $\ext_{B}^{2}(\mathbb{L}_{B/A}, N)$, denoted $\zeta$.
+As the sequence is exact, there exists some $\xi'$ mapping to $\xi''$ if and only if $\zeta = 0$.
+Hence the obstruction class is just $\zeta$.
+In addition, $\ker \rho = \im (\ext_{B}^{1}(\mathbb{L}_{B/A}, N) \rightarrow \ext_{B}^{1}(\mathbb{L}_{B/A'}, N))$ so that extensions are classified by $\ext_{B}^{1}(\mathbb{L}_{B/A}, N)$.
+
+\subsection{Deformation of sheaf}
+\label{subsection:Cotangent_Complex_Deformation_of_sheaf}
+
+Let $X \hookrightarrow X'$ with ideal sheaf $\mathcal{I}$ be a 1st order thickening.
+Given $\mathcal{F},\mathcal{G}$ sheaves of $\mathcal{O}_{X}$-modules on $X$ and map $\mathcal{I} \otimes_{\mathcal{O}_{X}} \mathcal{F} \overset{c}{\mathcal{G}}$,
+we question if there exists $\mathcal{O}_{X'}$-module sheaf $\mathcal{F}'$ fitting into 
+\begin{equation}
+    0 \longrightarrow \mathcal{G} \longrightarrow \mathcal{F}' \longrightarrow \mathcal{F} \longrightarrow 0
+\end{equation}  
+such that $\mathcal{F}\big{|}_{X} = \mathcal{F}$ and induced map $\mathcal{I} \otimes_{\mathcal{O}_{X}} \mathcal{F} \rightarrow \mathcal{G}$ is the given map $c$.
+In fact, we have that
+\begin{itemize}
+    \item automorphisms are $\ext_{X}^{0}(\mathcal{F}, \mathcal{G})$.
+    \item extensions are pseudo torsor under $\ext_{X}^{1}(\mathcal{F}, \mathcal{G})$.
+    \item obstruction lies in $\ext_{X}^{2}(\mathcal{F}, \mathcal{G})$.
+\end{itemize}
+
+\subsection{Construction of cotangent complex}
+\label{subsection:Cotangent_Complex_Construction_of_cotangent_complex}
+
+For ring homomorphism $A \rightarrow B$, consider simplicial resolution
+\begin{equation}
+    \begin{tikzcd}
+        \cdots \arrow[r] &
+        A^{3}[B] \arrow[r, shift left = 2ex] \arrow[r] \arrow[r, shift right = 2ex] &
+        A^{2}[B] \arrow[r, shift left = 1ex] \arrow[r, shift right = 1ex] \arrow[l, shift left = 1ex, shorten = 2mm] \arrow[l, shift right = 1ex, shorten = 2mm] &
+        A[B] \arrow[r, "\varepsilon"] \arrow[l, shorten = 2mm] &
+        B \arrow[r] &
+        0
+    \end{tikzcd}
+\end{equation}
+Those parallel arrows are given by different way of adding or removing brakets.
+For example, the two maps from $A^{2}[A]$ to $A[B]$ is respectively given by $[[b_{1}] + [b_{2}]] \mapsto [b_{1}] + [b_{2}]$ and $[[b_{1}] + [b_{2}]] \mapsto [b_{1} + b_{2}]$.
+Apply $\Omega_{\cdot/A} \otimes_{\cdot} B$, we get that
+\begin{equation*}
+    \begin{tikzcd}
+        \cdots \arrow[r] &
+        \Omega_{A^{3}[B]/A} \otimes_{A^{3}[B]} B \arrow[r, shift left = 2ex] \arrow[r] \arrow[r, shift right = 2ex] &
+        \Omega_{A^{2}[B]/A} \otimes_{A^{2}[B]} B \arrow[r, shift left = 1ex] \arrow[r, shift right = 1ex] \arrow[l, shift left = 1ex, shorten = 2mm] \arrow[l, shift right = 1ex, shorten = 2mm] &
+        \Omega_{A[B]/A} \otimes_{A[B]} B \arrow[r, "\varepsilon"] \arrow[l, shorten = 2mm] &
+        \Omega_{B/A}
+    \end{tikzcd}
+\end{equation*}
+Taking alternating sums of such maps, we get that
+\begin{equation}
+    \cdots \longrightarrow \Omega_{A^{3}[B]/A} \otimes_{A^{3}[B]} B \overset{\partial_{0} - \partial_{1} + \partial_{2}}{\longrightarrow} \Omega_{A^{2}[B]/A} \otimes_{A^{2}[B]} B \overset{\partial_{0} - \partial_{1}}{\longrightarrow} \Omega_{A[B]/A} \otimes_{A[B]} B \overset{\partial}{\longrightarrow} \Omega_{B/A}
+\end{equation}
+And $[\cdots \rightarrow \Omega_{A^{3}[B]/A} \otimes_{A^{3}[B]} B \overset{\partial_{0} - \partial_{1} + \partial_{2}}{\rightarrow} \Omega_{A^{2}[B]/A} \otimes_{A^{2}[B]} B \overset{\partial_{0} - \partial_{1}}{\rightarrow} \Omega_{A[B]/A} \otimes_{A[B]} B]$ is our desired cotangent complex.
 \end{document}
