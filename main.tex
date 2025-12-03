@@ -89,6 +89,11 @@
 \newcommand{\module}{\operatorname{Mod}}
 \newcommand{\algebra}{\operatorname{Alg}}
 
+\newcommand{\matrices}[2]{\operatorname{Mat}_{#1}(#2)}
+\newcommand{\generallineargroup}[2]{\operatorname{GL}_{#1}(#2)}
+\newcommand{\speciallineargroup}[2]{\operatorname{SL}_{#1}(#2)}
+\newcommand{\projectivespeciallineargroup}[2]{\operatorname{PSL}_{#1}(#2)}
+
 \title{代数几何进阶-2025秋}
 \author{}
 \date{}
@@ -1396,7 +1401,7 @@ Here we begin with a new definition of formal family.
             & h_{R} \arrow[dr, "\varphi"] && \\
             h_{A} \arrow[ur] \arrow[rr] \arrow[dr, "\eta"] &&
             \mathcal{F} & \\
-            & h_{A \times_{k} k[\varepsilon]} \arrow[uu, "f_{1}", shift left, crossing over] \arrow[uu, "f_{2}" swap, shift right, crossing over] \arrow[ur, "\varphi_{1}", shift left] \arrow[ur, "\varphi_{2}" swap, shift right] &&
+            & h_{A \times_{k} k[\varepsilon]} \arrow[uu, "f_{1}" near end, shift left, crossing over] \arrow[uu, "f_{2}" near end, swap, shift right, crossing over] \arrow[ur, "\varphi_{1}", shift left] \arrow[ur, "\varphi_{2}" swap, shift right] &&
             h_{k[\varepsilon]} \arrow[ll, "\pi"] \arrow[ul]
         \end{tikzcd}
     \end{equation}
@@ -1455,7 +1460,7 @@ Here we begin with a new definition of formal family.
             & h_{R} \arrow[dr, "\varphi"] && \\
             h_{A'} \arrow[ur] \arrow[rr] \arrow[dr, "\eta"] &&
             \mathcal{F} & \\
-            & h_{A' \times_{A} A''} \arrow[uu, "f_{1}", shift left, crossing over] \arrow[uu, "f_{2}" swap, shift right, crossing over] \arrow[ur, "\varphi_{1}", shift left] \arrow[ur, "\varphi_{2}" swap, shift right] &&
+            & h_{A' \times_{A} A''} \arrow[uu, "f_{1}" near end, shift left, crossing over] \arrow[uu, "f_{2}" near end, swap, shift right, crossing over] \arrow[ur, "\varphi_{1}", shift left] \arrow[ur, "\varphi_{2}" swap, shift right] &&
             h_{A''} \arrow[ll, "\pi"] \arrow[ul]
         \end{tikzcd}
     \end{equation}
@@ -2504,7 +2509,7 @@ To solve this problem, we'd like to adapt a better way to define derived categor
     \label{Lemma 6.4}
 \end{lemma}
 \begin{remark}
-    This lemma tells us that quasi-isomorphism is well-defined in $\mathcal{K}(\mathscr{A})$.
+    This lemma tells us that quasi-isomorphism is well defined in $\mathcal{K}(\mathscr{A})$.
 \end{remark}
 \begin{lemma}
     Let $\mathscr{A}$ be an abelian category, $\mathcal{K}(\mathscr{A})$ homotopy category of $\mathscr{A}$.
@@ -2753,7 +2758,7 @@ I would like to give a lemma generalizing the last sentence in this example.
     Hence there exists $a$ such that $\pi(a) = \varphi_{0}(x) - b\in A$.
     Define $s(b) = D(x) - f(a)$.
     \par
-    First to check that $s$ is well-defined.
+    First to check that $s$ is well defined.
     Assume that $x_{1},x_{2}\in X^{0}$ satisfies that $\overline{x_{1}} = \overline{b} = \overline{x_{2}}$.
     Then $x_{1} - x_{2}\in \im \partial_{X}$ so that there exists $x'\in X^{-1}$ mapping to $x_{1} - x_{2}$.
     Suppose $\pi(a_{1}) = \varphi_{0}(x_{1}) - b$ and $\pi(a_{2}) = \varphi_{0}(x_{2}) - b$.
@@ -2761,7 +2766,7 @@ I would like to give a lemma generalizing the last sentence in this example.
     We get $a_{1} - a_{2} - \varphi_{-1}(x')\in \ker \pi$.
     \par
     As $\varphi$ is a quasi-isomorphism, there exists $x''\in \ker \partial_{X}$ such that $\varphi_{-1}(x'') = a_{1} - a_{2} - \varphi_{-1}(x')$.
-    Thus $D(x_{1}) - f(a_{1}) - (D(x_{2}) - f(a_{2})) = D(x_{1} - x_{2}) - f(a_{1} - a_{2}) = f \circ \varphi_{-1}(x') - f(a_{1} - a_{2}) = f \circ \varphi_{-1}(-x'') = D \circ \partial_{X}(-x'') = 0$ so that $s$ is well-defined.
+    Thus $D(x_{1}) - f(a_{1}) - (D(x_{2}) - f(a_{2})) = D(x_{1} - x_{2}) - f(a_{1} - a_{2}) = f \circ \varphi_{-1}(x') - f(a_{1} - a_{2}) = f \circ \varphi_{-1}(-x'') = D \circ \partial_{X}(-x'') = 0$ so that $s$ is well defined.
     And $s(a) = 0 - f(-a) = f(a)$.
     Conclude that chain map \ref{equation:chain_map_in_lemma_6.6} is null-homotopic.
 \end{proof}
@@ -3048,7 +3053,7 @@ To define derived functor on derived category, consider the following diagram
 \end{equation}
 where $\mathcal{K}^{+}(\mathscr{A})$ (resp. $\mathcal{K}^{-}(\mathscr{A})$) is the homotopy category of strictly bounded-below (resp. above) complexes.
 And it is natural to define $R\mathcal{F}(A^{\bullet}) = \mathcal{F}(\totalcomplex (\mathcal{J})^{\bullet, \ast})$.
-To show this definition is well-defined and really a functor, we need following lemmas. 
+To show this definition is well defined and really a functor, we need following lemmas. 
 \begin{lemma}
     Let $A^{\bullet} \rightarrow B^{\bullet}$ be a chain map in $\mathcal{C}^{+}(\mathscr{A})$.
     By argument above, there are two quasi-isomorphisms $A^{\bullet} \rightarrow A'^{\bullet}$ and $B^{\bullet} \rightarrow B'^{\bullet}$ with $A'^{\bullet},B'^{\bullet}\in \mathcal{C}(\mathscr{A}')$.
@@ -3218,7 +3223,7 @@ To define derived functor on derived category, consider the following diagram
     \end{tikzcd}
 \end{equation}
 And it is natural to define $R\mathcal{F}(A^{\bullet}) = \mathcal{F}(A'^{\bullet})$.
-To show this definition is well-defined and really a functor, we need following generalized lemmas,
+To show this definition is well defined and really a functor, we need following generalized lemmas,
 and most of the proofs are same as their original version and we only provide proof of Lemma \ref{Lemma 6.13} here.
 \begin{lemma}
     Let $A^{\bullet} \rightarrow B^{\bullet}$ be a chain map in $\mathcal{C}(\mathscr{A})$.
@@ -3297,7 +3302,7 @@ Here we only prove for the acyclic condition.
         \end{split}
     \end{equation}
     so that $\widetilde{f}$ is homotopic to $\widetilde{g}$.
-    Thus we get a well-defined map from $H^{n}(\hom^{\bullet}(A^{\bullet}, B^{\bullet}))$ to $\hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B^{\bullet}[n])$.
+    Thus we get a well defined map from $H^{n}(\hom^{\bullet}(A^{\bullet}, B^{\bullet}))$ to $\hom_{\mathcal{K}(\mathscr{A})}(A^{\bullet}, B^{\bullet}[n])$.
     Clearly, the map is bijective.
 \end{proof}
 Recall that in homological algebra, we say a complex $A^{\bullet}$ is contractible if $\identity_{A^{\bullet}}$ is null-homotopic and all acyclic bounded-below complex of injective objects is contractible.
@@ -3882,7 +3887,7 @@ Question if there exists $B'$ fitting into the diagram and making the first row 
     Then for all $b_{i}''\in B_{i}'$, $b_{i}''$ is mapping to some $b_{i}$ in $B_{i}$.
     Hence $b_{i}'' - b_{i}'\in N_{i}$.
     Define $B_{i}' \rightarrow C$ by sending $b_{i}''$ to $f(b_{i}'' - b_{i}') + g([b_{i}])$.
-    It is easy to check that this map is well-defined and is unique to make the following diagram commutes
+    It is easy to check that this map is well defined and is unique to make the following diagram commutes
     \begin{equation}
         \begin{tikzcd}
             && C \\
