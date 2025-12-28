@@ -15,7 +15,7 @@ on:
       target_filename:
         description: '目标文件名（不含扩展名）'
         required: true
-        default: 'Note for Advanced Algebraic Geometry'
+        default: 'Note for Advanced Algebraic Geometry 2025fall'
 
   schedule:
     # 每天UTC时间0点运行（北京时间8点）
