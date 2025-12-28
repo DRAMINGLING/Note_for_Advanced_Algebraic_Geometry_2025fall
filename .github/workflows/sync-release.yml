@@ -1,0 +1,111 @@
+name: Sync Release File
+
+on:
+  # 当 release 被覆盖更新时触发（包括编辑、重新发布等）
+  release:
+    types: [edited, released]
+    tags: [release]  # 只监听名为 "release" 的标签
+    
+  workflow_dispatch:  # 手动触发按钮
+    inputs:
+      source_tag:
+        description: '源仓库的release标签（默认为release）'
+        required: true
+        default: 'release'
+      target_filename:
+        description: '目标文件名（不含扩展名）'
+        required: true
+        default: 'Note for Advanced Algebraic Geometry'
+
+  schedule:
+    # 每天UTC时间0点运行（北京时间8点）
+    - cron: '0 0 * * *'
+    
+# 设置权限，允许写入目标仓库
+permissions:
+  contents: write
+
+jobs:
+  sync-release-file:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # 步骤1: 检出目标仓库（Documents仓库）
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.UPDATE_TEX_FILE }}
+          repository: DRAMINGLING/Documents  # ⚠️ 修改：修改为您的目标仓库名
+          path: './target-repo'
+      
+      # 步骤2: 下载源仓库的release文件
+      - name: Download release asset
+        uses: robinraju/release-downloader@v1.8
+        with:
+          # ⚠️ 修改：以下变量需要根据实际情况修改
+          # 源仓库信息
+          repository: "DRAMINGLING/Note_for_Advanced_Algebraic_Geometry_2025fall"  # ⚠️ 修改：修改为您的源仓库
+          tag: "${{ github.event.inputs.source_tag || 'release' }}"  # 从输入获取或使用默认值'release'
+          fileName: "main.pdf"  # ⚠️ 修改：要下载的文件名
+          tarBall: false
+          zipBall: false
+          out-file-path: "./downloaded-assets"
+      
+      # 步骤3: 重命名并复制文件
+      - name: Process and rename file
+        run: |
+          echo "重命名文件..."
+          # 查找下载的pdf文件
+          find ./downloaded-assets -name "*.pdf" -type f | while read file; do
+            echo "找到文件: $file"
+            # 使用输入的文件名，如果没有输入则使用默认值
+            TARGET_FILENAME="${{ github.event.inputs.target_filename || 'Note for Advanced Algebraic Geometry 2025fall' }}"
+            # 复制并重命名文件到目标仓库目录
+            cp "$file" "./target-repo/${TARGET_FILENAME}.pdf"
+            echo "文件已复制并重命名为: ${TARGET_FILENAME}.pdf"
+          done
+          
+          # 如果没有找到文件，列出下载目录内容以便调试
+          if [ ! -f "./target-repo/${TARGET_FILENAME}.pdf" ]; then
+            echo "警告：未找到PDF文件"
+            echo "下载目录内容:"
+            ls -la ./downloaded-assets/
+            echo "目标目录内容:"
+            ls -la ./target-repo/
+          else
+            echo "文件处理完成: ./target-repo/${TARGET_FILENAME}.pdf"
+            ls -la "./target-repo/${TARGET_FILENAME}.pdf"
+          fi
+      
+      # 步骤4: 提交到目标仓库
+      - name: Commit to target repository
+        run: |
+          cd ./target-repo
+          
+          # 配置git用户信息
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # 检查文件是否已存在且有更改
+          TARGET_FILENAME="${{ github.event.inputs.target_filename || 'Note for Algebraic Varieties' }}.pdf"
+          
+          echo "检测到文件更改，准备提交..."
+          git add "$TARGET_FILENAME"
+            
+          # 生成提交信息
+          COMMIT_MSG="Sync: Update $TARGET_FILENAME from source release"
+            
+          git commit -m "$COMMIT_MSG"
+          git push origin main  # ⚠️ 修改：如果目标仓库使用其他分支，请修改此处
+          echo "文件已成功提交并推送到目标仓库"
+          
+        
+        env:
+          # 使用个人访问令牌进行认证
+          GITHUB_TOKEN: ${{ secrets.UPDATE_TEX_FILE }}
+      
+      # 步骤5: 清理临时文件
+      - name: Cleanup
+        run: |
+          rm -rf ./downloaded-assets ./target-repo
+          echo "临时文件已清理"
