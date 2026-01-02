@@ -83,7 +83,7 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
           # 检查文件是否已存在且有更改
-          TARGET_FILENAME="${{ github.event.inputs.target_filename || 'Note for Algebraic Varieties' }}.pdf"
+          TARGET_FILENAME="${{ github.event.inputs.target_filename || 'Note for Advanced Algebraic Geometry 2025fall' }}.pdf"
           
           echo "检测到文件更改，准备提交..."
           git add "$TARGET_FILENAME"
