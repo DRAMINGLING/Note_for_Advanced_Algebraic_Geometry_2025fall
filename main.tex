@@ -411,12 +411,13 @@ Conclude that 1st order deformations of $\mathcal{E}$ in $X$ is $H^{1}(X, \sheaf
         \end{tikzcd}
     \end{equation}
     where $\varphi$ exists since $P$ is free over $k$ and hence projective.
-    By diagram chasing, we find that $\varphi$ gives $P$-module structure on $J$ and $\phi$ gives $A$-module structure on $B, J$, which is independent of choosing of $\varphi$.
+    By diagram chasing, we find that $\varphi$ gives $P$-module structure on $J$ and $\phi$ gives $A$-module structure on both $B$ and $J$, which is independent of choosing of $\varphi$.
     \par
     To get a map $A \rightarrow B'$, want $I \rightarrow J$ to be zero.
     So we need to change $\varphi$.
-    For two different $\varphi_{1}$ and $\varphi_{2}$, get $\delta := \varphi_{1} - \varphi_{2}$.
-    Since $J^{2} = 0$, we have that 
+    For two different $\varphi_{1}$ and $\varphi_{2}$, set $\delta := \varphi_{1} - \varphi_{2}$,
+    which is in fact a homomorphism from $P$ to $J$.
+    We have that 
     \begin{equation}
         \begin{split}
             \delta(ab) & = \varphi_{1}(a)\varphi_{1}(b) - \varphi_{2}(a)\varphi_{2}(b) \\
@@ -425,7 +426,7 @@ Conclude that 1st order deformations of $\mathcal{E}$ in $X$ is $H^{1}(X, \sheaf
             & = a\delta(b) - \delta(a)b
         \end{split}
     \end{equation}
-    Thus $\delta$ satisfies Laibniz's Law and hence $\delta\in Der_{P}(P, J)$ is a derivation.
+    Thus $\delta$ satisfies Laibniz's Law and hence $\delta\in Der_{k}(P, J)$ is a derivation.
     \par
     As $A$ is smooth over $k$, there is an exact sequence of locally free sheaves 
     \begin{equation}
